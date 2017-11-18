@@ -7,24 +7,24 @@
 # Introducción a DOCKER
 ### Secciones del curso:
 ##### Primer bloque
-[01 - Introducción a contenedores y Docker][s1]
-[02 - Instalar Docker][s1]
-[03 - Primeros pasos con Docker][s1]
-[04 - Rutinas diarias con imagenes y contenedores][s1]
+- [01 - Introducción a contenedores y Docker][s1]
+- [02 - Instalar Docker][s2]
+- [03 - Primeros pasos con Docker][s3]
+- [04 - Rutinas diarias con imagenes y contenedores][s4]
 
 ##### Segundo bloque
-[05 - Construyendo imagenes][s1]
-[06 - Volúmenes en Docker][s1]
-[07 - Publicar servicios][s1]
-[08 - Publicar imagenes en Docker Cloud][s1]
-[09 - Publicar imagenes desde Github][s1]
+- [05 - Construyendo imagenes][s5]
+- [06 - Volúmenes en Docker][s6]
+- [07 - Publicar servicios][s7]
+- [08 - Publicar imagenes en Docker Cloud][s8]
+- [09 - Publicar imagenes desde Github][s9]
 
 ##### Tercer bloque
-[10 - Desplegar en producción][s1]
-[11 - Conectando contenedores][s1]
-[12 - Registros privados en Docker][s1]
-[13 - Conclusiones y resultados][s1]
-[14 - Ejercicios y actividades][s1]
+- [10 - Desplegar en producción][s10]
+- [11 - Conectando contenedores][s11]
+- [12 - Registros privados en Docker][s12]
+- [13 - Conclusiones y resultados][s13]
+- [14 - Ejercicios y actividades][s14]
 ---
 #### Requisitos:
 - Comandos básicos en Linux
@@ -42,14 +42,14 @@
 ### Primer bloque
 ##### _Sección 01_
 ### Introducción a contenedores y Docker.
-[- Comportamiento distinto en función del entorno][s1s1s1]
-[- ¿Qué son los contenedores y las imagenes?][s1s2s2]
-[- ¿Qué es Docker?][s1s3s3]
-[- Productos y herramientas][s1s4s4]
-[- Los Contenedores no son máquinas virtuales][s1s5s5]
+- [Comportamiento distinto en función del entorno][s1s1s1]
+- [¿Qué son los contenedores y las imagenes?][s1s2s2]
+- [¿Qué es Docker?][s1s3s3]
+- [Productos y herramientas][s1s4s4]
+- [Los Contenedores no son máquinas virtuales][s1s5s5]
 
 #
-#
+
 ---
 >***Comportamiento distinto en función del entorno***
 ---
@@ -61,9 +61,7 @@ Empaquetando la aplicación con todas las dependencias que son necesarias para q
 | Infraestructura
 
 #
-#
-#
-#
+
 ---
 > ***¿Qué son los contenedores y las imagen |imagenes?***
 Unidad de software estandarizada
@@ -78,10 +76,9 @@ Funcionan de forma ***aislada***, sin necesitar de otros procesos para su ejecuc
 - Un contenedor puede tener distintos estados (Iniciado - Detenido/Pausado - Terminado)
 
 ![docker][img-docker]
+
 #
-#
-#
-#
+
 ---
 > ***¿Qué es Docker?***
 ---
@@ -95,9 +92,7 @@ Utilizado por ***Programadores & Administradores***
 - Garantiza el correcto funcionamiento en múltiples entornos.
 
 #
-#
-#
-#
+
 ---
 > ***Productos y herramientas*** 
 ---
@@ -113,9 +108,7 @@ Utilizados para la gestión de los contenedores e imagenes:
 | ![][img-registry] | ***Docker-Registry:*** Permite Almacenar y gestio |
 
 #
-#
-#
-#
+
 ---
 > ***Los Contenedores no son máquinas virtuales***
 ---
@@ -140,11 +133,8 @@ Si nuestra intención es disponer de un estudio en lugar de toda una casa, estar
 Es posible que coexistan MV y Contenedores a la vez. Esta mezcla, bien combinada, puede darnos la receta perfecta para nuestra infraestructura. Veamos un ejemplo:
 ![][img-docker+vm]
 
+#
 
-#
-#
-#
-#
 ---
 ##### _Sección 02_
 ### Instalando Docker.
@@ -154,17 +144,16 @@ Es posible que coexistan MV y Contenedores a la vez. Esta mezcla, bien combinada
 - Nuestro primer Contenedor
 
 #
-#
+
 ---
 > ***Plataformas disponibles para la instalación de Docker***
 ---
 - El ***sistema principal de Docker*** (motor/engine) se encuentra disponible para instalarlo sobre plataformas con ***Sistemas Operativos*** basados en el ***Kernel de ***Linux***.*** 
 - Docker también permite instalarlo sobre plataformas ***Windows*** gracias a `Kitmatic`. Es un programa que contiene las herramientas Docker a través de una interfaz gráfica. Al ser necesario un OS basado en Linux, para solucionarlo, éste programa crea una máquina virtual ligera para instalar _Ubuntu Server_ como sistema operativo sobre el que  montará el motor de Docker. 
 - De la misma forma, Docker, facilita `Kitematic` para sistemas ***OSX***. 
+
 #
-#
-#
-#
+
 ---
 > ***Crear MV para la instalación de Ubuntu***
 ---
@@ -189,10 +178,9 @@ La conexión SSH desde un invitado por el puerto 2222 será encaminado al puerto
 ***`$ ssh ubuntu@localhost -p 2222`***
 
 ![][img-docker_vm]
+
 #
-#
-#
-#
+
 ---
 > ***Instalar Docker en Ubutu***
 ---
@@ -248,8 +236,9 @@ Output
  Main PID: 749 (docker)
 ```
 La instalación de Docker ahora le ofrece no sólo el servicio Docker (daemon), sino también la utilidad de línea de comandos docker o el cliente Docker. Exploraremos cómo utilizar el comando docker más adelante en este tutorial.
+
 #
-#
+
 ***Paso 2 — Ejecutar el Comando Docker Sin Sudo (Opcional)***
 De forma predeterminada, ejecutar el comando docker requiere privilegios de root, es decir, tiene que prefijar el comando con sudo. También puede ser ejecutado por un usuario en el grupo docker, que se crea automáticamente durante la instalación de Docker. Si intenta ejecutar el comando docker sin prefijarlo con sudo o sin estar en el grupo docker, obtendrá una salida como esta:
 ```
@@ -268,10 +257,9 @@ Si necesita agregar un usuario al grupo docker en el que no ha iniciado sesión,
 $ sudo usermod -aG docker username
 ```
 El resto de este artículo asume que está ejecutando el comando docker como un usuario en el grupo de usuario docker. Si opta por no hacerlo, por favor agregue los comandos con sudo.
+
 #
-#
-#
-#
+
 ---
 > ***Nuestro primer contenedor***
 ---
@@ -287,9 +275,7 @@ Output
 Hello from Docker.
 This message shows that your installation appears to be working correctly.
 ```
-#
-#
-#
+
 #
 
 ---
@@ -301,9 +287,7 @@ This message shows that your installation appears to be working correctly.
 - Imagenes oficiales de Docker en GitHub
 
 #
-#
-#
-#
+
 ---
 > ***Estructura de comandos***
 ---
@@ -409,10 +393,9 @@ Para ver información sobre Docker en todo el sistema, utilice:
 ```
 $ docker info
 ```
+
 #
-#
-#
-#
+
 ---
 > ***Imagenes y Contenedores***
 ---
@@ -437,9 +420,7 @@ $ docker container --help
 - 4º - La imagen contendrá todo lo necesario para ejecutarse, si lo necesita.
 
 #
-#
-#
-#
+
 ---
 > ***Docker Store***
 https://store.docker.com/
@@ -512,19 +493,17 @@ ubuntu              17.04               5e9fde03a0de        7 days ago          
 hello-world         latest              725dcfab7d63        8 days ago          1.84kB
 ubuntu@ubuntu:~$
 ```
+
 #
-#
-#
-#
+
 ---
 > ***Imagenes oficiales de Docker en GitHub***
 ---
 A través de _GitHub_, podremos consultar las versiones de cada imagen oficial, junto a su documentación técnica. Por ejemplo, las distintas versiones disponibles de [Ubuntu](https://github.com/docker-library/docs/tree/master/ubuntu).
 https://github.com/docker-library
+
 #
-#
-#
-#
+
 ---
 ##### _Sección 04_
 #### Rutinas con imagenes y contenedores.
@@ -532,10 +511,9 @@ https://github.com/docker-library
 - Mostrar los logs
 - Eliminar imagenes y contenedores locales
 - Salvar y cargar imagenes
+
 #
-#
-#
-#
+
 ---
 > ***Iniciar y listar contenedores***
 ---
@@ -592,10 +570,9 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 70cbce8d1a56        ubuntu:17.04        "ls -la /"          8 minutes ago       Exited (0) 8 minutes ago                       jolly_engelbart
 c6305720e5bd        hello-world         "/hello"            2 hours ago         Exited (0) 2 hours ago                         flamboyant_archimedes
 ```
+
 #
-#
-#
-#
+
 ---
 >***Mostrar los logs***
 ---
@@ -629,10 +606,9 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 c089a58bed9e        ubuntu:17.04        "top -b"            9 seconds ago       Up 9 seconds                            blissful_boyd
 ubuntu@ubuntu:~$
 ```
+
 #
-#
-#
-#
+
  ***Ver el proceso del contenedor desligado de la terminal que ejecutó el comando***
  
 Podemos conultar cómo se usa este comando con:
@@ -654,10 +630,9 @@ KiB Swap:  2093052 total,  2093052 free,        0 used.  1797088 avail Mem
 ```
 -Utilizamos el flag `--follow` para mantener el seguimiento en la terminal de logs que se van generando: 
 ***`$ docker container logs --follow blissful_boyd`***
+
 #
-#
-#
-#
+
 ---
 >***Eliminar imagenes y contenedores locales***
 ---
@@ -771,8 +746,9 @@ hello-world         latest              725dcfab7d63        8 days ago          
 ubuntu@ubuntu:~$ docker container rm jolly_engelbart
 jolly_engelbart
 ```
+
 #
-#
+
 ***2º*** - Una  vez eliminada la imagen, vamos a ver cómo cargar imagenes desde archivos.
 ***`$ docker image load [OPTIONS] IMAGE`***
 ```
@@ -798,7 +774,6 @@ hello-world         latest              725dcfab7d63        8 days ago          
 [- Instrucciones en DockerFile]
 [- Buenas prácticas en DockerFile]
 
-#
 #
 
 ---
@@ -905,10 +880,9 @@ IMAGE               CREATED             CREATED BY                              
 <missing>           10 days ago         /bin/sh -c set -xe   && echo '#!/bin/sh' >...   745B
 <missing>           10 days ago         /bin/sh -c #(nop) ADD file:4e2e1f8336bcc64...   94.7MB
 ```
+
 #
-#
-#
-#
+
 ---
 > ***Instrucciones en DockerFile***
 ---
@@ -1019,10 +993,9 @@ drwxr-xr-x 35 root root 4096 Nov 16 22:47 ..
 -rw-rw-r--  1 root root   34 Nov 16 22:13 texto
 
 ```
+
 #
-#
-#
-#
+
 ---
 > ***Buenas prácticas en DockerFile***
 ---
@@ -1040,10 +1013,9 @@ mercurial\
 subversion\
 ```
 - Mantener nuestros Dockerfile en un control de versiones nos permite conocer todos los cambios realizados.
+
 #
-#
-#
-#
+
 ---
 ##### _Sección 06_
 #### Volúmenes.
@@ -1079,9 +1051,7 @@ No nos obliga a incorporar la estructura de ficheros en una ubicación específi
 - Contenedores como volúmenes de datos.
 
 #
-#
-#
-#
+
 ---
 > ***Utilizar volúmenes de datos***
 ---
@@ -1157,12 +1127,8 @@ creado en el contenedor bajo el directorio /ejemplo, archivo texto.
 
 Si eliminamos el contenedor, el contenido del fichero datos/texto de localhost no se altera.
 
+#
 
-
-#
-#
-#
-#
 ---
 > ***Utilizar contenedores como volúmenes de datos***
 ---
@@ -1287,10 +1253,9 @@ _Recodar al acceder estarémos utilizando la misma aplicación bash con la que i
 root@9135fd815a38:/datos# ls
 file1  file2
 ```
+
 #
-#
-#
-#
+
 ---
 > ***Salvar la información***
 ---
@@ -1355,11 +1320,8 @@ ubuntu@ubuntu:~/mydockerfiles/datos$ ls
 file1  file2
 ```
 
+#
 
-#
-#
-#
-#
 ---
 ##### _Sección 07_
 #### Publicar servicios.
@@ -1461,21 +1423,3 @@ file1  file2
 [s1s5s2]: <https://github.com/josemanuelCRV/docker-notes#construcción-de-la-primera-imagen>
 [s1s5s3]: <https://github.com/josemanuelCRV/docker-notes#instrucciones-en-dockerfile>
 [s1s5s4]: <https://github.com/josemanuelCRV/docker-notes#buenas-prácticas-en-dockerfile>
-
-
-
-##### Segundo bloque
-[05 - Construyendo imagenes][s1]
-[06 - Volúmenes en Docker][s1]
-[07 - Publicar servicios][s1]
-[08 - Publicar imagenes en Docker Cloud][s1]
-[09 - Publicar imagenes desde Github][s1]
-
-##### Tercer bloque
-[10 - Desplegar en producción][s1]
-[11 - Conectando contenedores][s1]
-[12 - Registros privados en Docker][s1]
-[13 - Conclusiones y resultados][s1]
-[14 - Ejercicios y actividades][s1]
-
-
