@@ -51,7 +51,7 @@
 #
 
 ---
->#### Comportamiento distinto en función del entorno***
+>#### Comportamiento distinto en función del entorno
 ---
 Empaquetando la aplicación con todas las dependencias que son necesarias para que sea autónoma (librerías, OS, servidor) podríamos evitar problemas de comportamientos distintos entre las máquinas utilizadas para el desarrollo de software respecto a las máquinas de despliegue.
 | App
@@ -63,7 +63,7 @@ Empaquetando la aplicación con todas las dependencias que son necesarias para q
 #
 
 ---
->#### ¿Qué son los contenedores y las imagenes?***
+>#### ¿Qué son los contenedores y las imagenes?
 Unidad de software estandarizada
 ---
 Un ***contenedor*** es un paquete ejecutable, ligero y autónomo con todo lo necesario para su ejecución. (App, servidor de la app, bibliotecas y componentes, configuraciones, OS *sólo los ficheros necesarios...). 
@@ -80,7 +80,7 @@ Funcionan de forma ***aislada***, sin necesitar de otros procesos para su ejecuc
 #
 
 ---
->#### ¿Qué es Docker?***
+>#### ¿Qué es Docker?
 ---
 Plataforma para la gestión de contenedores y, a su vez, una tecnología para desplegar aplicaciones.
 
@@ -94,7 +94,7 @@ Utilizado por ***Programadores & Administradores***
 #
 
 ---
->#### Productos y herramientas*** 
+>#### Productos y herramientas
 ---
 Utilizados para la gestión de los contenedores e imagenes:
 
@@ -110,7 +110,7 @@ Utilizados para la gestión de los contenedores e imagenes:
 #
 
 ---
->#### Los Contenedores no son máquinas virtuales***
+>#### Los Contenedores no son máquinas virtuales
 ---
 - ***Las máquinas virtuales:*** (Casa)
 - - Son totalmente independientes y ofrecen protección.
@@ -146,7 +146,7 @@ Es posible que coexistan MV y Contenedores a la vez. Esta mezcla, bien combinada
 #
 
 ---
-> ***Plataformas disponibles para la instalación de Docker***
+>#### Plataformas disponibles para la instalación de Docker
 ---
 - El ***sistema principal de Docker*** (motor/engine) se encuentra disponible para instalarlo sobre plataformas con ***Sistemas Operativos*** basados en el ***Kernel de ***Linux***.*** 
 - Docker también permite instalarlo sobre plataformas ***Windows*** gracias a `Kitmatic`. Es un programa que contiene las herramientas Docker a través de una interfaz gráfica. Al ser necesario un OS basado en Linux, para solucionarlo, éste programa crea una máquina virtual ligera para instalar _Ubuntu Server_ como sistema operativo sobre el que  montará el motor de Docker. 
@@ -155,7 +155,7 @@ Es posible que coexistan MV y Contenedores a la vez. Esta mezcla, bien combinada
 #
 
 ---
-> ***Crear MV para la instalación de Ubuntu***
+>#### Crear MV para la instalación de Ubuntu
 ---
 - Para el ejemplo, instalaremos el motor de Docker sobre un sistema basado en Linux que instalaremos en una máquina virtual. Generalizando de este modo la instalación, en lugar de instalaciones específicas en función del sistema operativo que estemos utilizando. (Windows,OSX..). 
 - Otra razón es, la mayoría de las infraestructuras empresariales utilizan sistemas basados en Linux (redhat,ubuntu). Por lo que puede ser más oportuno conocer cómo realizar la instalación en estos entornos. 
@@ -182,7 +182,7 @@ La conexión SSH desde un invitado por el puerto 2222 será encaminado al puerto
 #
 
 ---
-> ***Instalar Docker en Ubutu***
+>#### Instalar Docker en Ubutu
 ---
 ***Paso 1 — Instalación de Docker***
 Primero, vamos a actualizar la base de datos de paquetes:
@@ -261,7 +261,7 @@ El resto de este artículo asume que está ejecutando el comando docker como un 
 #
 
 ---
-> ***Nuestro primer contenedor***
+>#### Nuestro primer contenedor
 ---
 Los contenedores Docker se ejecutan desde imagenes de Docker. De forma predeterminada, extrae estas imagenes de Docker Hub, un registro de Docker administrado por Docker, la compañía detrás del proyecto Docker. Cualquier persona puede construir y alojar sus imagenes Docker en Docker Hub, por lo que la mayoría de las aplicaciones y distribuciones Linux que necesitará para ejecutar contenedores Docker tienen imagenes alojadas en Docker Hub.
 
@@ -281,15 +281,15 @@ This message shows that your installation appears to be working correctly.
 ---
 ##### _Sección 03_
 #### Primeros pasos con Docker.
-- Estructura de comandos
-- Imagenes y Contenedores
-- Docker Store
-- Imagenes oficiales de Docker en GitHub
+- [Estructura de comandos]
+- [Imagenes y Contenedores]
+- [Docker Store]
+- [Imagenes oficiales de Docker en GitHub]
 
 #
 
 ---
-> ***Estructura de comandos***
+>#### Estructura de comandos
 ---
 ***Paso 3 — Uso del Comando Docker***
 Con Docker instalado y funcionando, ahora es el momento de familiarizarse con la utilidad de la línea de comandos. El uso de docker consiste en pasarle una cadena de opciones y comandos seguidos de argumentos. La sintaxis toma esta forma:
@@ -397,7 +397,7 @@ $ docker info
 #
 
 ---
-> ***Imagenes y Contenedores***
+>#### Imagenes y Contenedores
 ---
 Algunas acciones con Imagenes y Contenedores: 
 | Imagenes | Contenedores | 
@@ -422,7 +422,7 @@ $ docker container --help
 #
 
 ---
-> ***Docker Store***
+>#### Docker Store
 https://store.docker.com/
 ---
 
@@ -497,7 +497,7 @@ ubuntu@ubuntu:~$
 #
 
 ---
-> ***Imagenes oficiales de Docker en GitHub***
+>#### Imagenes oficiales de Docker en GitHub
 ---
 A través de _GitHub_, podremos consultar las versiones de cada imagen oficial, junto a su documentación técnica. Por ejemplo, las distintas versiones disponibles de [Ubuntu](https://github.com/docker-library/docs/tree/master/ubuntu).
 https://github.com/docker-library
@@ -507,15 +507,15 @@ https://github.com/docker-library
 ---
 ##### _Sección 04_
 #### Rutinas con imagenes y contenedores.
-- Iniciar y listar los contenedores
-- Mostrar los logs
-- Eliminar imagenes y contenedores locales
-- Salvar y cargar imagenes
+- [Iniciar y listar los contenedores]
+- [Mostrar los logs]
+- [Eliminar imagenes y contenedores locales]
+- [Salvar y cargar imagenes]
 
 #
 
 ---
-> ***Iniciar y listar contenedores***
+>#### Iniciar y listar contenedores
 ---
 Vamos a consultar la ayuda sobre el comando que utiliza Docker para iniciar los contenedores:
 ***`$ docker run --help | more`***
@@ -532,7 +532,9 @@ Options:
 
 - ***Listar el directorio raíz de un contenedor a partir de una imagen:***
 ***`$ docker container run ubuntu:17.04 ls -la /`***
+
 docker [comandos contenedores] [inicia] [contenedor con imagen] [lista directorio raíz del contenedor]
+
 ```
 ubuntu@ubuntu:~$ docker container run ubuntu:17.04 ls -la /
 total 72
@@ -559,12 +561,16 @@ drwxrwxrwt   2 root root 4096 Sep 15 08:42 tmp
 drwxr-xr-x  11 root root 4096 Sep 15 08:42 usr
 drwxr-xr-x  13 root root 4096 Sep 15 08:42 var
 ```
+
 ***Listar contenedores***
 Podemos ver nuestro contenedor generado:
+
 Contenedores activos:
 ***`$ docker container ls`***
+
 Todos los contenedores:
 ***`$ docker container ls -a`***
+
 ```
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                     PORTS               NAMES
 70cbce8d1a56        ubuntu:17.04        "ls -la /"          8 minutes ago       Exited (0) 8 minutes ago                       jolly_engelbart
@@ -574,7 +580,7 @@ c6305720e5bd        hello-world         "/hello"            2 hours ago         
 #
 
 ---
->***Mostrar los logs***
+>#### Mostrar los logs
 ---
 ***Listar procesos***
 El agente de Docker se mantendrá mostrando los logs que generen nuestros procesos del sistema asociados al contenedor indicado:
@@ -616,7 +622,9 @@ Podemos conultar cómo se usa este comando con:
 Usage:  docker container logs [OPTIONS]
 
 Vamos a buscar los logs de un contenedor específico por su _NAME_:
+
 ***`$ docker container logs blissful_boyd`***
+
 ```
 ubuntu@ubuntu:~$ docker container logs blissful_boyd
 top - 02:46:22 up  5:45,  0 users,  load average: 0.00, 0.00, 0.00
@@ -628,13 +636,15 @@ KiB Swap:  2093052 total,  2093052 free,        0 used.  1797088 avail Mem
   PID USER      PR  NI    VIRT    RES    SHR S %CPU %MEM     TIME+ COMMAND
     1 root      20   0   38912   3188   2816 R  0.0  0.2   0:00.03 top
 ```
--Utilizamos el flag `--follow` para mantener el seguimiento en la terminal de logs que se van generando: 
+
+- Utilizamos el flag `--follow` para mantener el seguimiento en la terminal de logs que se van generando: 
+
 ***`$ docker container logs --follow blissful_boyd`***
 
 #
 
 ---
->***Eliminar imagenes y contenedores locales***
+>#### Eliminar imagenes y contenedores locales
 ---
 
 ***Borrando un contenedor:*** (Si está arrancado debemos detenerlo previamente)
@@ -665,7 +675,7 @@ $ docker image rm ubuntu:17.04
 ```
 
 ---
->***Salvar y cargar imagenes***
+>#### Salvar y cargar imagenes
 ***`$ docker image save [OPTIONS] IMAGE [IMAGE...]`***
 ---
 
@@ -777,7 +787,7 @@ hello-world         latest              725dcfab7d63        8 days ago          
 #
 
 ---
-> ***Introducción a Dockerfile***
+>#### Introducción a Dockerfile
 ---
 Docker construye las imagenes a partir de las instrucciones definidas en el fichero de texto Dockerfile.
 Dockefile define la estructura necesaria para que nuestra aplicación funcione correctamente.
@@ -791,7 +801,7 @@ Una vez que definido nuestro Dockerfile, podemos lanzar desde la línea de coman
 Las imagenes construidas ***se estructuran en capas***. Cada línea del fichero dockerfile representa una capa.
 
 ---
-> ***Construcción de la primera imagen***
+>#### Construcción de la primera imagen
 ---
 
 Vamos a construir una imagen de ejemplo donde el objetivo será escribir por consola un mensaje,
@@ -884,7 +894,7 @@ IMAGE               CREATED             CREATED BY                              
 #
 
 ---
-> ***Instrucciones en DockerFile***
+>#### Instrucciones en DockerFile
 ---
 Vamos a modificar el fichero Dockerfile creado anteriormente y añadirle algunas instrucciones:
 
@@ -997,7 +1007,7 @@ drwxr-xr-x 35 root root 4096 Nov 16 22:47 ..
 #
 
 ---
-> ***Buenas prácticas en DockerFile***
+>#### Buenas prácticas en DockerFile
 ---
 - Intentar no instalar paquetes no necesarios.
 - Cada contenedor debe cumplir sólo un propósito. (orientación a microservicios)
@@ -1020,7 +1030,7 @@ subversion\
 ##### _Sección 06_
 #### Volúmenes en Docker.
 ---
-> ***¿Qué son los volúmenes?***
+>#### ¿Qué son los volúmenes?
 ---
 - Docker gestiona los datos utilizando volúmenes.
 - Son estructura de archivos incluidos en uno o varios contenedores.
@@ -1053,7 +1063,7 @@ No nos obliga a incorporar la estructura de ficheros en una ubicación específi
 #
 
 ---
-> ***Utilizar volúmenes de datos***
+>#### Utilizar volúmenes de datos
 ---
 Iniciar un contenedor a partir de la imagen de base de Ubuntu que venimos utilizando.
 Al iniciarlos, vamos a montar un volumen en el contenedor con datos/texto del host.
@@ -1130,7 +1140,7 @@ Si eliminamos el contenedor, el contenido del fichero datos/texto de localhost n
 #
 
 ---
-> ***Utilizar contenedores como volúmenes de datos***
+>#### Utilizar contenedores como volúmenes de datos
 ---
 Podemos iniciar un contenedor indicando que reserve un espacio para montar un volumen de datos. 
 Para el siguiente ejemplo, el contenedor partirá de una imagen muy ligera `busybox` y le indicaremos que reserve un espacio para montar un vólumen de datos en su raíz de directorios, sin necesidad de referenciar este volumen a un volumen de nuestra máquina Host-(VM-localhost). Al contenedor le llamaremos  `data-container`.
@@ -1257,10 +1267,11 @@ file1  file2
 #
 
 ---
-> ***Salvar la información***
+>#### Salvar la información
 ---
 Nuestros datos están guardados en un sistema de archivos dentro de nuestro contenedor `data-container`.
 Para salvar los datos vamos a utilizar la siguiente línea de comandos:
+
 ***`$ docker container run -rm --volumes-from data-container -v $(pwd):/backup ubuntu:17.04 tar cvf /backup/backup-data.tar /datos`***
 
 Analizando el comando...
