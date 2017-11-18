@@ -51,7 +51,7 @@
 #
 
 ---
->***Comportamiento distinto en función del entorno***
+>#### Comportamiento distinto en función del entorno***
 ---
 Empaquetando la aplicación con todas las dependencias que son necesarias para que sea autónoma (librerías, OS, servidor) podríamos evitar problemas de comportamientos distintos entre las máquinas utilizadas para el desarrollo de software respecto a las máquinas de despliegue.
 | App
@@ -769,10 +769,10 @@ hello-world         latest              725dcfab7d63        8 days ago          
 ##### _Sección 05_
 #### Construyendo imagenes.
 
-[- Introducción a Dockerfile]
-[- Construcción de la primera imagen]
-[- Instrucciones en DockerFile]
-[- Buenas prácticas en DockerFile]
+- [Introducción a Dockerfile]
+- [Construcción de la primera imagen]
+- [Instrucciones en DockerFile]
+- [Buenas prácticas en DockerFile]
 
 #
 
@@ -1018,7 +1018,7 @@ subversion\
 
 ---
 ##### _Sección 06_
-#### Volúmenes.
+#### Volúmenes en Docker.
 ---
 > ***¿Qué son los volúmenes?***
 ---
@@ -1382,7 +1382,7 @@ file1  file2
 [s1]: <https://github.com/josemanuelCRV/docker-notes#introducción-a-contenedores-y-docker>
 [s2]: <https://github.com/josemanuelCRV/docker-notes#instalar-docker>
 [s3]: <https://github.com/josemanuelCRV/docker-notes#primeros-pasos-con-docker>
-[s4]: <https://github.com/josemanuelCRV/docker-notes#rutinas-diarias-con-imagenes-y-contenedores>
+[s4]: <https://github.com/josemanuelCRV/docker-notes#rutinas-con-imagenes-y-contenedores>
 [s5]: <https://github.com/josemanuelCRV/docker-notes#construyendo-imagenes>
 
 [s6]: <https://github.com/josemanuelCRV/docker-notes#volúmenes-en-docker>
