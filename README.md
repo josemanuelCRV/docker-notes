@@ -64,9 +64,9 @@ Empaquetando la aplicación con todas las dependencias que son necesarias para q
 
 ---
 >#### ¿Qué son los contenedores y las imagenes?
-Unidad de software estandarizada
 ---
-Un ***contenedor*** es un paquete ejecutable, ligero y autónomo con todo lo necesario para su ejecución. (App, servidor de la app, bibliotecas y componentes, configuraciones, OS *sólo los ficheros necesarios...). 
+
+Un ***contenedor*** es una unidad de software estandarizada, es un paquete ejecutable, ligero y autónomo con todo lo necesario para su ejecución. (App, servidor de la app, bibliotecas y componentes, configuraciones, OS *sólo los ficheros necesarios...). 
 
 Es ***portable***, al conservar todos los elementos de una máquina a otra. 
 
@@ -154,9 +154,9 @@ Es posible que coexistan MV y Contenedores a la vez. Esta mezcla, bien combinada
 ---
 >#### Plataformas disponibles para la instalación de Docker
 ---
-- El ***sistema principal de Docker*** (motor/engine) se encuentra disponible para instalarlo sobre plataformas con ***Sistemas Operativos*** basados en el ***Kernel de ***Linux***.*** 
+- El ***sistema principal de Docker*** (motor/engine) se encuentra disponible para instalarlo sobre plataformas con sistemas operativos basados en el ***Kernel de Linux***. 
 - Docker también permite instalarlo sobre plataformas ***Windows*** gracias a `Kitmatic`. Es un programa que contiene las herramientas Docker a través de una interfaz gráfica. Al ser necesario un OS basado en Linux, para solucionarlo, éste programa crea una máquina virtual ligera para instalar _Ubuntu Server_ como sistema operativo sobre el que  montará el motor de Docker. 
-- De la misma forma, Docker, facilita `Kitematic` para sistemas ***OSX***. 
+- De la misma forma, Docker, facilita `Kitematic` para sistemas ***macOS***. 
 
 #
 
@@ -180,7 +180,7 @@ Es posible que coexistan MV y Contenedores a la vez. Esta mezcla, bien combinada
 - ***Habilitamos puerto para la comunicación SSH***.
 
 Desde la interface de VBox, entramos en:
-- `Setting->Network->Advance->Reenvio de Puertos` de la máquina creada
+- `Setting->Network->Advance->Reenvio de Puertos` de la máquina creada.
 - publicamos el `HostPort` -> ***22*** al  `GuestPort` ->***2222***.
 
 La conexión SSH desde un invitado por el puerto 2222 será encaminado al puerto 22 de la máquina creada. 
@@ -252,7 +252,8 @@ La instalación de Docker ahora le ofrece no sólo el servicio Docker (daemon), 
 
 ***Paso 2 — Ejecutar el Comando Docker Sin Sudo (Opcional)***
 
-De forma predeterminada, ejecutar el comando docker requiere privilegios de root, es decir, tiene que prefijar el comando con sudo. También puede ser ejecutado por un usuario en el grupo docker, que se crea automáticamente durante la instalación de Docker. Si intenta ejecutar el comando docker sin prefijarlo con sudo o sin estar en el grupo docker, obtendrá una salida como esta:
+De forma predeterminada, ejecutar el comando docker requiere privilegios de root, es decir, tiene que prefijar el comando con sudo. También puede ser ejecutado por un usuario en el grupo docker, que se crea automáticamente durante la instalación de Docker. 
+Si intenta ejecutar el comando docker sin prefijarlo con sudo o sin estar en el grupo docker, obtendrá una salida como esta:
 ```
 Output
 docker: Cannot connect to the Docker daemon. Is the docker daemon running on this host?.
@@ -275,7 +276,9 @@ El resto de este artículo asume que está ejecutando el comando docker como un 
 ---
 >#### Nuestro primer contenedor
 ---
-Los contenedores Docker se ejecutan desde imagenes de Docker. De forma predeterminada, extrae estas imagenes de Docker Hub, un registro de Docker administrado por Docker, la compañía detrás del proyecto Docker. Cualquier persona puede construir y alojar sus imagenes Docker en Docker Hub, por lo que la mayoría de las aplicaciones y distribuciones Linux que necesitará para ejecutar contenedores Docker tienen imagenes alojadas en Docker Hub.
+Los contenedores Docker se ejecutan desde imagenes de Docker. De forma predeterminada, extrae estas imagenes de Docker Hub, un registro de Docker administrado por Docker, la compañía detrás del proyecto Docker. 
+
+Cualquier persona puede construir y alojar sus imagenes Docker en Docker Hub, por lo que la mayoría de las aplicaciones y distribuciones Linux que necesitará para ejecutar contenedores Docker tienen imagenes alojadas en Docker Hub.
 
 Para comprobar si puede acceder y descargar imagenes de Docker Hub, escriba:
 ```
@@ -439,7 +442,7 @@ $ docker container --help
 #
 
 ---
->### [Docker Store](https://store.docker.com/)
+>### Docker Store [(site)](https://store.docker.com/)
 ---
 
 Plataforma donde obtener información sobre las imagenes que tiene Docker.
@@ -473,10 +476,12 @@ En la columna OFICIAL, OK indica una imagen creada y apoyada por la empresa detr
 ```
 $ docker pull ubuntu
 ```
+
 Después de descargar una imagen, puede ejecutar un contenedor usando la imagen descargada con el subcomando run. Si no se ha descargado una imagen cuando se ejecuta docker con el subcomando run, el cliente Docker descargará primero la imagen y luego ejecutará un contenedor utilizando:
 ```
 $ docker images
 ```
+
 La salida debería ser algo similar a esto:
 ```
 Output
@@ -484,13 +489,15 @@ REPOSITORY          TAG                 IMAGE ID            CREATED             
 ubuntu              latest              c5f1cf30c96b        7 days ago          120.8 MB
 hello-world         latest              94df4f0ce8a4        2 weeks ago         967 B
 ```
+
 Como veremos más adelante, las imagenes que utilice para ejecutar contenedores pueden modificarse y utilizarse para generar nuevas imagenes, que luego pueden cargarse (pushed es el término técnico) a Docker Hub u otros registros de Docker.
 
 
 
 ***Descargar una versión específica***
-Lo indicaremos a través de las `TAG de la siguiente forma
-image:tag
+Lo indicaremos a través de las `TAG de la siguiente forma:
+
+`image:tag`
 
 ```
 ubuntu@ubuntu:~$ docker pull ubuntu:17.04
@@ -515,7 +522,9 @@ ubuntu@ubuntu:~$
 ---
 >#### Imagenes oficiales de Docker en GitHub
 ---
-A través de [_GitHub_](https://github.com/docker-library), podremos consultar las versiones de cada imagen oficial, junto a su documentación técnica. Por ejemplo, las distintas versiones disponibles de [Ubuntu](https://github.com/docker-library/docs/tree/master/ubuntu).
+A través de [_GitHub_](https://github.com/docker-library), podremos consultar las versiones de cada imagen oficial, junto a su documentación técnica. 
+
+Por ejemplo, las distintas versiones disponibles de [Ubuntu](https://github.com/docker-library/docs/tree/master/ubuntu).
 
 
 #
@@ -523,10 +532,10 @@ A través de [_GitHub_](https://github.com/docker-library), podremos consultar l
 ---
 ##### _Sección 04_
 #### Rutinas con imagenes y contenedores.
-- [Iniciar y listar los contenedores]
-- [Mostrar los logs]
-- [Eliminar imagenes y contenedores locales]
-- [Salvar y cargar imagenes]
+- [Iniciar y listar los contenedores][s4s1]
+- [Mostrar los logs][s4s2]
+- [Eliminar imagenes y contenedores locales][s4s3]
+- [Salvar y cargar imagenes][s4s4]
 
 #
 
@@ -1496,7 +1505,7 @@ file1  file2
 [s2s4]: <https://github.com/josemanuelCRV/docker-notes#nuestro-primer-contenedor>
 
 [s3]: <https://github.com/josemanuelCRV/docker-notes#primeros-pasos-con-docker>
-[s3s1]: <https://github.com/josemanuelCRV/docker-notes#extructura-de-comandos>
+[s3s1]: <https://github.com/josemanuelCRV/docker-notes#estructura-de-comandos>
 [s3s2]: <https://github.com/josemanuelCRV/docker-notes#imagenes-y-contenedores>
 [s3s3]: <https://github.com/josemanuelCRV/docker-notes#docker-store>
 [s3s4]: <https://github.com/josemanuelCRV/docker-notes#imagenes-oficiales-de-docker-en-github>
