@@ -532,7 +532,7 @@ Por ejemplo, las distintas versiones disponibles de [Ubuntu](https://github.com/
 ---
 ##### _Sección 04_
 #### Rutinas con imagenes y contenedores.
-- [Iniciar y listar los contenedores][s4s1]
+- [Iniciar y listar contenedores][s4s1]
 - [Mostrar los logs][s4s2]
 - [Eliminar imagenes y contenedores locales][s4s3]
 - [Salvar y cargar imagenes][s4s4]
@@ -1513,7 +1513,7 @@ file1  file2
 [s4]: <https://github.com/josemanuelCRV/docker-notes#rutinas-con-imagenes-y-contenedores>
 [s4s1]: <https://github.com/josemanuelCRV/docker-notes#iniciar-y-listar-los-contenedores>
 [s4s2]: <https://github.com/josemanuelCRV/docker-notes#mostrar-los-logs>
-[s4s3]: <https://github.com/josemanuelCRV/docker-notes#elimiar-imagenes-y-contenedores-locales>
+[s4s3]: <https://github.com/josemanuelCRV/docker-notes#eliminar-imagenes-y-contenedores-locales>
 [s4s4]: <https://github.com/josemanuelCRV/docker-notes#salvar-y-cargar-imagenes>
 
 [s5]: <https://github.com/josemanuelCRV/docker-notes#construyendo-imagenes>
