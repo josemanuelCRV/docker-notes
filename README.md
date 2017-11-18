@@ -42,11 +42,11 @@
 ### Primer bloque
 ##### _Sección 01_
 ### Introducción a contenedores y Docker.
-- [Comportamiento distinto en función del entorno][s1s1s1]
-- [¿Qué son los contenedores y las imagenes?][s1s2s2]
-- [¿Qué es Docker?][s1s3s3]
-- [Productos y herramientas][s1s4s4]
-- [Los Contenedores no son máquinas virtuales][s1s5s5]
+- [Comportamiento distinto en función del entorno][s1s1]
+- [¿Qué son los contenedores y las imagenes?][s1s2]
+- [¿Qué es Docker?][s1s3]
+- [Productos y herramientas][s1s4]
+- [Los Contenedores no son máquinas virtuales][s1s5]
 
 #
 
@@ -67,7 +67,9 @@ Empaquetando la aplicación con todas las dependencias que son necesarias para q
 Unidad de software estandarizada
 ---
 Un ***contenedor*** es un paquete ejecutable, ligero y autónomo con todo lo necesario para su ejecución. (App, servidor de la app, bibliotecas y componentes, configuraciones, OS *sólo los ficheros necesarios...). 
+
 Es ***portable***, al conservar todos los elementos de una máquina a otra. 
+
 Funcionan de forma ***aislada***, sin necesitar de otros procesos para su ejecución ni entrar en conflicto con dependencias de otros contenedores desplegados en el mismo servidor, dado que los contenedores ***son estancos***.
 
  Las ***Imagenes*** son el resultado del empaquetado y el ***Contenedor*** es la ejecución de la imagen. 
@@ -100,7 +102,7 @@ Utilizados para la gestión de los contenedores e imagenes:
 
 | Logo | Herramienta | 
 | ------ | ------ | 
-|![logoLite] [img-docker_lite] | ***Docker:***  Motor principal para la gestión de contenedores. Encargado de crear, obtener y publicar imagenes, así como el despliegue, ejecución y parada de los contenedores.
+|![][img-docker_lite] | ***Docker:***  Motor principal para la gestión de contenedores. Encargado de crear, obtener y publicar imagenes, así como el despliegue, ejecución y parada de los contenedores.
 | ![][img-compose]  | ***Docker-Compose:*** Ayuda para gestionar múltiples contenedores y servicios al mismo tiempo a través de sencillas configuraciones. |
 | ![][img-swarm] | ***Docker-Swarm:*** Ayuda para gestionar las imagenes y contenedores, no solo en un nodo, sino a través de clusteres. |
 | ![][img-jubernates] | **Ver Kubernates:*** El producto de Google sustituye a Docker-Swarm . |
@@ -125,23 +127,27 @@ Si nuestra intención es disponer de un estudio en lugar de toda una casa, estar
 - - Comparten arquitectura (tuberías, electricidad, desagües...)
 - - Ventaja de diferentes tamaños de apartamentos en función de las necesidades.
 
-<> La construcción de las imagenes con Docker parten de lo más básico y van adicionando sólo lo necesario.
-<> La construcción de máquinas virtuales se realiza al inverso, parten de una instalación de todo el sistema operativo y, dependiendo de la aplicación, se van instalando los componentes necesarios.
+- La construcción de las imagenes con Docker parten de lo más básico y van adicionando sólo lo necesario.
+- La construcción de máquinas virtuales se realiza al inverso, parten de una instalación de todo el sistema operativo y, dependiendo de la aplicación, se van instalando los componentes necesarios.
+
+
 ![][img-docker_vm]
+
 
 ***Combinando máquinas virtuales y contenedores***
 Es posible que coexistan MV y Contenedores a la vez. Esta mezcla, bien combinada, puede darnos la receta perfecta para nuestra infraestructura. Veamos un ejemplo:
+
 ![][img-docker+vm]
 
 #
 
 ---
 ##### _Sección 02_
-### Instalando Docker.
-- [Plataformas disponibles para la instalación de Docker][s1s2s1]
-- [Crear MV para la instalación de Ubuntu][s1s2s2]
-- [Instalar Docker en Ubutu][s1s2s3]
-- [Nuestro primer Contenedor][s1s2s4]
+### Instalar Docker.
+- [Plataformas disponibles para la instalación de Docker][s2s1]
+- [Crear MV para la instalación de Ubuntu][s2s2]
+- [Instalar Docker en Ubutu][s2s3]
+- [Nuestro primer Contenedor][s2s4]
 
 #
 
@@ -172,9 +178,14 @@ Es posible que coexistan MV y Contenedores a la vez. Esta mezcla, bien combinada
 - - Instalación del módulo _OpenSSH_ (opción durante instalación)
 - - Reiniciamos y fin instalación
 - ***Habilitamos puerto para la comunicación SSH***.
-Desde la interface de VBox, entramos en  `Setting->Network->Advance->Reenvio de Puertos` de la máquina creada, publicamos el `HostPort` -> ***22*** al  `GuestPort` ->***2222***.
+
+Desde la interface de VBox, entramos en:
+- `Setting->Network->Advance->Reenvio de Puertos` de la máquina creada
+- publicamos el `HostPort` -> ***22*** al  `GuestPort` ->***2222***.
+
 La conexión SSH desde un invitado por el puerto 2222 será encaminado al puerto 22 de la máquina creada. 
 - ***Conectamos a la máquina***  por el puerto 2222 desde un cliente SSH,(MobaXterm,Putty..):
+
 ***`$ ssh ubuntu@localhost -p 2222`***
 
 ![][img-docker_vm]
@@ -240,6 +251,7 @@ La instalación de Docker ahora le ofrece no sólo el servicio Docker (daemon), 
 #
 
 ***Paso 2 — Ejecutar el Comando Docker Sin Sudo (Opcional)***
+
 De forma predeterminada, ejecutar el comando docker requiere privilegios de root, es decir, tiene que prefijar el comando con sudo. También puede ser ejecutado por un usuario en el grupo docker, que se crea automáticamente durante la instalación de Docker. Si intenta ejecutar el comando docker sin prefijarlo con sudo o sin estar en el grupo docker, obtendrá una salida como esta:
 ```
 Output
@@ -281,10 +293,10 @@ This message shows that your installation appears to be working correctly.
 ---
 ##### _Sección 03_
 #### Primeros pasos con Docker.
-- [Estructura de comandos]
-- [Imagenes y Contenedores]
-- [Docker Store]
-- [Imagenes oficiales de Docker en GitHub]
+- [Estructura de comandos][s3s1]
+- [Imagenes y Contenedores][s3s2]
+- [Docker Store][s3s3]
+- [Imagenes oficiales de Docker en GitHub][s3s4]
 
 #
 
@@ -292,6 +304,7 @@ This message shows that your installation appears to be working correctly.
 >#### Estructura de comandos
 ---
 ***Paso 3 — Uso del Comando Docker***
+
 Con Docker instalado y funcionando, ahora es el momento de familiarizarse con la utilidad de la línea de comandos. El uso de docker consiste en pasarle una cadena de opciones y comandos seguidos de argumentos. La sintaxis toma esta forma:
 ```
 $ docker [option] [command] [arguments]
@@ -400,13 +413,17 @@ $ docker info
 >#### Imagenes y Contenedores
 ---
 Algunas acciones con Imagenes y Contenedores: 
-| Imagenes | Contenedores | 
-| ------ | ------ | 
-| pull | run | 
-| push | stop | 
-| build | restart | 
-| save | inspect | 
-| load | stats | 
+
+| Imagenes      | Contenedores  |
+| ------------- |:-------------:|
+| pull          | run           |
+| push          | stop          |
+| build         | restart       |
+| save          | inspect       |
+| load          | stats         |
+
+
+
 Para ver todos los comandos disponibles, inscribimos:
 ```
 $ docker image --help
@@ -422,8 +439,7 @@ $ docker container --help
 #
 
 ---
->#### Docker Store
-https://store.docker.com/
+>### [Docker Store](https://store.docker.com/)
 ---
 
 Plataforma donde obtener información sobre las imagenes que tiene Docker.
@@ -499,8 +515,8 @@ ubuntu@ubuntu:~$
 ---
 >#### Imagenes oficiales de Docker en GitHub
 ---
-A través de _GitHub_, podremos consultar las versiones de cada imagen oficial, junto a su documentación técnica. Por ejemplo, las distintas versiones disponibles de [Ubuntu](https://github.com/docker-library/docs/tree/master/ubuntu).
-https://github.com/docker-library
+A través de [_GitHub_](https://github.com/docker-library), podremos consultar las versiones de cada imagen oficial, junto a su documentación técnica. Por ejemplo, las distintas versiones disponibles de [Ubuntu](https://github.com/docker-library/docs/tree/master/ubuntu).
+
 
 #
 
@@ -518,7 +534,9 @@ https://github.com/docker-library
 >#### Iniciar y listar contenedores
 ---
 Vamos a consultar la ayuda sobre el comando que utiliza Docker para iniciar los contenedores:
+
 ***`$ docker run --help | more`***
+
 ```
 Usage:  docker run [OPTIONS] IMAGE [COMMAND] [ARG...]
 
@@ -531,6 +549,7 @@ Options:
 ```
 
 - ***Listar el directorio raíz de un contenedor a partir de una imagen:***
+
 ***`$ docker container run ubuntu:17.04 ls -la /`***
 
 docker [comandos contenedores] [inicia] [contenedor con imagen] [lista directorio raíz del contenedor]
@@ -599,8 +618,11 @@ KiB Swap:  2093052 total,  2093052 free,        0 used.  1790160 avail Mem
 ```
 
 El flag `--detach` permite que los procesos que se ejecutan de este contenedor no estén anclados a esta terminal, permitiéndonos no detener el contenedor y seguir haciendo otras actividades:
+
 ***`$ docker container run --detach ubuntu:17.04 top -b`***
+
 Podemos ver cómo en la salida nos devuelve un identificador único, indicando que el comando se ha ejecutado:
+
 ```
 $ docker container run --detach ubuntu:17.04 top -b
 c089a58bed9ea2277b0adc2801ca10593709cc0e75b97b79eedae882bcef8173
@@ -618,7 +640,9 @@ ubuntu@ubuntu:~$
  ***Ver el proceso del contenedor desligado de la terminal que ejecutó el comando***
  
 Podemos conultar cómo se usa este comando con:
+
 ***`$ docker container logs --help`***
+
 Usage:  docker container logs [OPTIONS]
 
 Vamos a buscar los logs de un contenedor específico por su _NAME_:
@@ -648,7 +672,10 @@ KiB Swap:  2093052 total,  2093052 free,        0 used.  1797088 avail Mem
 ---
 
 ***Borrando un contenedor:*** (Si está arrancado debemos detenerlo previamente)
+
+
 ***`$ docker container rm [OPTIONS] CONTAINER-NAME [CONTAINER...]`***
+
 ```
 ubuntu@ubuntu:~$ docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                         PORTS               NAMES
@@ -656,11 +683,15 @@ CONTAINER ID        IMAGE               COMMAND             CREATED             
 
 $ docker container rm elated_northcutt
 ```
+
+
 Si intentamos borrar un contenedor en ejecución, Docker nos informará con un mensaje de error.  
 Es posible forzar el borrado utilizando el flag `-f`, pero es preferible que nos aseguremos qué estamos borrando.
 
 ***Borrando una imagen:***
+
 ***`$ docker image rm [OPTIONS] IMAGE-NAME [IMAGE...]`***
+
 Listamos las imagenes:
 ```
 ubuntu@ubuntu:~$ docker image ls
@@ -668,7 +699,9 @@ REPOSITORY          TAG                 IMAGE ID            CREATED             
 ubuntu              17.04               5e9fde03a0de        7 days ago          94.7MB
 hello-world         latest              725dcfab7d63        8 days ago          1.84kB
 ```
+
 Borramos la que deseemos, indicando el nombre, y si se repite el nombre de imagen, indicamos el TAG o ID:
+
 ```
 $ docker image rm hello-world
 $ docker image rm ubuntu:17.04
@@ -676,28 +709,37 @@ $ docker image rm ubuntu:17.04
 
 ---
 >#### Salvar y cargar imagenes
-***`$ docker image save [OPTIONS] IMAGE [IMAGE...]`***
 ---
+
+***`$ docker image save [OPTIONS] IMAGE [IMAGE...]`***
 
 Permiten transportar de una máquina a otra sin necesidad de utulizar Docker Store.
 Veamos primero un ejemplo de creación de un fichero a partir de una imagen.
 Posteriormente, realizaremos el proceso inverso, cargar la imagen a partir del fichero generado.
 
 ***Salvando la imagen:***
+
 ***1º - Identificar la imagen que queremos salvar***
+
 ```
 ubuntu@ubuntu:~$ docker image ls
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 ubuntu              17.04               5e9fde03a0de        8 days ago          94.7MB
 hello-world         latest              725dcfab7d63        8 days ago          1.84kB
 ```
+
 ***2º - Salvar la imagen deseada***
+
 Especificar con el _flag_ _`--output`_ el nombre del fichero resultante seguido del nombre de la imagen elegida.
+
 ```
 $ docker image save --output ubuntu-17.04 ubuntu:17.04
 ```
+
 ***3º - Localizar el fichero generado tras la imagen***
+
 Se encontrará en nuestro directirio `/home/$(whoami)/`
+
 ```
 ubuntu@ubuntu:~$ ls -la
 total 95984
@@ -714,13 +756,15 @@ drwx------ 2 ubuntu ubuntu     4096 nov 11 21:37 .cache
 ```
 
 ***Cargando una imagen a partir de un fichero***
+
 Pasemos a realizar el proceso inverso, borraremos la imagen original del repositorio local para  poseteriormente genera una imagen cargándola desde el fichero creado anteriormente:
 
 ***1º*** - Eliminaremos la imagen de nuestro repositorio local de imagenes para realizar el proceso inverso: 
 ```
 $ docker image rm ubuntu:17.04
 ```
-_(*) ***Error response from daemon:***_
+
+***Error response from daemon:***
 - Si nos muestra un error indicando que no podemos borrar la imagen debido a que está corriendo en un contenedor, y al verificar el contenedor vemos que está detenido-EXITED, es posible que pudiera haberse quedado referenciado en el _DOCKER-DAEMON_ erróneamente por un apagado del sistema incorrecto. 
 - Para solucionarlo podemos forzar el borrado de la imagen con el flag _`-f`_ o _`--force`_ y posterior y opcionalmente podemos borrar el contenedor referenciado a esa imagen.
 ```
@@ -760,7 +804,9 @@ jolly_engelbart
 #
 
 ***2º*** - Una  vez eliminada la imagen, vamos a ver cómo cargar imagenes desde archivos.
+
 ***`$ docker image load [OPTIONS] IMAGE`***
+
 ```
 ubuntu@ubuntu:~$ docker image load --input ubuntu-17.04
 Loaded image: ubuntu:17.04
@@ -779,10 +825,10 @@ hello-world         latest              725dcfab7d63        8 days ago          
 ##### _Sección 05_
 #### Construyendo imagenes.
 
-- [Introducción a Dockerfile]
-- [Construcción de la primera imagen]
-- [Instrucciones en DockerFile]
-- [Buenas prácticas en DockerFile]
+- [Introducción a Dockerfile][s5s1]
+- [Construcción de la primera imagen][s5s2]
+- [Instrucciones en DockerFile][s5s3]
+- [Buenas prácticas en DockerFile][s5s4]
 
 #
 
@@ -798,6 +844,7 @@ Dockefile define la estructura necesaria para que nuestra aplicación funcione c
 - Código fuente.
 
 Una vez que definido nuestro Dockerfile, podemos lanzar desde la línea de comandos el comando _`build`_, encargado de leer y procesar el fichero Dockerfile para llevar a cabo la construcción de la imagen.
+
 Las imagenes construidas ***se estructuran en capas***. Cada línea del fichero dockerfile representa una capa.
 
 ---
@@ -814,15 +861,20 @@ FROM ubuntu:17.04
 
 ENTRYPOINT echo "Mensaje de bienvenida"
 ```
+
+
 Con la etiqueta _`FROM`_ establecemos la imagen base.
 _`ENTRYPOINT`_ le indicará qué comando debe ejecutar cuando inicie.
 
 Una vez que tenemos el fichero creado, pasamos a construir la imagen con el comando ***_build_***:
+
 ```
 $ docker images build --tag img-welcome .
 ```
+
 Con el flag _`--Tag`_ indicamos el nombre que tendrá nuestra imagen.
 El punto separado por el espacio indica que el fichero dockerfile se encuentra en el directorio actual:
+
 `img-welcome` ***`.`***
 
 ```
@@ -853,6 +905,7 @@ En la salida observamos que Docker ha realizado dos pasos, cada paso con un iden
 - Al resultado de la construcción le asigna como _`IMAGE ID`_ el último ID generado, (id 7b155699c350).
 
 Verificamos que se ha creado la imagen y probamos su ejecución:
+
 ```
 ubuntu@ubuntu:~/mydockerfiles$ docker image ls
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
@@ -865,11 +918,15 @@ Bienvenido al Curso de Docker
 ```
 
 ***Comando asociados a las imagenes de Docker:***
+
 ***_$ docker image history --help_***
+
 El comando _`history`_ nos permite conocer el conjunto de instrucciones realizadas para la creación de una imagen.
 
 Como podemos ver, la única diferencia entre la imagen creada y la imagen base utilizada de ubuntu:17.04, es la instrucción _ENTRYPOINT_ que hemos realizado en la nueva imagen.
+
 Por lo que este comando nos sirve para ratificar los pasos que se han realizado, donde no se ha añadido ningún otro fichero durante la construcción y la imagen resultante debe tener el mismo tamaño que la imagen base.
+
 ```
 ubuntu@ubuntu:~/mydockerfiles$ docker image history imag-welcome
 IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
@@ -906,10 +963,15 @@ COPY datos/ejemplo
 
 ENTRYPOINT cat /datos/ejemplo/texto
 ```
+
 ***LABEL***: Crea etiqueta de metadatos como clave-valor separados por un espacio.
+
 ***COPY***: Copia ficheros desde nuestra máquina a la estructura de ficheros que estamos creando.
+
 `origen /destino` => `datos /ejemplo`
+
 En este caso, copia el contenido del directorio de nuestra máquina `datos` al nuevo directorio `/ejemplo` ubicado en la raíz de la imagen que estamos creando.
+
 La siguiente instrucción es `ENTRYPOINT`, acción que realizará al ejecutar la imagen, donde recibe el comando `cat` para leer el archivo de texto que vamos a copiar de `data` a `/ejemplo`
 
 ```
@@ -963,7 +1025,9 @@ Bienvenido al curso Dockerfile!!!
 
 
 ***Modificar el comportamiento del contenedor al iniciarse:***
+
 Podemos sobrescribir las acciones definidas en el archivo Dockerfile, modificando así el comportamiento, si las definimos al lanzar el comando de ejecución de la imagen.
+
 ***`$ docker run --entrypoint "/bin/ls" ejemplo -la`***
 
 `--entrypoint "/bin/ls"` => modifica-sobrescribe la acción definida en Dockerfile indicando que liste el directorio raíz de nuestra imagen ejemplo.
@@ -1014,6 +1078,7 @@ drwxr-xr-x 35 root root 4096 Nov 16 22:47 ..
 - Minimizar el número de capas
 - Escribir líneas cortas de instrucciones y utilizar \ para mejor entendimiento
 backslash nos permite concatenar instrucciones generando una única capa como resultado.
+
 ```
 RUN apt-get update && apt-get install -y \
 bzr\
@@ -1022,13 +1087,22 @@ git\
 mercurial\
 subversion\
 ```
+
 - Mantener nuestros Dockerfile en un control de versiones nos permite conocer todos los cambios realizados.
 
 #
 
+
 ---
 ##### _Sección 06_
 #### Volúmenes en Docker.
+
+- [Qué son los volúmenes][s6s1]
+- [Utilizar volúmenes de datos][s6s2]
+- [Utilizar contenedores como volúmenes de datos][s6s3]
+- [Salvar la información][s6s4]
+
+
 ---
 >#### ¿Qué son los volúmenes?
 ---
@@ -1075,8 +1149,10 @@ Nueva habilidad- Iniciar el contenedor de forma interactiva. Implica que una vez
 
 ***`$ docker run --name ejemplo-volum -v /home/ubuntu/mydockerfiles/datos:/ejemplo -it ubuntu:17.04 /bin/bash`***
 
-`--name ejemplo-volum` => asignamos un nombre al contenedor, en lugar de delegar en Docker
-`-v /home/ubuntu/mydockerfiles/datos:/ejemplo` => Indicamos que monte un volumen con /data en el directorio raíz del contenedor creando la carpeta /ejemplo
+`--name ejemplo-volum` => asignamos un nombre al contenedor, en lugar de delegar en Docker.
+
+`-v /home/ubuntu/mydockerfiles/datos:/ejemplo` => Indicamos que monte un volumen con /data en el directorio raíz del contenedor creando la carpeta /ejemplo.
+
 `-it ubuntu:17.04 /bin/bash` => Iniciar de forma interactiva, creando un contenedor a partir de la imagen de ubuntu:17.04 y dejándonos en una línea de comandos bash, para poder interactuar dentro del contenedor.
 
 
@@ -1123,6 +1199,7 @@ a344bd936442        ubuntu:17.04        "/bin/bash"         About a minute ago  
 ```
 
 ***Modificando la información en el volumen de localhost y verificando el refresco automáico***
+
 Se ha modificado el mensaje del fichero texto en el volumen de datos/texto de localhost y desde dentro del contenedor verificamos que se ha refrescado la información en el fichero del /ejemplo/texto al instante de guardar el fichero editado en localhost.
 
 ```
@@ -1142,9 +1219,15 @@ Si eliminamos el contenedor, el contenido del fichero datos/texto de localhost n
 ---
 >#### Utilizar contenedores como volúmenes de datos
 ---
-Podemos iniciar un contenedor indicando que reserve un espacio para montar un volumen de datos. 
-Para el siguiente ejemplo, el contenedor partirá de una imagen muy ligera `busybox` y le indicaremos que reserve un espacio para montar un vólumen de datos en su raíz de directorios, sin necesidad de referenciar este volumen a un volumen de nuestra máquina Host-(VM-localhost). Al contenedor le llamaremos  `data-container`.
+Podemos iniciar un contenedor indicando que reserve un espacio para montar un volumen de datos.
+
+Para el siguiente ejemplo, el contenedor partirá de una imagen muy ligera llamada `busybox`. 
+Indicaremos que reserve un espacio para montar un vólumen de datos en su raíz de directorios, sin necesidad de referenciar este volumen a un volumen de nuestra máquina Host-(VM-localhost). 
+Al contenedor le llamaremos  `data-container`.
+
 ***`$ docker run --name data-container -v /datos busybox`***
+
+
 ```
 ubuntu@ubuntu:~$ docker run --name data-container -v /datos busybox
 Unable to find image 'busybox:latest' locally
@@ -1154,6 +1237,7 @@ Digest: sha256:bbc3a03235220b170ba48a157dd097dd1379299370e1ed99ce976df0355d24f0
 Status: Downloaded newer image for busybox:latest
 ubuntu@ubuntu:~$
 ```
+
 Una vez generado el contenedor, no obtenemos ninguna salida en pantalla adicional dado que el contenedor está programado para realizar ninguna tarea, ya que sólo lo queremos para almacenar información.
 
 La imagen `busybox` que hemos utilizado para la generación del contenedor apenas tiene de tamaño 1.13MB. El motivo por el que es tan ligera es debido a que sólo cuenta con la base necesaria para que sea utilizada como volumen de datos.
@@ -1203,7 +1287,9 @@ ubuntu@ubuntu:~$
 ```
 
 A continuación, crearemos otro contenedor, también de forma interactiva, con una segunda aplicación, `app2`.
+
 Este nuevo contenedor utilizará también el contenedor `data-volume` como volumen de datos.
+
 Una vez termine de generar el contendor y encontrarnos dentro del mismo, crearemos otro fichero, `file2`.
 Comprobaremos que `data-volume` puede compartir inforamción con múltiples contenedores.
 
@@ -1243,9 +1329,12 @@ root@ba175f7c7c4d:/datos# ls
 file1  file2
 root@ba175f7c7c4d:/datos# ubuntu@ubuntu:~$
 ```
-Podemos ver que automáticamente ha aparecido el fichero `file1`, ya que el fichero fue guardado automáticamente en `data-volume` cuando lo creamos en el contenedor de `app1`. De la misma forma sucede con el fichero `file2`.
+
+Podemos ver que automáticamente ha aparecido el fichero `file1`, ya que el fichero fue guardado automáticamente en 
+`data-volume` cuando lo creamos en el contenedor de `app1`. De la misma forma sucede con el fichero `file2`.
 
 Vamos a verificar que se encuentran los 3 contenedores creados en funcionamiento:
+
 ```
 ubuntu@ubuntu:~$ docker container ls -a
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                         PORTS               NAMES
@@ -1255,10 +1344,13 @@ b330ab85033d        busybox             "sh"                About an hour ago   
 ```
 
 Para confirmar todo lo anterior, vamos a acceder a `app1` para verificar que el fichero file2 se encuentra también compartido desde `data-volume`.
+
 Para poder acceder en un contenedor que ya se encuentra en funcionamiento, vamos a utlizar el siguiente comando, unir o adjuntar e indicando el nombre del contenedor al que queremos acceder:
+
 _Recodar al acceder estarémos utilizando la misma aplicación bash con la que iniciamos en app1._
 
 ***`$ docker container attach app1`***
+
 ```
 root@9135fd815a38:/datos# ls
 file1  file2
@@ -1391,12 +1483,47 @@ file1  file2
 
 
 [s1]: <https://github.com/josemanuelCRV/docker-notes#introducción-a-contenedores-y-docker>
+[s1s1]: <https://github.com/josemanuelCRV/docker-notes#comportamiento-distinto-en-función-del-entorno>
+[s1s2]: <https://github.com/josemanuelCRV/docker-notes#qué-son-los-contenedores-y-las-imagenes>
+[s1s3]: <https://github.com/josemanuelCRV/docker-notes#qué-es-docker>
+[s1s4]: <https://github.com/josemanuelCRV/docker-notes#productos-y-herramientas>
+[s1s5]: <https://github.com/josemanuelCRV/docker-notes#los-contenedores-no-son-máquinas-virtuales>
+
 [s2]: <https://github.com/josemanuelCRV/docker-notes#instalar-docker>
+[s2s1]: <https://github.com/josemanuelCRV/docker-notes#plataformas-disponibles-para-la-instalación-de-docker>
+[s2s2]: <https://github.com/josemanuelCRV/docker-notes#crear-mv-para-la-instalación-de-ubuntu>
+[s2s3]: <https://github.com/josemanuelCRV/docker-notes#instalar-docker-en-ubutu>
+[s2s4]: <https://github.com/josemanuelCRV/docker-notes#nuestro-primer-contenedor>
+
 [s3]: <https://github.com/josemanuelCRV/docker-notes#primeros-pasos-con-docker>
+[s3s1]: <https://github.com/josemanuelCRV/docker-notes#extructura-de-comandos>
+[s3s2]: <https://github.com/josemanuelCRV/docker-notes#imagenes-y-contenedores>
+[s3s3]: <https://github.com/josemanuelCRV/docker-notes#docker-store>
+[s3s4]: <https://github.com/josemanuelCRV/docker-notes#imagenes-oficiales-de-docker-en-github>
+
 [s4]: <https://github.com/josemanuelCRV/docker-notes#rutinas-con-imagenes-y-contenedores>
+[s4s1]: <https://github.com/josemanuelCRV/docker-notes#iniciar-y-listar-los-contenedores>
+[s4s2]: <https://github.com/josemanuelCRV/docker-notes#mostrar-los-logs>
+[s4s3]: <https://github.com/josemanuelCRV/docker-notes#elimiar-imagenes-y-contenedores-locales>
+[s4s4]: <https://github.com/josemanuelCRV/docker-notes#salvar-y-cargar-imagenes>
+
 [s5]: <https://github.com/josemanuelCRV/docker-notes#construyendo-imagenes>
+[s5s1]: <https://github.com/josemanuelCRV/docker-notes#introducción-a-dockerfile>
+[s5s2]: <https://github.com/josemanuelCRV/docker-notes#construcción-de-la-primera-imagen>
+[s5s3]: <https://github.com/josemanuelCRV/docker-notes#instrucciones-en-dockerfile>
+[s5s4]: <https://github.com/josemanuelCRV/docker-notes#buenas-prácticas-en-dockerfile>
 
 [s6]: <https://github.com/josemanuelCRV/docker-notes#volúmenes-en-docker>
+[s6s1]: <https://github.com/josemanuelCRV/docker-notes#qué-son-los-volúmenes>
+[s6s2]: <https://github.com/josemanuelCRV/docker-notes#utilizar-volúmenes-de-datos>
+[s6s3]: <https://github.com/josemanuelCRV/docker-notes#utilizar-contenedores-como-volúmenes-de-datos>
+[s6s4]: <https://github.com/josemanuelCRV/docker-notes#salvar-la-información>
+
+
+
+
+
+
 [s7]: <https://github.com/josemanuelCRV/docker-notes#publicar-servicios>
 [s8]: <https://github.com/josemanuelCRV/docker-notes#publicar-imagenes-en-docker-cloud>
 [s9]: <https://github.com/josemanuelCRV/docker-notes#publicar-imagenes-desde-github>
@@ -1409,28 +1536,5 @@ file1  file2
 
 
 
-[s1s1s1]: <https://github.com/josemanuelCRV/docker-notes#comportamiento-distinto-en-función-del-entorno>
-[s1s2s2]: <https://github.com/josemanuelCRV/docker-notes#qué-son-los-contenedores-y-las-imagenes>
-[s1s3s3]: <https://github.com/josemanuelCRV/docker-notes#qué-es-docker>
-[s1s4s4]: <https://github.com/josemanuelCRV/docker-notes#productos-y-herramientas>
-[s1s5s5]: <https://github.com/josemanuelCRV/docker-notes#los-contenedores-no-son-máquinas-virtuales>
 
-[s1s2s1]: <https://github.com/josemanuelCRV/docker-notes#plataformas-disponibles-para-la-instalación-de-docker>
-[s1s2s2]: <https://github.com/josemanuelCRV/docker-notes#crear-mv-para-la-instalación-de-ubuntu>
-[s1s2s3]: <https://github.com/josemanuelCRV/docker-notes#instalar-docker-en-ubutu>
-[s1s2s4]: <https://github.com/josemanuelCRV/docker-notes#nuestro-primer-contenedor>
 
-[s1s3s1]: <https://github.com/josemanuelCRV/docker-notes#extructura-de-comandos>
-[s1s3s2]: <https://github.com/josemanuelCRV/docker-notes#imagenes-y-contenedores>
-[s1s3s3]: <https://github.com/josemanuelCRV/docker-notes#docker-store>
-[s1s3s4]: <https://github.com/josemanuelCRV/docker-notes#imagenes-oficiales-de-docker-en-github>
-
-[s1s4s1]: <https://github.com/josemanuelCRV/docker-notes#iniciar-y-listar-los-contenedores>
-[s1s4s2]: <https://github.com/josemanuelCRV/docker-notes#mostrar-los-logs>
-[s1s4s3]: <https://github.com/josemanuelCRV/docker-notes#elimiar-imagenes-y-contenedores-locales>
-[s1s4s4]: <https://github.com/josemanuelCRV/docker-notes#salvar-y-cargar-imagenes>
-
-[s1s5s1]: <https://github.com/josemanuelCRV/docker-notes#introducción-a-dockerfile>
-[s1s5s2]: <https://github.com/josemanuelCRV/docker-notes#construcción-de-la-primera-imagen>
-[s1s5s3]: <https://github.com/josemanuelCRV/docker-notes#instrucciones-en-dockerfile>
-[s1s5s4]: <https://github.com/josemanuelCRV/docker-notes#buenas-prácticas-en-dockerfile>
