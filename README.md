@@ -138,10 +138,10 @@ Es posible que coexistan MV y Contenedores a la vez. Esta mezcla, bien combinada
 ---
 ##### _Sección 02_
 ### Instalando Docker.
-- Plataformas disponibles para la instalación de Docker
-- Crear MV para la instalación de Ubuntu
-- Instalar Docker en Ubutu
-- Nuestro primer Contenedor
+- [Plataformas disponibles para la instalación de Docker][s1s2s1]
+- [Crear MV para la instalación de Ubuntu][s1s2s2]
+- [Instalar Docker en Ubutu][s1s2s3]
+- [Nuestro primer Contenedor][s1s2s4]
 
 #
 
