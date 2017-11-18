@@ -63,7 +63,7 @@ Empaquetando la aplicación con todas las dependencias que son necesarias para q
 #
 
 ---
-> ***¿Qué son los contenedores y las imagen |imagenes?***
+>#### ¿Qué son los contenedores y las imagenes?***
 Unidad de software estandarizada
 ---
 Un ***contenedor*** es un paquete ejecutable, ligero y autónomo con todo lo necesario para su ejecución. (App, servidor de la app, bibliotecas y componentes, configuraciones, OS *sólo los ficheros necesarios...). 
@@ -80,7 +80,7 @@ Funcionan de forma ***aislada***, sin necesitar de otros procesos para su ejecuc
 #
 
 ---
-> ***¿Qué es Docker?***
+>#### ¿Qué es Docker?***
 ---
 Plataforma para la gestión de contenedores y, a su vez, una tecnología para desplegar aplicaciones.
 
@@ -94,7 +94,7 @@ Utilizado por ***Programadores & Administradores***
 #
 
 ---
-> ***Productos y herramientas*** 
+>#### Productos y herramientas*** 
 ---
 Utilizados para la gestión de los contenedores e imagenes:
 
@@ -110,7 +110,7 @@ Utilizados para la gestión de los contenedores e imagenes:
 #
 
 ---
-> ***Los Contenedores no son máquinas virtuales***
+>#### Los Contenedores no son máquinas virtuales***
 ---
 - ***Las máquinas virtuales:*** (Casa)
 - - Son totalmente independientes y ofrecen protección.
