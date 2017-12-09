@@ -36,8 +36,8 @@
 - Dominar la plataforma de Docker
 - Adaptar Docker a nuestra infraestructura
 - Crear y desplegar servicios con Docker
-- Orquestar y escalar los servicios
-- Crear registros privados de Docker
+- Orquestar y escalar servicios
+- Crear registros privados en Docker Registry
 ---
 ### Primer bloque
 ##### _Sección 01_
@@ -53,20 +53,17 @@
 ---
 >#### Comportamiento distinto en función del entorno
 ---
-Empaquetando la aplicación con todas las dependencias que son necesarias para que sea autónoma (librerías, OS, servidor) podríamos evitar problemas de comportamientos distintos entre las máquinas utilizadas para el desarrollo de software respecto a las máquinas de despliegue.
-| App
-|-
-| bin/libs
-| OS
-| Infraestructura
 
-#
+En muchas ocasiones, nos encontramos conflictos a la hora de distribuir y ejecutar el software desarrollado. Muchos de estos conflictos son ocasionados por las diferencias entre plataformas (desarrollo/producción), sistemas operativos, librerías y componentes, recursos del sistema e infraestructura, entre otros. 
+
+Docker nos permite eliminar este tipo de conflictos mediante el uso de Imágenes/Contenedores. Esta tecnología nos permite generar una imagen en la que se encapsula y empaqueta la aplicación con todas las dependencias que son necesarias para que sea ***autónoma y autocontenida*** con sus librerías, fuentes, OS, servidor, evitando de ese modo comportamientos distintos entre las máquinas utilizadas para el desarrollo de software respecto a las máquinas destinadas a pruebas, pruebas piloto y despliegue en entornos de producción. 
+
 
 ---
 >#### ¿Qué son los contenedores y las imagenes?
 ---
 
-Un ***contenedor*** es una unidad de software estandarizada, es un paquete ejecutable, ligero y autónomo con todo lo necesario para su ejecución. (App, servidor de la app, bibliotecas y componentes, configuraciones, OS *sólo los ficheros necesarios...). 
+Un ***contenedor*** es una unidad de software estandarizada, es un paquete ejecutable, ligero y autónomo con todo lo necesario para su ejecución. (App, servidor de la app, bibliotecas y componentes, configuraciones, O.S. con sólo los ficheros necesarios).
 
 Es ***portable***, al conservar todos los elementos de una máquina a otra. 
 
@@ -239,13 +236,13 @@ $ sudo systemctl status docker
 ```
 La salida debe ser similar a la siguiente, mostrando que el servicio está activo y en ejecución:
 ```
-Output
 ● docker.service - Docker Application Container Engine
    Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
    Active: active (running) since Sun 2016-05-01 06:53:52 CDT; 1 weeks 3 days ago
      Docs: https://docs.docker.com
  Main PID: 749 (docker)
 ```
+
 La instalación de Docker ahora le ofrece no sólo el servicio Docker (daemon), sino también la utilidad de línea de comandos docker o el cliente Docker. Exploraremos cómo utilizar el comando docker más adelante en este tutorial.
 
 #
@@ -253,9 +250,9 @@ La instalación de Docker ahora le ofrece no sólo el servicio Docker (daemon), 
 ***Paso 2 — Ejecutar el Comando Docker Sin Sudo (Opcional)***
 
 De forma predeterminada, ejecutar el comando docker requiere privilegios de root, es decir, tiene que prefijar el comando con sudo. También puede ser ejecutado por un usuario en el grupo docker, que se crea automáticamente durante la instalación de Docker. 
+
 Si intenta ejecutar el comando docker sin prefijarlo con sudo o sin estar en el grupo docker, obtendrá una salida como esta:
 ```
-Output
 docker: Cannot connect to the Docker daemon. Is the docker daemon running on this host?.
 See 'docker run --help'.
 ```
@@ -482,9 +479,8 @@ Después de descargar una imagen, puede ejecutar un contenedor usando la imagen 
 $ docker images
 ```
 
-La salida debería ser algo similar a esto:
+La salida debería ser similar a esto:
 ```
-Output
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 ubuntu              latest              c5f1cf30c96b        7 days ago          120.8 MB
 hello-world         latest              94df4f0ce8a4        2 weeks ago         967 B
@@ -495,7 +491,8 @@ Como veremos más adelante, las imagenes que utilice para ejecutar contenedores 
 
 
 ***Descargar una versión específica***
-Lo indicaremos a través de las `TAG de la siguiente forma:
+
+Lo indicaremos a través de las `TAG` de la siguiente forma:
 
 `image:tag`
 
@@ -522,6 +519,7 @@ ubuntu@ubuntu:~$
 ---
 >#### Imagenes oficiales de Docker en GitHub
 ---
+
 A través de [_GitHub_](https://github.com/docker-library), podremos consultar las versiones de cada imagen oficial, junto a su documentación técnica. 
 
 Por ejemplo, las distintas versiones disponibles de [Ubuntu](https://github.com/docker-library/docs/tree/master/ubuntu).
@@ -532,6 +530,7 @@ Por ejemplo, las distintas versiones disponibles de [Ubuntu](https://github.com/
 ---
 ##### _Sección 04_
 #### Rutinas con imagenes y contenedores.
+
 - [Iniciar y listar contenedores][s4s1]
 - [Mostrar los logs][s4s2]
 - [Eliminar imagenes y contenedores locales][s4s3]
@@ -542,6 +541,7 @@ Por ejemplo, las distintas versiones disponibles de [Ubuntu](https://github.com/
 ---
 >#### Iniciar y listar contenedores
 ---
+
 Vamos a consultar la ayuda sobre el comando que utiliza Docker para iniciar los contenedores:
 
 ***`$ docker run --help | more`***
@@ -591,12 +591,17 @@ drwxr-xr-x  13 root root 4096 Sep 15 08:42 var
 ```
 
 ***Listar contenedores***
+
 Podemos ver nuestro contenedor generado:
 
+
 Contenedores activos:
+
 ***`$ docker container ls`***
 
+
 Todos los contenedores:
+
 ***`$ docker container ls -a`***
 
 ```
@@ -610,10 +615,15 @@ c6305720e5bd        hello-world         "/hello"            2 hours ago         
 ---
 >#### Mostrar los logs
 ---
+
 ***Listar procesos***
+
 El agente de Docker se mantendrá mostrando los logs que generen nuestros procesos del sistema asociados al contenedor indicado:
+
 ***`$ docker container run ubuntu:17.04 top -b`***
+
 _`Cntrl + c`_ para detener el contenedor y la inspección del agente.
+
 ```
 ubuntu@ubuntu:~$ docker container run ubuntu:17.04 top -b
 top - 02:33:17 up  5:32,  0 users,  load average: 0.00, 0.00, 0.00
@@ -636,7 +646,9 @@ Podemos ver cómo en la salida nos devuelve un identificador único, indicando q
 $ docker container run --detach ubuntu:17.04 top -b
 c089a58bed9ea2277b0adc2801ca10593709cc0e75b97b79eedae882bcef8173
 ```
+
 Ahora podemos buscar el contenedor y ver q sigue ejecutándose, además de comprobar que tienen el mismo identificador:
+
 ```
 $ docker container ls
 CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
@@ -695,6 +707,7 @@ $ docker container rm elated_northcutt
 
 
 Si intentamos borrar un contenedor en ejecución, Docker nos informará con un mensaje de error.  
+
 Es posible forzar el borrado utilizando el flag `-f`, pero es preferible que nos aseguremos qué estamos borrando.
 
 ***Borrando una imagen:***
@@ -702,6 +715,7 @@ Es posible forzar el borrado utilizando el flag `-f`, pero es preferible que nos
 ***`$ docker image rm [OPTIONS] IMAGE-NAME [IMAGE...]`***
 
 Listamos las imagenes:
+
 ```
 ubuntu@ubuntu:~$ docker image ls
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
@@ -715,6 +729,8 @@ Borramos la que deseemos, indicando el nombre, y si se repite el nombre de image
 $ docker image rm hello-world
 $ docker image rm ubuntu:17.04
 ```
+
+
 
 ---
 >#### Salvar y cargar imagenes
@@ -774,8 +790,10 @@ $ docker image rm ubuntu:17.04
 ```
 
 ***Error response from daemon:***
+
 - Si nos muestra un error indicando que no podemos borrar la imagen debido a que está corriendo en un contenedor, y al verificar el contenedor vemos que está detenido-EXITED, es posible que pudiera haberse quedado referenciado en el _DOCKER-DAEMON_ erróneamente por un apagado del sistema incorrecto. 
 - Para solucionarlo podemos forzar el borrado de la imagen con el flag _`-f`_ o _`--force`_ y posterior y opcionalmente podemos borrar el contenedor referenciado a esa imagen.
+
 ```
 ubuntu@ubuntu:~$ docker image rm ubuntu:17.04
 Error response from daemon: conflict: unable to remove repository reference "ubuntu:17.04" (must force) - container 70cbce8d1a56 is using its referenced image 5e9fde03a0de
@@ -890,6 +908,7 @@ El punto separado por el espacio indica que el fichero dockerfile se encuentra e
 ubuntu@ubuntu:~/mydockerfiles$ vim Dockerfile
 ubuntu@ubuntu:~/mydockerfiles$ ls
 Dockerfile
+
 ubuntu@ubuntu:~/mydockerfiles$ docker image ls
 REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
 ubuntu              17.04               5e9fde03a0de        10 days ago         94.7MB
@@ -1373,10 +1392,12 @@ file1  file2
 Nuestros datos están guardados en un sistema de archivos dentro de nuestro contenedor `data-container`.
 Para salvar los datos vamos a utilizar la siguiente línea de comandos:
 
-***`$ docker container run -rm --volumes-from data-container -v $(pwd):/backup ubuntu:17.04 tar cvf /backup/backup-data.tar /datos`***
+***`$ docker container run --rm --volumes-from data-container -v $(pwd):/backup ubuntu:17.04 tar cvf /backup/backup-data.tar /datos`***
 
 Analizando el comando...
-- Inicia un contenedor que tiene como base `ubuntu:17.04`
+
+
+- Inicia un contenedor `run` que tiene como base `ubuntu:17.04` y en caso de que ya exista lo borras automáticamente `--rm`
 - Adiciona un volumen, que será el contenedor `data-container`
 - Indica el destino donde salvar la información en un archivo comprimido. `tar cvf /backup/data-backup.tar`
 - Indica el origen de la fuente de datos. Será el contenido del directorio `/datos` de este contenedor.
@@ -1438,15 +1459,784 @@ file1  file2
 ##### _Sección 07_
 #### Publicar servicios.
 
+- [Obtener IP de la máquina virtual][s7s1]
+- [Establece IP estática en la máquina virtual][s7s2]
+- [¿Qué es publicar un servicio?][s7s3]
+- [Publicar un servicio con Nginx][s7s4]
+- [Publicar servicios definiendo el puerto][s7s5]
+- [Publicar mi sitio web][s7s6]
+
+
+#
+
+---
+>#### Obtener IP de la máquina virtual
+---
+
+
+Obteniendo un identificador único dentro de nuestra red.
+
+***¿Qué IP tiene nuestra máquina virtual?***
+Nuestra VM tiene solamente un adaptador de red NAT, por el que nos permite acceder a la VM y además, disponer del mismo internet que el de la máquina que alberga a la VM, nuestra máquina local-Host.
+
+
+###### Comenzando...
+
+Primero vamos a ver dónde se encuentran las secciones de configuración de red, tanto de VirtualBox como de la máquina virtual-docker.
+
+
+***VirtualBox***
+- Desde VirtualBox, acceder a las configuraciones globales de Red desde la pestaña:
+
+`Archivos => Preferencias => Red => Redes-solo-anfitrión` 
+
+[][img-conf-vbox-net]
+
+
+
+
+
+***Máquina virtual - (Ubuntu-Docker)***
+- Configuraciones de red para la máquina virutual (ubuntu-server-docker)
+- - _Para modificar cualquier propiedad, apagar previamente la máquina virtual-docker si está corriendo_.
+
+Para comunicarnos desde nuestra máquina local con la máquina virtual, vamos a añadir un nuevo adaptador de Red a la máquina virtual con las siguientes características:
+
+Adaptador de red: `Adaptador solo-anfitrión` 
+Nombre (default): `VirtualBox Host-Only Ethernet Adapter #3`
+Tipo Adaptador (default): Intel Pro/1000 MT Desktop (82540EM)
+Modo promiscuo (default): Denegar
+Dirección MAC: XXXXXXXXXXX  ===> Refrescar para no entrar en conflicto con la MAC del adaptador #1.
+Cable conectado (default): check true
+
+[][img-conf-vm-net]
+
+Una vez añadido el adaptador de red en la máquina virtual, es necesario habilitarlo en la configuración.
+
+######  Habilitar el adaptador en la máquina virtual
+
+Arrancamos de nuevo la máquina virtual y verificamos la configuración actual que está funcionándo en nuestro sistema de red:
+
+`$ ifcongif`
+
+```
+ubuntu@ubuntu:~$ ifconfig
+docker0   Link encap:Ethernet  direcciónHW 02:42:a4:c4:41:53
+          Direc. inet:172.17.0.1  Difus.:0.0.0.0  Másc:255.255.0.0
+          ACTIVO DIFUSIÓN MULTICAST  MTU:1500  Métrica:1
+          Paquetes RX:0 errores:0 perdidos:0 overruns:0 frame:0
+          Paquetes TX:0 errores:0 perdidos:0 overruns:0 carrier:0
+          colisiones:0 long.colaTX:0
+          Bytes RX:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+enp0s3    Link encap:Ethernet  direcciónHW 08:00:27:a6:21:ff
+          Direc. inet:10.0.2.15  Difus.:10.0.2.255  Másc:255.255.255.0
+          Dirección inet6: fe80::a00:27ff:fea6:21ff/64 Alcance:Enlace
+          ACTIVO DIFUSIÓN FUNCIONANDO MULTICAST  MTU:1500  Métrica:1
+          Paquetes RX:130 errores:0 perdidos:0 overruns:0 frame:0
+          Paquetes TX:102 errores:0 perdidos:0 overruns:0 carrier:0
+          colisiones:0 long.colaTX:1000
+          Bytes RX:14974 (14.9 KB)  TX bytes:20802 (20.8 KB)
+
+lo        Link encap:Bucle local
+          Direc. inet:127.0.0.1  Másc:255.0.0.0
+          Dirección inet6: ::1/128 Alcance:Anfitrión
+          ACTIVO BUCLE FUNCIONANDO  MTU:65536  Métrica:1
+          Paquetes RX:160 errores:0 perdidos:0 overruns:0 frame:0
+          Paquetes TX:160 errores:0 perdidos:0 overruns:0 carrier:0
+          colisiones:0 long.colaTX:1
+          Bytes RX:11840 (11.8 KB)  TX bytes:11840 (11.8 KB)
+```
+
+Observamos que las redes que están dadas de alta son _[docker0, enp0s3, lo]_, pero 
+
+
+- Vamos a listar las las redes que existen en total en nuestro sistema:
+
+```
+ubuntu@ubuntu:~$ ls /sys/class/net/
+docker0  enp0s3  enp0s8  lo
+```
+
+
+Como vemos, aparece la red `enp0s8`, que corresponde al nuevo adaptador de red que acabamos de crear. 
+
+Para adicionar este nuevo adaptador, es necesario modificar el fichero de interfaces de red:
+
+`~$ sudo nano /etc/network/interfaces`
+
+Editando con este fichero, habilitamos el adaptador secundario identificándolo por su nombre `enp0s8`.
+
+***`ubuntu@ubuntu:~$ sudo nano /etc/network/interfaces`***
+
+
+```
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto enp0s3
+iface enp0s3 inet dhcp
+
+# Secondary adapter network interface
+auto enp0s8
+iface enp0s8 inet dhcp
+```
+
+
+Una vez modificado el fichero de configuración, es necesario ***reiniciar el servicio de redes*** de nuestra máquina virtual:
+
+***`ubuntu@ubuntu:~$ sudo systemctl restart networking`***
+
+(En el caso que no funcionase el comando para reiniciar el servicio, bastaría con reiniciar la máquina virtual)
+
+Si volvemos a lanzar el comando `ifconfig`, ahora sí aparece nuestro adaptador-secundario `enp0s8`.
+
+```
+enp0s8    Link encap:Ethernet  direcciónHW 08:00:27:62:de:c3
+          Direc. inet:192.168.99.100  Difus.:192.168.99.255  Másc:255.255.255.0
+          Dirección inet6: fe80::a00:27ff:fe62:dec3/64 Alcance:Enlace
+          ACTIVO DIFUSIÓN FUNCIONANDO MULTICAST  MTU:1500  Métrica:1
+          Paquetes RX:14 errores:0 perdidos:0 overruns:0 frame:0
+          Paquetes TX:10 errores:0 perdidos:0 overruns:0 carrier:0
+          colisiones:0 long.colaTX:1000
+          Bytes RX:3211 (3.2 KB)  TX bytes:1332 (1.3 KB)
+```
+
+Ahora podemos ver la ***IP*** que nos permitirá acceder desde nuestra máquina local-Host a nuestra máquina virtual.
+
+***`Direc. inet:192.168.99.100`***
+
+Verificamos la conexión enviando un ping desde nuestra máquina local:
+
+```
+C:\Users\josem>ping 192.168.99.100
+
+Haciendo ping a 192.168.99.100 con 32 bytes de datos:
+Respuesta desde 192.168.99.100: bytes=32 tiempo<1m TTL=64
+Respuesta desde 192.168.99.100: bytes=32 tiempo<1m TTL=64
+Respuesta desde 192.168.99.100: bytes=32 tiempo<1m TTL=64
+Respuesta desde 192.168.99.100: bytes=32 tiempo<1m TTL=64
+
+Estadísticas de ping para 192.168.99.100:
+    Paquetes: enviados = 4, recibidos = 4, perdidos = 0
+    (0% perdidos),
+Tiempos aproximados de ida y vuelta en milisegundos:
+    Mínimo = 0ms, Máximo = 0ms, Media = 0ms
+```
+
+#
+
+---
+>#### Establece IP estática en la máquina virtual
+---
+
+_(opcional)_ Para evitar que nuestra máquina virtual cambie de IP cada vez que arranque, vamos a establecer un IP fija por la que podamos conectarnos siempre.
+
+
+Vamos a modificar de nuevo el fichero de interfaces de red:
+
+***`ubuntu@ubuntu:~$ sudo nano /etc/network/interfaces`***
+
+
+```
+# This file describes the network interfaces available on your system
+# and how to activate them. For more information, see interfaces(5).
+
+source /etc/network/interfaces.d/*
+
+# The loopback network interface
+auto lo
+iface lo inet loopback
+
+# The primary network interface
+auto enp0s3
+iface enp0s3 inet dhcp
+
+# Secondary adapter network interface - static
+auto enp0s8
+iface enp0s8 inet static
+address 192.168.99.14
+network 192.168.99.1
+netmask 255.255.255.0
+```
+
+
+Reiniciamos la máquina virtual:
+
+***`$ sudo reboot `*** 
+
+Una vez reiniciado, vamos a realizar verificar la conexión hacia la ***IP estática*** enviando un Ping desde nuestra máquina local:
+
+```
+C:\Users\josem>ping 192.168.99.14
+
+Haciendo ping a 192.168.99.14 con 32 bytes de datos:
+Respuesta desde 192.168.99.14: bytes=32 tiempo<1m TTL=64
+Respuesta desde 192.168.99.14: bytes=32 tiempo<1m TTL=64
+Respuesta desde 192.168.99.14: bytes=32 tiempo<1m TTL=64
+Respuesta desde 192.168.99.14: bytes=32 tiempo<1m TTL=64
+
+Estadísticas de ping para 192.168.99.14:
+    Paquetes: enviados = 4, recibidos = 4, perdidos = 0
+    (0% perdidos),
+Tiempos aproximados de ida y vuelta en milisegundos:
+    Mínimo = 0ms, Máximo = 0ms, Media = 0ms
+``` 
+
+
+
+#
+
+---
+>#### ¿Qué es publicar un servicio?
+---
+
+Para poder hacer accesibles nuestro contenedores desde el exterior, debemos facilitar la comunicación entre Host-Contenedor.
+
+Docker facilita esta tarea estableciendo un ***puente de comunicación*** entre el contenedor y la máquina que lo inició (Host).
+
+Este puerto de comunicación se establece utilizando los puertos de ambos lados,  `Host --> xxxx:xx <-- Contenedor`
+
+Las comunicaciones del exterior accederían a la máquina Host por el puerto 8080.
+
+La máquina Host, que fue la que inció el contenedor, sabe que las peticiones que le lleguen por el puerto 8080 debe redireccionarlas al puerto 80 de nuestro contenedor.
+
+- El puerto 8080, puerto con el que trabaja la máquina Host, se define al inciarse el contenedor.
+- El puerto 80, puerto con el que trabaja el contenedor, se define durante la creación de la imágen, en el Dockerfile.
+
+
+De esta forma, todas las personas podrán acceder a la máquina que ha iniciado el contenedor y a través de este puente acceder al servicio del contenedor.
+
+#
+
+---
+>#### Publicar un servicio con Nginx
+---
+
+Vamos a crear un contendor que contenga un servidor ***Nginx*** y exponer su página de inicio.
+
+
+***Comenzamos descargando el servidor _Nginx_***:
+
+***`$ docker pull nginx:1.11-alpine`***
+
+```
+ubuntu@ubuntu:~$ docker pull nginx:1.11-alpine
+1.11-alpine: Pulling from library/nginx
+709515475419: Pull complete
+4b21d71b440a: Pull complete
+c92260fe6357: Pull complete
+ed383a1b82df: Pull complete
+Digest: sha256:5aadb68304a38a8e2719605e4e180413f390cd6647602bee9bdedd59753c3590
+Status: Downloaded newer image for nginx:1.11-alpine
+```
+
+
+***Ver los puertos definidos en la imagen de Nginx***
+
+Como recordarémos, los puertos de los contenedores son definidos durante la creación de la imágen. 
+Vamos a conocer qué puertos se definieron durante la creación de la imágen de Nginx descargada.
+
+***`$ docker image inspect nginx:1.11-alpine | more`***
+
+De toda la información que aparece en el archivo JSON, vamos a fijarnos en esta parte: 
+
+```
+"ExposedPorts": {
+                "443/tcp": {},
+                "80/tcp": {}
+            },
+```
+
+Como vemos, en la imagen de Nginx, los puertos ***443*** y ***80*** son los utilizados para publicar los servicios.
+
+
+
+***Arrancar el contenedor publicando los puertos***
+
+***`$ docker container run --rm -d --publish-all nginx:1.11-alpine`***
+
+`-d --publish-all` => Docker utiliza ese parámetro al inciar los contenedores para publicar todos los puertos expuesto que tiene este contenedor.
+Identifica los puertos que expone nuestro contenedor y los enlaza con nuestra máquina utilizando un puerto de forma aleatoria.
+
+```
+ubuntu@ubuntu:~$ docker container run --rm -d --publish-all nginx:1.11-alpine
+897f94107f38330a3f3c49a7ab7e465008b415655109e311ed93977ab548293a
+ubuntu@ubuntu:~$ docker container ls -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                    PORTS                                           NAMES
+897f94107f38        nginx:1.11-alpine   "nginx -g 'daemon ..."   11 seconds ago      Up 10 seconds             0.0.0.0:32769->80/tcp, 0.0.0.0:32768->443/tcp   wonderful_heisenberg
+```
+
+
+Para acceder desde el exterior al servicio del contenedor, por ejemplo desde nuestra máquina local a la máquina virtual, debemos conectar por : IP de VM + 32769, puerto expuesto por Docker para el contenedor de Nginx.
+
+Desde el navegador web de nuestra máquina local accedemos a la página de inicio de _Nginx_:
+
+***`http://192.168.99.14:32769/`*** 
+
+
+***Verlos logs del servicio***
+
+***`$ docker container logs -f wonderful_heisenberg`***
+
+```
+ubuntu@ubuntu:~$ docker container logs -f wonderful_heisenberg
+
+192.168.99.1 - - [19/Nov/2017:00:36:04 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36" "-"
+
+192.168.99.1 - - [19/Nov/2017:00:36:16 +0000] "GET / HTTP/1.1" 304 0 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36" "-"
+
+
+```
+
+#
+
+---
+>#### Publicar servicios definiendo el puerto
+---
+
+En la sección anerior, hemos dejado que Docker asigne aleatoriamente un puerto para comunicar con la máquina virtual.
+En ocasiones, necesitamos que se utilice un puerto específico para que se comunique con otras aplicaciones.
+
+Vamos a indicar a Docker que utilice un puerto específico de nuestra máquina virtual para publicar nuestra aplicación.
+
+***`$ docker container run --rm -d -p 8080:80 nginx:1.11-alpine`***
+
+```
+ubuntu@ubuntu:~$ docker container run --rm -d -p 8080:80 nginx:1.11-alpine
+2bf158d012c5a96c8725ac5c74e3f57259cd2461f754860dabe9147eee322f13
+ubuntu@ubuntu:~$ docker container ls
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                           NAMES
+2bf158d012c5        nginx:1.11-alpine   "nginx -g 'daemon ..."   4 seconds ago       Up 4 seconds        443/tcp, 0.0.0.0:8080->80/tcp   infallible_lumiere
+```
+
+Hemos asignado un puerto específico a la máquina virtual `8080` y las peticiones que lleguen por ese puerto serán redireccionadas al puerto `80` del contenedor para comunicarnos con el servicio.
+
+***`http://192.168.99.14:8080/`***
+
+***Si queremos detener el servicio...***
+
+```
+ubuntu@ubuntu:~$ docker container stop infallible_lumiere
+infallible_lumiere
+
+ubuntu@ubuntu:~$ docker container ls -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                    PORTS               NAMES
+ba175f7c7c4d        ubuntu:17.04        "/bin/bash"         28 hours ago        Exited (0) 5 hours ago                        app2
+9135fd815a38        ubuntu:17.04        "/bin/bash"         28 hours ago        Exited (0) 5 hours ago                        app1
+b330ab85033d        busybox             "sh"                29 hours ago        Exited (0) 29 hours ago                       data-container
+b062af057f80        ubuntu:17.04        "/bin/bash"         2 days ago          Exited (0) 2 days ago                         ejemplo-volum
+```
+
+#
+
+---
+>#### Publicar mi sitio web
+---
+
+***Crear una imagen.***
+
+Vamos a crear una imagen con las siguientes capas:
+
+***Capas:***
+- aplicación web
+- nginx:1.11-alpine
+
+***`$ docker image build -t miweb .`***
+
+
+***Descargar el código fuente de la aplicación web***
+
+Creamos un directorio donde guardar repositorios y guardamos los fuentes de la capa de la aplicación web, [clonando el repositorio][website].
+
+
+```
+ubuntu@ubuntu:~$ mkdir repos
+ubuntu@ubuntu:~$ ls
+mydockerfiles  repos  ubuntu-17.04
+ubuntu@ubuntu:~$ cd repos/
+
+ubuntu@ubuntu:~/repos$ git clone https://github.com/mmorejon/cursodocker-website.git
+Clonar en «cursodocker-website»...
+remote: Counting objects: 18, done.
+remote: Total 18 (delta 0), reused 0 (delta 0), pack-reused 18
+Unpacking objects: 100% (18/18), done.
+Comprobando la conectividad… hecho.
+```
+
+
+Verificamos el contenido descargado y contruimos la imagen a partir del Dockerfile del proyecto descargado.
+
+***`$ docker image build -t miweb .` ***
+
+```
+ubuntu@ubuntu:~/repos$ ls
+cursodocker-website
+ubuntu@ubuntu:~/repos$ cd cursodocker-website/
+ubuntu@ubuntu:~/repos/cursodocker-website$ ls
+Dockerfile  README.md  static-html
+
+ubuntu@ubuntu:~/repos/cursodocker-website$ docker image build -t miweb .
+Sending build context to Docker daemon    618kB
+Step 1/3 : FROM nginx:1.11-alpine
+ ---> bedece1f06cc
+Step 2/3 : LABEL Descripción "Mi servicio web" Autor "Jose Manuel" Versión "v1.0.0"
+ ---> Running in 95b2f2811f87
+ ---> f5d91bb92542
+Removing intermediate container 95b2f2811f87
+Step 3/3 : COPY static-html /usr/share/nginx/html
+ ---> 98a41d17613f
+Removing intermediate container bd6f09995770
+Successfully built 98a41d17613f
+Successfully tagged miweb:latest
+```
+
+
+Verificamos todas las las imagenes:
+
+```
+ubuntu@ubuntu:~/repos/cursodocker-website$ docker image ls
+REPOSITORY          TAG                 IMAGE ID            CREATED              SIZE
+miweb               latest              98a41d17613f        About a minute ago   54.3MB
+ejemplo             latest              cff6c019fb4f        2 days ago           94.7MB
+imag-welcome        latest              7b155699c350        4 days ago           94.7MB
+ubuntu              17.04               5e9fde03a0de        2 weeks ago          94.7MB
+hello-world         latest              725dcfab7d63        2 weeks ago          1.84kB
+busybox             latest              6ad733544a63        2 weeks ago          1.13MB
+nginx               1.11-alpine         bedece1f06cc        7 months ago         54.3MB
+```
+
+
+***Ininiciar el contenedor.***
+```
+ubuntu@ubuntu:~/repos/cursodocker-website$ docker container run --name contenedor-miweb -d -p 8080:80 miweb
+21e4f793257522250888946455f2e336347ab08866c9570e5028e729a745b24c
+
+ubuntu@ubuntu:~/repos/cursodocker-website$ docker container ls -a
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS                    PORTS                           NAMES
+21e4f7932575        miweb               "nginx -g 'daemon ..."   9 seconds ago       Up 8 seconds              443/tcp, 0.0.0.0:8080->80/tcp   contenedor-miweb
+```
+
+
+#
+
 
 ---
 ##### _Sección 08_
 #### Publicar imagenes en Docker Cloud.
 
+- [Estructura del proyecto pensando en Doceker][s8s1]
+- [Registrar repositorio en Docker Cloud][s8s2]
+- [Publicar imagen en Docker Cloud][s8s3]
+- [Fichero dockerignore][s8s4]
+ 
+
+---
+>#### Estructura del proyecto pensando en Doceker
+---
+Consejos de estructurar y organizar nuestro proyecto.
+
+Toda tecnología incluida en nuestro proyectos va a disponer de un conjunto de ficheros y va a implicar el cómo organizamos estos proyectos.
+
+Lo conveniente es organizar el proyecto por la funcionalidad que cumple cada parte. 
+
+```
+proyecto
+|
+|-controllers/
+|  |-auth
+|  |-product
+|
+|-middlewares/
+|  |-auth
+|
+|-models/
+|  |-product
+|  |-user
+|
+|-node_modules/
+|  |.../
+|
+|-routes/
+|  |-index.js
+|
+|-services/
+|  |-index
+|
+|-static/ 
+|  |-css/
+|  |-fonts/
+|  |-images/
+|  |-js/
+|
+|-app.js
+|-config
+|-index
+|-package
+|
+|-README.md
+|-Dockerfile
+
+```
+
+
+---
+>#### Registrar repositorio en Docker Cloud
+---
+Creamos un repositorio en Docker Cloud para almacenar nuestras imágenes del proyecto
+
+https://cloud.docker.com/
+
+Una vez que subidas las imágenes al repositorio en Docker Cloud, podremos acceder y descargarlas desde Docker Store.
+
+https://store.docker.com/
+
+---
+>#### Publicar imagen en Docker Cloud
+---
+- Primero hemos creado un repositorio en Docker Cloud.
+- A continuación subiremos nuestra imágen al repositorio. `($ docker push josemanuelcrv/miweb:tagname)`
+- Seguidamente la descargaremos desde Docker Store. `($ docker pull josemanuelcrv/miweb)`
+- 
+
+
+Vamos a renombrar el nombre de nuestra imágen `miweb`, dado que al crear el repositorio observamos que nos asigna nuestro identificador, en este caso `josemanuelcrv`/miweb.
+
+Docker Cloud requiere que para la estructura de nombre de imágenes indiquemos el nombre específico de nuestro repositorio `josemanuelcrv/miweb`.
+
+```
+ubuntu@ubuntu:~$ docker image tag --help
+
+Usage: docker image tag SOURCE_IMAGE[:Nombre-actual] TARGET_IMAGE[:nuevo-nombre]
+
+```
+
+***`$ docker image tag miweb josemanuelcrv/miweb`***
+
+Una vez lanzado el comando verificamos la lista de imágenes:
+
+```
+ubuntu@ubuntu:~$ docker image tag miweb josemanuelcrv/miweb
+ubuntu@ubuntu:~$ docker image ls
+REPOSITORY            TAG                 IMAGE ID            CREATED             SIZE
+josemanuelcrv/miweb   latest              98a41d17613f        2 days ago          54.3MB
+miweb                 latest              98a41d17613f        2 days ago          54.3MB
+```
+
+Observamos que existen dos imágenes con el mismo identificador, pero esto no significa que estén duplicadas y ocupando espacio en disco. Docker tiene dos etiquetas apuntando al mismo objeto. Sólo tiene una única imagen.
+
+Acceder a Docker Cloud desde la máquina virtual:
+
+```
+ubuntu@ubuntu:~$ docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: josemanuelcrv
+Password: *tupasword*
+Login Succeeded
+ubuntu@ubuntu:~$
+```
+
+***Subir la imágen al repositorio***
+
+```
+ubuntu@ubuntu:~$ docker image push josemanuelcrv/miweb
+The push refers to a repository [docker.io/josemanuelcrv/miweb]
+04719ad7bf83: Pushed
+e6983b701b8b: Mounted from library/nginx
+90e9f0ac3473: Mounted from library/nginx
+9f654519d2ae: Mounted from library/nginx
+9f8566ee5135: Mounted from library/nginx
+latest: digest: sha256:79d3e4b1cc1954f7527283fd5042891312b67305ee2de68497b681614f5f2084 size: 1363
+
+ubuntu@ubuntu:~$
+```
+
+_Pasos que realiza Docker al subir las imagenes:_
+
+1º Lista las capas que tiene esta imagen y las va subiendo de una en una.
+
+Nuestra imágen fue creada partiendo de:
+
+1ª Capa: base de la imágen de Nginx
+
+Adicionalmente:
+
+2ª Capa: adición de nuestra propias etiquetas.
+
+3ª Capa: Los fichero html que copiamos a la carpeta de Nginx publica sus sitios.
+
+La mayoría de la base de nuestra imagen ya está en docker cloud, solo suben las capas adicionadas.
+
+---
+>#### Fichero dockerignore
+---
+
+El cometido del fichero  `.dockerignore` es la exclusión de contenido prescindible de nuestro proyecto. (exactamente igual que .gitignore para Git)
+
+Infraestructura, despliegue, integración, todos estos elementos están incorporados dentro de nuestro proyecto. Gran parte de estos son prescindibles para el funcionamiento de nuestra aplicación.
+
+```
+proyecto
+|
+|-.git
+|
+|-ansible
+|
+|-static/ 
+|  |-index.html
+|  |-logo.jpeg
+|
+|-README.md
+|-Jenkinsfile
+|-Dockerfile
+```
+
+
+Con el archivo `.dockerignore`  definimos el contenido que no queremos que sea contemplado por el _contexto de construcción_ que realiza Docker al inciar la creación de una imagen, quedando excluidos de la misma.
+
+.dockerignore:
+- Patrones de exclusión estructurados en líneas
+```
+# comment
+    */temp*
+    */temp*
+    temp?
+
+    *.md
+    !README.md
+```
+
+
+
+
+# 
 
 ---
 ##### _Sección 09_
 #### Publicar imagenes desde Github.
+
+- [Filosofía de trabajo con GitHub][s9s1]
+- [Crear imágenes desde Github][s9s2]
+- [Actualización de nuestras imágenes][s9s3]
+
+
+
+---
+>#### Filosofía de trabajo con GitHub
+---
+
+Ventajas:
+
+- Elimina la responsabilidad al desarrollador de cada aplicación a tener que construir él mismo la imágen.
+- Flujo de despliegue más rápido. Solo es necesario subir los fuentes a GitHub para ponerlos a disposición de Docker Cloud.
+- Tareas más ligeras al sólo subir ficheros a GitHub y no imágenes a Docker Cloud.
+- Delega el trabajo de procesado de las capas de dockerfile a Docker Cloud para construir las imágenes.
+
+[imag-flujo-trabajo]
+
+
+
+
+---
+>#### Crear imágenes desde Github
+---
+
+Trabajo ejecutado de forma conjunta y colaborativa entre las dos plataformas, GitHub + Docker Cloud.
+Configurar nuestro repositorio de Docker Cloud para que se contruyan las imágenes de forma automática.
+
+
+- 1º Habilitar un proveedor de fuentes [GitHub - Bitbucket]
+[img-config-autobuild]
+
+- 2º Crear repositorio en Docker Cloud asociado al proveedor de fuentes GitHub
+
+En la sección de Build Settings, asociar como proveedor de fuentes nuestro repositorio en GitHub.
+
+En Builds Rules, indicar la rama, el Tag y la localización del archivo `dockerfile` en el que se basará para la construcción.
+
+En esta ocasión, le estamos indicando que se encuentra en la raíz del proyecto y se llama Dockerfile.
+
+(Sólo crear el proyecto, no crear y construir)
+
+[create-repo-docker-cloud-associated]
+
+
+- Una vez creado, accedemos a la sección de construcciones _Builds_ para lanzar nosotros mismos la construcción _Automated Builds_
+
+[trigger-config]
+
+
+
+[imágenes]
+- config - activar conector github en Docker Cloud
+- - elegir repo/rama 
+- - Contrucciones recientes
+- - Trigguer build - Automated builds
+- - (788ed315) corresponde al commit
+- - ver detalle, pasos construcción de docker cloud igual q en local.
+
+
+---
+>#### Actualización de nuestras imágenes
+---
+
+Vamos a modificar algún archivo del proyecto y volver a subirlo a GitHub. 
+
+```
+ubuntu@ubuntu:~/repos/docker-proyect/docker-proyect$ nano Dockerfile
+
+ubuntu@ubuntu:~/repos/docker-proyect/docker-proyect$ git status
+En la rama master
+Su rama está actualizada con «origin/master».
+Cambios no preparados para el commit:
+  (use «git add <archivo>...» para actualizar lo que se confirmará)
+  (use «git checkout -- <archivo>...» para descartar cambios en el directorio de trabajo)
+
+        modificado:    Dockerfile
+
+no hay cambios agregados al commit (use «git add» o «git commit -a»)
+
+ubuntu@ubuntu:~/repos/docker-proyect/docker-proyect$ git add .
+
+ubuntu@ubuntu:~/repos/docker-proyect/docker-proyect$ git commit -m "change(Dockerfile): modified author name for image metadata"
+
+[master 64f0b83] change(Dockerfile): modified author name for image metadata
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+ubuntu@ubuntu:~/repos/docker-proyect/docker-proyect$ git push origin master
+Username for 'https://github.com': josemanuelCRV
+Password for 'https://josemanuelCRV@github.com':
+Counting objects: 3, done.
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 399 bytes | 0 bytes/s, done.
+Total 3 (delta 1), reused 0 (delta 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/josemanuelCRV/docker-proyect.git
+   f1265b7..64f0b83  master -> master
+
+ubuntu@ubuntu:~/repos/docker-proyect/docker-proyect$
+```
+
+Automáticamente, Docker Cloud detectará el cambio en el repositorio y disparará el _trigger_ para volver a construir la imágen.
+
+***Construcción de forma automática en Docker Cloud.***
+
+Observamos en la inforamción de la construcción que el número entre paréntesis corresponde al _Id_ de commit realizado.
+
+[building-2]
+
+
+Verificar en Docker Cloud la nueva construcción y desde dónde se realizó.
+[img]
+
+
+
 
 
 ---
@@ -1455,24 +2245,1691 @@ file1  file2
 #### Desplegar en producción.
 
 
+- [Preparar entorno de producción][s10s1]
+- [Publicar nuestro servicio en producción][s10s2]
+- [Versionar nuestras imágenes][s10s3]
+
+
+---
+>#### Preparar entorno de producción
+---
+
+Crearemos nuestra máquina de producción en la plataforma https://clouding.io/.  
+Nos ofrece crear un servidor privado _VPS_ de prueba donde instalar nuestros servicios.
+
+(Crear cuenta; Solicita _VISA_; 5€ de prueba; facturación por horas runnig server; debe borrar servidor para stop)
+
+Otras plataformas:
+https://ginernet.com/es/
+
+En la máquina de producción instalaremos unicamente lo fundamental, debe ser lo más ligera posible.
+
+- Para nuestras necesidades, Instalaremos una base de Ubuntu y luego Docker.
+
+[create-vps-2]
+
+- Agregar llave _SSH_
+
+[ssh_key-vps]
+
+
+
+- Accedemos por _SSH_ al servidor virtual desde nuestra máquina local, no desde la máquina virtual VM VirtualBox.
+
+Podemos utilizar el subsistema _Bash_ que trae Windows 10, o un cliente SSH MobaXterm.
+
+Indicamos el nombre por defecto de usuario de la instalación de Ubuntu del servidor seguido de la _IP_ pública asignada a nuestro _VPS_
+
+***`$ ssh root@46.183.119.159`***
+
+Solicita el password: (Panel de configuración del _VPS_ en clouding)
+Mostrar clave: 65xvJYCnjGvo9vMp
+
+```
+[josem.Arrakis] ➤ ssh root@46.183.119.159
+root@46.183.119.159's password:
+
+              =======
+           =============
+          ====       ====
+        ====           ===   =====
+        ===             =============
+    == ===               ====     ====
+ =========               ===        ===
+====   ====             ===         ===
+===     ===             ===         ===
+===     ====          ======        ===
+====  =========     ===== ====    ====
+  =======   ===========    =========
+
+Welcome to Ubuntu 17.04 (GNU/Linux 4.10.0-19-generic x86_64)
+
+
+¡Felicidades, ya tienes tu Servidor creado!
+RECUERDA, si acabas de crear tu Servidor Cloud, el sistema puede estar todavía instalando algunas actualizaciones del Sistema Operativo, por lo que comandos como apt, dpkg, yum o rpm pueden no funcionar con normalidad hasta pasados unos minutos.
+
+¡Esperamos que disfrutes de tu Servidor Cloud!
+
+----------------------------------------------
+
+Congratulations, your Server has just been created!
+REMEMBER, if you have just created your Cloud Server, some updates of the Operative System might be deployed automatically, that is why commands like apt, dpkg, yum or rpm may not work normally until after some minutes.
+
+We hope that you enjoy your Cloud Server!
+
+
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+Ubuntu 12.04 LTS end-of-life is April 25, 2017 -- Upgrade your Precise systems!
+ $ sudo do-release-upgrade -m server
+
+151 packages can be updated.
+83 updates are security updates.
+
+
+/usr/bin/xauth:  file /root/.Xauthority does not exist
+root@dckrprod:~#
+
+
+```
+
+
+***Verificamos la versión de Ubuntu instalada en el servidor virtual `dckrprod`***
+
+`$ lsb_release -a`
+
+
+***Actualizamos la versión de Ubuntu instalada***
+
+root@dckrprod:~# sudo do-release-upgrade -d
+root@dckrprod:~# sudo do-release-upgrade -m server
+
+
+***Instalamos Docker en el servidor ***
+
+Replicar los pasos de instalación vistos en la sección de [Instalar Docker en Ubutu][s2s3]
+
+
+
+---
+>#### Publicar nuestro servicio en producción
+---
+
+
+***Creamos un contenedor en el servidor remoto***
+```
+root@dckrprod:~# docker container run -d -p 80:80 josemanuelcrv/docker-proyect
+
+Unable to find image 'josemanuelcrv/docker-proyect:latest' locally
+latest: Pulling from josemanuelcrv/docker-proyect
+709515475419: Pull complete
+4b21d71b440a: Pull complete
+c92260fe6357: Pull complete
+ed383a1b82df: Pull complete
+ab7ef3d7916c: Pull complete
+Digest: sha256:c08702725c115c7c34a23151a53e108220702979bd993dd9c853951167b5a4cf
+Status: Downloaded newer image for josemanuelcrv/docker-proyect:latest
+0fc11699c5b8723c5676391b3451c13956db30360fcf0d08ca98d0a89cab8c30
+
+root@dckrprod:~# docker container ls
+CONTAINER ID        IMAGE                          COMMAND                  CREATED             STATUS              PORTS                         NAMES
+0fc11699c5b8        josemanuelcrv/docker-proyect   "nginx -g 'daemon ..."   11 seconds ago      Up 10 seconds       0.0.0.0:80->80/tcp, 443/tcp   relaxed_lalande
+
+root@dckrprod:~#
+
+```
+
+
+***Verificar el servicio desplegado en el servidor desde el navegador web***
+
+Acceder por la _IP_ pública asignada por clouding.io:  `http://46.183.119.159/` 
+
+
+***Detener el contenedor actual y levantar otro contenedor a partir de una imagen específica***
+
+En lugar de utilizar por defecto el _Tag_ _latest_, indicamos una tag específico:
+
+```
+root@dckrprod:~# docker container ls
+CONTAINER ID        IMAGE                          COMMAND                  CREATED             STATUS              PORTS                         NAMES
+0fc11699c5b8        josemanuelcrv/docker-proyect   "nginx -g 'daemon ..."   17 minutes ago      Up 17 minutes       0.0.0.0:80->80/tcp, 443/tcp   relaxed_lalande
+
+root@dckrprod:~# docker container stop relaxed_lalande
+relaxed_lalande
+
+root@dckrprod:~# docker container ls -la
+CONTAINER ID        IMAGE                          COMMAND                  CREATED             STATUS                      PORTS               NAMES
+0fc11699c5b8        josemanuelcrv/docker-proyect   "nginx -g 'daemon ..."   18 minutes ago      Exited (0) 17 seconds ago                       relaxed_lalande
+
+
+root@dckrprod:~# docker run -d -p 80:80 josemanuelcrv/docker-proyect:v1.0.0
+Unable to find image 'josemanuelcrv/docker-proyect:v1.0.0' locally
+v1.0.0: Pulling from josemanuelcrv/docker-proyect
+709515475419: Already exists
+4b21d71b440a: Already exists
+c92260fe6357: Already exists
+ed383a1b82df: Already exists
+3743b093404c: Pull complete
+Digest: sha256:326327904962948b559c8d41a64ed12d2b9cf3e0eec9940f701bcd8cb7e59393
+Status: Downloaded newer image for josemanuelcrv/docker-proyect:v1.0.0
+6fd66beb1d6bb12add47b92f86a18f03045f7f2f527ce37d71510370a9341924
+
+root@dckrprod:~# docker image ls
+REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
+josemanuelcrv/docker-proyect   v1.0.0              56ca7e297990        About an hour ago   54.3MB
+josemanuelcrv/docker-proyect   latest              315ad462b25b        6 hours ago         54.3MB
+root@dckrprod:~#
+
+```
+
+
+
+---
+>#### Versionar nuestras imágenes
+---
+
+Como indicamos anteriormente, por cada última construcción de imágen que realiza Docker, por defecto, asigna el _tag_ _`latest`_. 
+
+Normalmente vamos a necesitar trabajar con etiquetas específicas, como puede ser un nombre/sufjo, un determinado patrón, una versión asignada en el repositorio de GitHub, entre otras.
+
+
+Vamos a definir una nueva regla en la sección _Builds de Docker Cloud_.
+
+- Añadimos una nueva regla.
+- - Indicamos en ***`Source Type`*** que utilice _Tag_ en lugar de _Branch_.
+- - Especificamos una _regex_ para que identificar nuestra etiqueta.
+- - ***_`Source_`***: `/^v([0-9.]+)$/` (v y 3 dígitos separados por puntos). Docker iniciará una nueva construcción cuando encuentre este patrón, por ejemplo: `v1.2.3`
+- - ***_`Docker Tag_`***: `{\1}` Etiqueta que va a asignar Docker a la nueva imágen. el resultado será el número correspondiente a la versión en GitHub. `1.0.2`
+
+[image-tag]
+
+- Añadimos la etiqueta a nuestros fuentes en GitHub.
+
+```
+C:\Users\josem\WorkSpaces\Docker\docker-course\docker-proyect>git tag v1.0.0
+
+C:\Users\josem\WorkSpaces\Docker\docker-course\docker-proyect>git tag
+v1.0.0
+
+C:\Users\josem\WorkSpaces\Docker\docker-course\docker-proyect>git push origin --tag
+Total 0 (delta 0), reused 0 (delta 0)
+To https://github.com/josemanuelCRV/docker-proyect.git
+ * [new tag]         v1.0.0 -> v1.0.0
+
+```
+
+- Observamos que se ha creado la etiqueta en GitHub y ha comenzado la autoconstrucción en _Docker Cloud_.
+
+[tag-autobuild]
+
+
+- Accedemos a nuestro servidor remoto de producción `dckrprod` y descargamos la nueva imagen especificando el `nombre_imagen:version`.
+
+```
+root@dckrprod:~# docker pull josemanuelcrv/docker-proyect:1.0.0
+1.0.0: Pulling from josemanuelcrv/docker-proyect
+709515475419: Already exists
+4b21d71b440a: Already exists
+c92260fe6357: Already exists
+ed383a1b82df: Already exists
+1ec6930219e4: Pull complete
+Digest: sha256:0511446a29fbd11b09d44fe52c6db776c6d4caea607fe40f2baf68debbd90467
+Status: Downloaded newer image for josemanuelcrv/docker-proyect:1.0.0
+
+root@dckrprod:~# docker image ls
+REPOSITORY                     TAG                 IMAGE ID            CREATED             SIZE
+josemanuelcrv/docker-proyect   1.0.0               d916a7eeff87        15 minutes ago      54.3MB
+josemanuelcrv/docker-proyect   latest              315ad462b25b        47 hours ago        54.3MB
+root@dckrprod:~#
+```
+
+
+- Arrancamos en un contenedor nuestra nueva imagen descargada.
+
+```
+root@dckrprod:~# docker run -d -p 80:80 josemanuelcrv/docker-proyect:1.0.0
+53bae3c9aa4cfe7d5c61763d359e9f118961d67bdb37f16ba611c43bc091780a
+
+root@dckrprod:~# docker container ps
+CONTAINER ID        IMAGE                                COMMAND                  CREATED             STATUS              PORTS                         NAMES
+53bae3c9aa4c        josemanuelcrv/docker-proyect:1.0.0   "nginx -g 'daemon ..."   16 seconds ago      Up 15 seconds       0.0.0.0:80->80/tcp, 443/tcp   quizzical_boyd
+```
+
+
 ---
 ##### _Sección 11_
 #### Conectando contenedores.
+
+
+- [Conectar contenedores manualmente][s11s1]
+- [¿Qué es Docker Compose?][s11s2]
+- [Instalando Docker Compose][s11s3]
+- [Creando fichero Compose][s11s4]
+- [Escalar servicios][s11s5]
+
+
+
+---
+>#### Conectar contenedores manualmente
+---
+Vamos a conectar múltiples contenedores para que se intercambien información y juntos puedan ofrecer servicios que brinden un mejor resultado.
+
+Escenario [img multi-cont-link]
+
+Dispondremos de dos contenedores. Ambos contenedores contendrán una imágen básica de MariaDB. Un contendor hará de sistema de bbdd y el otro contenedor será el cliente consumidor de información conectandose a la bbdd. 
+
+Docker facilita el recurso `Link` que permite crear un puente de cominicación de manera segura. 
+
+
+***Creando el Contenedor con el sistema de BBDD***
+
+- Descargar en nuestra VM-local la imágen de MariaDB
+
+```
+ubuntu@ubuntu:~$ docker image pull mariadb
+Using default tag: latest
+latest: Pulling from library/mariadb
+85b1f47fba49: Pull complete
+5671503d4f93: Pull complete
+62466fedcc9d: Pull complete
+b4ef8399f3aa: Pull complete
+e34b2cf62e1d: Pull complete
+7291500bf826: Pull complete
+a77c97e1ff71: Pull complete
+5024f663c035: Pull complete
+dc69980fbc04: Pull complete
+e57f4562fa50: Pull complete
+49c749b145af: Pull complete
+Digest: sha256:338258203d1466202d2332e6f6860a3dd24d3bf3578c1e6999c847c975f7e4ca
+Status: Downloaded newer image for mariadb:latest
+```
+
++ info: https://mariadb.com/kb/es/mariadb-spanish/
+
+
+- Arrancar un contenedor con la imagen de mariadb descargada para que realice las funciones de servidor de bbdd.
+
+***`$ docker container run --name db-servidor -e MYSQL_ROOT_PASSWORD=mi-clave -d mariadb`***
+
+`-e` => permite adicionar al inicio del contenedor una nueva variable de entorno. En este caso le asignamos el password de nuestra bbdd.
+
+```
+ubuntu@ubuntu:~$ docker container run --name db-servidor -e MYSQL_ROOT_PASSWORD=mi-clave -d mariadb
+d3e07793d5e851085237f3f546862252abf0d4523b31a06686d6fff4bed04c5c
+
+ubuntu@ubuntu:~$ docker container ps
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS               NAMES
+d3e07793d5e8        mariadb             "docker-entrypoint..."   25 seconds ago      Up 24 seconds       3306/tcp            db-servidor
+```
+
+Observamos que ha asignado el puerto `3306/tcp` al contenedor, que es el predeterminado para sistemas MYSQL.  Este puerto no lo hemos publicado, por lo tanto no es visible para la VM-local, solo puede ser utilizado éste contenedor `db-servidor`.  
+
+Vamos a inspeccionar el contenido del contenedor generado para verificar qué _IP_ le ha asignado:
+
+***`$ docker container inspect db-servidor | grep IP`***
+
+```
+ubuntu@ubuntu:~$ docker container inspect db-servidor | grep IP
+            "LinkLocalIPv6Address": "",
+            "LinkLocalIPv6PrefixLen": 0,
+            "SecondaryIPAddresses": null,
+            "SecondaryIPv6Addresses": null,
+            "GlobalIPv6Address": "",
+            "GlobalIPv6PrefixLen": 0,
+            "IPAddress": "172.17.0.2",
+            "IPPrefixLen": 16,
+            "IPv6Gateway": "",
+                    "IPAMConfig": null,
+                    "IPAddress": "172.17.0.2",
+                    "IPPrefixLen": 16,
+                    "IPv6Gateway": "",
+                    "GlobalIPv6Address": "",
+                    "GlobalIPv6PrefixLen": 0,
+ubuntu@ubuntu:~$
+
+```
+
+Como podemos ver, `"IPAddress": "172.17.0.2",` este es el identificador de red que le dio Docker a este contendor.
+
+
+
+***Creando el contenedor del cliente.***
+
+Una vez conocidos la información necesaria del contenedor con sistema de BBDD, vamos a contruir el contenedor del cliete.
+
+Crea un contenedor a partir de la imagen `mariadb` de forma interactiva y posicionandome en una terminal dentro del contenedor `-it /bin/bash` y realiza un enlace `--link` de este contenedor que estamos iniciando con el contenedor `db-servidor` y asignandole un nombre `:mysql` para referirnos e identificarlo dentro de este contenedor.
+(dentro de este nuevo contenedor, para referirnos al contenedor `db-servidor` será conocido como `:mysql`)
+
+***`$ docker container run --rm --link db-servidor:mysql -it mariadb /bin/bash`***
+
+```
+ubuntu@ubuntu:~$ docker container run --rm --link db-servidor:mysql -it mariadb /bin/bash
+root@33ecfbf9ef24:/#
+```
+
+Creado el contenedor y estando en una terminal TTY dentro del contenedor, vamos a verificar qué variables de entorno tiene.
+
+```
+root@33ecfbf9ef24:/# env
+MARIADB_MAJOR=10.2
+HOSTNAME=33ecfbf9ef24
+MYSQL_ENV_MYSQL_ROOT_PASSWORD=mi-clave
+TERM=xterm
+MYSQL_ENV_MARIADB_VERSION=10.2.10+maria~jessie
+MYSQL_ENV_GOSU_VERSION=1.10
+MYSQL_PORT_3306_TCP_PORT=3306
+MYSQL_ENV_MARIADB_MAJOR=10.2
+MYSQL_ENV_GPG_KEYS=199369E5404BD5FC7D2FE43BCBCB082A1BB943DB     430BDF5C56E7C94E848EE60C1C4CBDCDCD2EFD2A        4D1BB29D63D98E422B2113B19334A25F8507EFA5
+MYSQL_PORT_3306_TCP=tcp://172.17.0.2:3306
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+GPG_KEYS=199369E5404BD5FC7D2FE43BCBCB082A1BB943DB       430BDF5C56E7C94E848EE60C1C4CBDCDCD2EFD2A        4D1BB29D63D98E422B2113B19334A25F8507EFA5
+PWD=/
+HOME=/root
+SHLVL=1
+MYSQL_PORT_3306_TCP_PROTO=tcp
+MYSQL_NAME=/confident_fermi/mysql
+MYSQL_PORT_3306_TCP_ADDR=172.17.0.2
+GOSU_VERSION=1.10
+MARIADB_VERSION=10.2.10+maria~jessie
+MYSQL_PORT=tcp://172.17.0.2:3306
+_=/usr/bin/env
+root@33ecfbf9ef24:/#
+```
+
+Para obtener una búsqueda más acotada y ordenada sobre lo que nos intesa conocer, vamos a filtra por el nombre del contenedor al que le habíamos asociado `mysql`:
+```
+root@33ecfbf9ef24:/# env | grep MYSQL
+MYSQL_ENV_MYSQL_ROOT_PASSWORD=mi-clave
+MYSQL_ENV_MARIADB_VERSION=10.2.10+maria~jessie
+MYSQL_ENV_GOSU_VERSION=1.10
+MYSQL_PORT_3306_TCP_PORT=3306
+MYSQL_ENV_MARIADB_MAJOR=10.2
+MYSQL_ENV_GPG_KEYS=199369E5404BD5FC7D2FE43BCBCB082A1BB943DB     430BDF5C56E7C94E848EE60C1C4CBDCDCD2EFD2A        4D1BB29D63D98E422B2113B19334A25F8507EFA5
+MYSQL_PORT_3306_TCP=tcp://172.17.0.2:3306
+MYSQL_PORT_3306_TCP_PROTO=tcp
+MYSQL_NAME=/confident_fermi/mysql
+MYSQL_PORT_3306_TCP_ADDR=172.17.0.2
+MYSQL_PORT=tcp://172.17.0.2:3306
+root@33ecfbf9ef24:/#
+```
+
+Como vemos, nos devuelve toda la informacion relacionada con el contenedor que contiene el sistema de BBDD al que le hemos asociado en el momento de la construcción `--link` y asignado un nombre identificativo `mysql` reconocido por este contenedor-cliente. Tiene la misma _IP_: 172.17.0.2, puerto:3306, password, etc...
+
+Vamos a verificar el acceso desde este contenedor-cliente al contenedor asociado utlizando la siguiente línea de SQL común de conexión a una bbdd y utilizando solo variables de entorno:
+
+***`$ mysql -h"$MYSQL_PORT_3306_TCP_ADDR"  -P"$MYSQL_PORT_3306_TCP_PORT"  -uroot  -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"`***
+
+`-h`=> host específico,  `MYSQL_PORT_3306_TCP_ADDR=172.17.0.2`
+`-P`=> puerto por el que trabaja, `MYSQL_PORT_3306_TCP_PORT=3306` 
+`-uroot`=> usuario root, que es el usuario principal.
+`-p`=> password, `MYSQL_ENV_MYSQL_ROOT_PASSWORD=mi-clave` (con 'p' minúscula a diferencia de '-P' del puerto).
+
+```
+root@33ecfbf9ef24:/# mysql -h"$MYSQL_PORT_3306_TCP_ADDR"  -P"$MYSQL_PORT_3306_TCP_PORT"  -uroot  -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.2.10-MariaDB-10.2.10+maria~jessie mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> exit
+Bye
+root@33ecfbf9ef24:/# exit
+exit
+ubuntu@ubuntu:~$
+```
+
+Conexión realizada correctamente. Pocedemos a salir de la línea de comandos de MYSQL y del propio contenedor.
+
+
+¿Cómo gestionar múltiples contenedores de forma rápida?
+
+---
+>#### ¿Qué es Docker Compose?
+---
+
+- Docker Compose nos permite definir y ejecutar múltiples conenedores e imágenes de Dcoker al mismo tiempo.
+- Facilita la confifguración de múltiples servicios.
+- Facilita el despliegue de las aplicaciones.
+- Una única línea para iniciar todos los servicios.
+
+Algunas diferencias sobre lo que necesitábamos hacer para realizar lo anterior, respecto a realizarlo con Docker Compose.
+
+Para generar dos contenedores:
+
+Antes...
+
+***`$ docker container run --name db-servidor -e MYSQL_ROOT_PASSWORD=mi-clave -d mariadb`*** - Sistema de BBDD.
+
+***`$ docker container run --rm --link db-servidor:mysql -it mariadb /bin/bash`*** - Contenedor-cliente.
+
+
+Después...
+
+***`$ docker compose up -d`*** - Única línea en la que procesa un archivo dockercompose donde van definidas todas las tareas que debe realizar.
+
+Ejemplo de `dockercompose`:
+
+``` 
+version: '3'
+services:       
+  web:            ----------> PRIMER servicio
+    build: .      ----------> debe construir a partir del directorio raíz
+    ports:        ----------> publicar los puertos externo:interno, 
+    - "5000:5000" ----------> en ambos 5000, tanto para el contenedor(int) como para la máquina que lo inicie(ext)
+    volumes:    
+    - .:/code     ----------> con el siguiente volúmen
+    - logvolume01:/var/log
+    links:        ----------> el contenedor que se inicie debe estar enlazado  
+    - redis       ----------> con el servicio aquí definido
+  redis:          ----------> SEGUNDO servicio
+    image: redis  ----------> únicamente que utilice la imagen oficial de redis 
+volumes:
+  logvolume01: {}
+```
+
+
+
+
+---
+>#### Instalando Docker Compose
+---
+
+- Desde nuestra VM-local, nos establecemos como _super-user_ para poder instalar mejor este paquete.
+
+```
+ubuntu@ubuntu:~$ sudo -i
+[sudo] password for ubuntu:
+root@ubuntu:~#
+```
+
+
+- Descargamos e instalamos la herramienta Compose: https://docs.docker.com/compose/install/
+
+```
+root@ubuntu:~# curl -L https://github.com/docker/compose/releases/download/1.17.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   617    0   617    0     0    724      0 --:--:-- --:--:-- --:--:--   725
+100 8649k  100 8649k    0     0  1401k      0  0:00:06  0:00:06 --:--:-- 2053k
+root@ubuntu:~#
+
+```
+
+- Y antes de salir del _super-usuario_, asignamos permisos de ejecución al programa instalado.
+
+```
+root@ubuntu:~# chmod +x /usr/local/bin/docker-compose
+root@ubuntu:~# exit
+logout
+ubuntu@ubuntu:~$
+```
+
+
+- Verificamos la versión instalada:
+
+```
+ubuntu@ubuntu:~$ docker-compose --version
+docker-compose version 1.17.1, build 6d101fb
+ubuntu@ubuntu:~$
+```
+
+- Consultamos la ayuda de esta herramienta:
+
+```
+ubuntu@ubuntu:~$ docker-compose --help | more
+Define and run multi-container applications with Docker.
+
+Usage:
+  docker-compose [-f <arg>...] [options] [COMMAND] [ARGS...]
+  docker-compose -h|--help
+
+Options:
+  -f, --file FILE             Specify an alternate compose file (default: docker-compose.yml)
+  -p, --project-name NAME     Specify an alternate project name (default: directory name)
+  --verbose                   Show more output
+  --no-ansi                   Do not print ANSI control characters
+  -v, --version               Print version and exit
+  -H, --host HOST             Daemon socket to connect to
+
+  --tls                       Use TLS; implied by --tlsverify
+  --tlscacert CA_PATH         Trust certs signed only by this CA
+  --tlscert CLIENT_CERT_PATH  Path to TLS certificate file
+  --tlskey TLS_KEY_PATH       Path to TLS key file
+  --tlsverify                 Use TLS and verify the remote
+  --skip-hostname-check       Don't check the daemon's hostname against the name specified
+                              in the client certificate (for example if your docker host
+                              is an IP address)
+  --project-directory PATH    Specify an alternate working directory
+                              (default: the path of the Compose file)
+
+Commands:
+  build              Build or rebuild services
+  bundle             Generate a Docker bundle from the Compose file
+  config             Validate and view the Compose file
+  create             Create services
+  down               Stop and remove containers, networks, images, and volumes
+  events             Receive real time events from containers
+  exec               Execute a command in a running container
+  help               Get help on a command
+  images             List images
+  kill               Kill containers
+  logs               View output from containers
+  pause              Pause services
+  port               Print the public port for a port binding
+  ps                 List containers
+  pull               Pull service images
+  push               Push service images
+  restart            Restart services
+  rm                 Remove stopped containers
+  run                Run a one-off command
+  scale              Set number of containers for a service
+  start              Start services
+  stop               Stop services
+  top                Display the running processes
+  unpause            Unpause services
+  up                 Create and start containers
+  version            Show the Docker-Compose version information
+ubuntu@ubuntu:~$
+
+``` 
+
+
+
+
+---
+>#### Creando fichero Compose
+---
+
+Para conocer cómo es el funcionamiento de Compose, vamos a reproducir la siguiente infraestructura de sistemas a través de este escenario:
+
+Un contenedor con una Web, y otro contenedor con un balanceador de carga para gestionar las peticiones que recibe el contenedor que queremos publicar.
+
+El balanceador de carga es el único que estará conectado con nuestra VM-local, es decir, dispondrá de un puerto externo:interno (80:80). Quedando el el externo publicado hacia el host por donde recibe las peticiones y el interno para comunicarse con el contenedor del balanceador.
+
+A su vez, el contenedor del balanceador estará conectado por `--link` con el contenedor del sitio web. De esta forma, podremos estar dando servicio sin necesidad de publicar y exponer nuestra web.
+
+[img Web y balanceador]
+
+
+- Vamos a crear el archivo `docker-compose.yml`. 
+
+```
+ubuntu@ubuntu:~$ mkdir proxy
+ubuntu@ubuntu:~$ cd proxy/
+ubuntu@ubuntu:~/proxy$ nano docker-compose.yml
+ubuntu@ubuntu:~/proxy$ cat docker-compose.yml
+
+version: '3' -----------------------------------> Indica versión de Docker Compose, Actualmente la 3. Diferencias por tipo de etiquetas que se pueden usar.
+services:
+  web:  ----------------------------------------> Servicio web.
+    image: dockercloud/hello-world -------------> Imagen que va a utlizar la web.
+  lb:   ----------------------------------------> Servicio que balancea la carga.
+    image: dockercloud/haproxy -----------------> Imagen del sistema de balanceo.
+    links:
+       - web
+     volumes: ----------------------------------------> Indica que el cotenedor del servicio que balancea la carga va a estar trabajando con el fichero docker.shock
+       - /var/run/docker.sock:/var/run/docker.sock ---> Y además debe copiar el mismo arbol de carpetas y archivo en la raiz del contenedor, :/var/run/docker.sock
+     ports:
+       - 80:80 ----------------------------------------> Establece mismo puerto externo:interno, 80 de nuestra VM : con el 80 de nuestro contenedor. 
+```
+
+`docker.shock` => este fichero, ubicado en nuestra VM-local, es el encargado de registrar los eventos y cambios que lleva a acabo Docker. 
+
+
+- Iniciar nuestros servicios con la herramienta Compose.
+
+***`$ docker-compose up -d`***
+
+```
+ubuntu@ubuntu:~/proxy$ docker-compose up -d
+Creating network "proxy_default" with the default driver -------> Crea red interna para poner en funcionamiento los contenedores en esta red.
+Pulling web (dockercloud/hello-world:latest)...
+latest: Pulling from dockercloud/hello-world
+486a8e636d62: Pull complete
+03374a673b41: Pull complete
+101d2c41032c: Pull complete
+1252e1f36d2b: Pull complete
+8385bb1a4377: Pull complete
+f29c06131731: Pull complete
+Digest: sha256:c6739be46772256abdd1aad960ea8cf6c6a5f841c12e8d9a65cd5ef23bab45fc
+Status: Downloaded newer image for dockercloud/hello-world:latest  --------------------> descarga las imágenes
+Pulling lb (dockercloud/haproxy:latest)...
+latest: Pulling from dockercloud/haproxy
+2aecc7e1714b: Pull complete
+b2c043fb3918: Pull complete
+f8cc77d1dea5: Pull complete
+Digest: sha256:ad5c5d4802dee54d8ab5d3d51105d3facfa978eadc4dcced4c95658139efee5f
+Status: Downloaded newer image for dockercloud/haproxy:latest  --------------------------> descarga las imágenes
+Creating proxy_web_1 ...
+Creating proxy_web_1 ... done  --------------------------> Inicia cada uno de los contenedores
+Creating proxy_lb_1 ...
+Creating proxy_lb_1 ... done  ---------------------------> Inicia cada uno de los contenedores
+
+ubuntu@ubuntu:~/proxy$
+```
+
+
+- Listar los procesos con docker-compose al igual que listar contenedores:
+
+```
+ubuntu@ubuntu:~/proxy$ docker-compose ps
+   Name                  Command               State                   Ports
+--------------------------------------------------------------------------------------------
+proxy_lb_1    /sbin/tini -- dockercloud- ...   Up      1936/tcp, 443/tcp, 0.0.0.0:80->80/tcp
+proxy_web_1   /bin/sh -c /run.sh               Up      80/tcp
+```
+
+El cambio es de presentación:
+
+```
+ubuntu@ubuntu:~/proxy$ docker container ls
+CONTAINER ID        IMAGE                     COMMAND                  CREATED             STATUS              PORTS                                   NAMES
+774a1ae29e26        dockercloud/haproxy       "/sbin/tini -- doc..."   11 minutes ago      Up 11 minutes       443/tcp, 0.0.0.0:80->80/tcp, 1936/tcp   proxy_lb_1
+0e65bb643e2e        dockercloud/hello-world   "/bin/sh -c /run.sh"     11 minutes ago      Up 11 minutes       80/tcp                                  proxy_web_1
+```
+
+- Accedemos por el navegador a la IP de la VM-local
+
+```
+http://192.168.99.14/
+```
+
+[img web-site-proxy]
+
+Observamos en el mensaje de la página que el contenedor iniciado para ofrecer esta web corresponde con el contenedor creado: My hostname is 0e65bb643e2e
+
+
+
+
+---
+>#### Escalar servicios
+---
+
+El aumento de instancias de nuestros servicios nos permite poder garantizar la disponibilidad frente a un aumeto de accesos superior al soportado.
+
+[imag-proxy_escalable]
+
+
+Consultar la ayuda sobre ***`docker-compose scale --help`***
+
+```
+ubuntu@ubuntu:~$ docker-compose scale --help
+Set number of containers to run for a service.
+
+Numbers are specified in the form `service=num` as arguments.
+For example:
+
+    $ docker-compose scale web=2 worker=3
+
+This command is deprecated. Use the up command with the `--scale` flag
+instead.
+
+Usage: scale [options] [SERVICE=NUM...]
+
+Options:
+  -t, --timeout TIMEOUT      Specify a shutdown timeout in seconds.
+                             (default: 10)
+```
+
+_Nota: La ayuda muestra informa que el comando está deprecado. Siendo aún compatible, nos invita a utilizar la nueva sintaxis._ 
+
+***`$ docker-compose up --scale web=4 -d`***
+
+Iniciamos el procesado del fichero docker-compose.yml y le indicamos que escale el servio `web` 4 veces.
+
+```
+ubuntu@ubuntu:~/proxy$ docker-compose up --scale web=4 -d
+Creating proxy_web_1 ...
+Creating proxy_web_2 ...
+Creating proxy_web_3 ...
+Creating proxy_web_4 ...
+Creating proxy_web_1 ... done
+Creating proxy_web_2 ... done
+Creating proxy_web_3 ... done
+Creating proxy_web_4 ... done
+Recreating proxy_lb_1 ...
+Recreating proxy_lb_1 ... done
+ubuntu@ubuntu:~/proxy$
+```
+
+Verificamos los contenedores levantados...
+
+```
+ubuntu@ubuntu:~/proxy$ docker-compose ps
+   Name                  Command               State                   Ports
+--------------------------------------------------------------------------------------------
+proxy_lb_1    /sbin/tini -- dockercloud- ...   Up      1936/tcp, 443/tcp, 0.0.0.0:80->80/tcp
+proxy_web_1   /bin/sh -c /run.sh               Up      80/tcp
+proxy_web_2   /bin/sh -c /run.sh               Up      80/tcp
+proxy_web_3   /bin/sh -c /run.sh               Up      80/tcp
+proxy_web_4   /bin/sh -c /run.sh               Up      80/tcp
+ubuntu@ubuntu:~/proxy$
+```
+
+
+[img- 4 ventanas escaladas]
+
+
+***Desescalada de los servicios...***
+
+Asumamos que ha pasado la punta de carga en nuestros servicio y ya no es necesario tener las 4 instancias levantadas.
+
+***`$ docker-compose up --scale web=1 -d`***
+
+```
+ubuntu@ubuntu:~/proxy$ docker-compose up --scale web=1 -d
+Stopping and removing proxy_web_2 ... done
+Stopping and removing proxy_web_3 ... done
+Stopping and removing proxy_web_4 ... done
+Starting proxy_web_1 ... done
+proxy_lb_1 is up-to-date
+
+ubuntu@ubuntu:~/proxy$ docker-compose ps
+   Name                  Command               State                   Ports
+--------------------------------------------------------------------------------------------
+proxy_lb_1    /sbin/tini -- dockercloud- ...   Up      1936/tcp, 443/tcp, 0.0.0.0:80->80/tcp
+proxy_web_1   /bin/sh -c /run.sh               Up      80/tcp
+```
+
+
+
+
+***Adicional:***
+
+Si inciamos el comando sin el flag `-d`  (deatach) para ejecutarlo en el proceso principal en lugar de en segundo plano (daemon background), podemos ver las tareas que  realiza:
+
+- Inicia los contenedores
+- Asocia (--link) el balanceador con los nuevos contenedores creados del servicio web.
+- Muestra configuracíones del balanceador sobre:  logs, máximas conexiones, eventos, seguridad, planificación de procesos, entre otras. 
+
+```
+ubuntu@ubuntu:~/proxy$ docker-compose up --scale web=4
+Starting proxy_web_1 ...
+Starting proxy_web_1 ... done
+Creating proxy_web_2 ...
+Creating proxy_web_3 ...
+Creating proxy_web_4 ...
+Creating proxy_web_2 ... done
+Creating proxy_web_3 ... done
+Creating proxy_web_4 ... done
+Starting proxy_lb_1 ...
+Starting proxy_lb_1 ... done
+Attaching to proxy_web_1, proxy_web_3, proxy_web_2, proxy_web_4, proxy_lb_1
+lb_1   | INFO:haproxy:dockercloud/haproxy 1.6.7 is running outside Docker Cloud
+lb_1   | INFO:haproxy:Haproxy is running by docker-compose, loading HAProxy definition through docker api
+lb_1   | INFO:haproxy:dockercloud/haproxy PID: 5
+lb_1   | INFO:haproxy:=> Add task: Initial start - Compose Mode
+lb_1   | INFO:haproxy:=> Executing task: Initial start - Compose Mode
+lb_1   | INFO:haproxy:==========BEGIN==========
+lb_1   | INFO:haproxy:Linked service: proxy_web
+lb_1   | INFO:haproxy:Linked container: proxy_web_1, proxy_web_2, proxy_web_3, proxy_web_4
+lb_1   | INFO:haproxy:HAProxy configuration:
+lb_1   | global
+lb_1   |   log 127.0.0.1 local0
+lb_1   |   log 127.0.0.1 local1 notice
+lb_1   |   log-send-hostname
+lb_1   |   maxconn 4096
+lb_1   |   pidfile /var/run/haproxy.pid
+lb_1   |   user haproxy
+lb_1   |   group haproxy
+lb_1   |   daemon
+lb_1   |   stats socket /var/run/haproxy.stats level admin
+lb_1   |   ssl-default-bind-options no-sslv3
+lb_1   |   ssl-default-bind-ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:AES128-GCM-SHA256:AES128-SHA256:AES128-SHA:AES256-GCM-SHA384:AES256-SHA256:AES256-SHA:DHE-DSS-AES128-SHA:DES-CBC3-SHA
+lb_1   | defaults
+lb_1   |   balance roundrobin
+lb_1   |   log global
+lb_1   |   mode http
+lb_1   |   option redispatch
+lb_1   |   option httplog
+lb_1   |   option dontlognull
+lb_1   |   option forwardfor
+lb_1   |   timeout connect 5000
+lb_1   |   timeout client 50000
+lb_1   |   timeout server 50000
+lb_1   | listen stats
+lb_1   |   bind :1936
+lb_1   |   mode http
+lb_1   |   stats enable
+lb_1   |   timeout connect 10s
+lb_1   |   timeout client 1m
+lb_1   |   timeout server 1m
+lb_1   |   stats hide-version
+lb_1   |   stats realm Haproxy\ Statistics
+lb_1   |   stats uri /
+lb_1   |   stats auth stats:stats
+lb_1   | frontend default_port_80
+lb_1   |   bind :80
+lb_1   |   reqadd X-Forwarded-Proto:\ http
+lb_1   |   maxconn 4096
+lb_1   |   default_backend default_service
+lb_1   | backend default_service
+lb_1   |   server proxy_web_1 proxy_web_1:80 check inter 2000 rise 2 fall 3
+lb_1   |   server proxy_web_2 proxy_web_2:80 check inter 2000 rise 2 fall 3
+lb_1   |   server proxy_web_3 proxy_web_3:80 check inter 2000 rise 2 fall 3
+lb_1   |   server proxy_web_4 proxy_web_4:80 check inter 2000 rise 2 fall 3
+lb_1   | INFO:haproxy:Launching HAProxy
+lb_1   | INFO:haproxy:HAProxy has been launched(PID: 8)
+lb_1   | INFO:haproxy:===========END===========
+
+```
 
 
 ---
 ##### _Sección 12_
 #### Registro privado de imagenes.
 
+- [¿Qué es Docker Registry?][s12s1]
+- [Instalar Docker Registry][s12s2]
+- [Configurar el cliente con Docker Registry][s12s3]
+- [Publicar imagen en Docker Registry][s12s4]
+- [Agregar interfaz a Docker Registry][s12s5]
+- [Escalar servicios][s12s6]
+
+
+---
+>#### ¿Qué es Docker Registry?
+---
+Docker Registry es una aplicación altamente escalable que funciona del lado del servidor que nos permite almacenar y distribuir las imágenes de Docker.
+
+Beneficios:
+
+- Total control sobre dónde están almacenadas las imágenes.
+- Total control sobre la configuración de despliegue de las imágenes.
+- Integración de las imágenes al flujo de desarrollo local.
+- Almacenamiento propio sin dependencia total de Docker Cloud.
+- Almacenamiento privado de todas nuestras imágenes. Docker Cloud sólo permite una imágen privada de forma gratuita.
+
+[img pre y pos registry]
+
+
+
+---
+>#### Instalar Docker Registry
+---
+
+Nuestro registro privado lo vamos a instalar en nuestra máquina privada creada en clouding.io.
+
+2º servidor => dckrprod: 46.183.116.126  pss:uoEf9MqMSPzfjhEI
+
+- Instalamos Docker Compose en nuestro servidor de producción remoto.
+- Creamos un directorio `registry` donde almacenar los ficheros de configuración de este registro privado.
+- Creamos un fichero con docker-compose donde le vamos a describir la forma en la que debe configurar e iniciar nuestro registro privado.  
+
+```
+root@dckrprod:~# cd registry/
+root@dckrprod:~/registry# nano docker-compose.yml
+```
+
+```
+version: '3'
+
+services:
+ registry:  ---------------------> Único servicio.
+  restart: always  --------------> En caso de caída se reinicie siempre.
+  image: registry:2  ------------> Imágen y versión de registry.
+  ports:
+   - 5000:5000  -----------------> Único puerto publicado, mismo puerto ext:int.
+  volumes:
+   - ./data:/var/lib/registry  --> Volúmen añadido a este inicio de conenedor, donde se va a crear una carpeta /data dentro del directorio donde estamos del servidor remoto, y va a estar enlazada dentro del contenedor con la estructura de carpetas /var/lib/registry. La carpeta del contenedor es donde se guardarán las imágenes. Esto nos permite tener los datos del volúmen respaldados y en caso de necesitar borrar el contenedor, podremos volver a inciar un nuevo contenedor utilizando la misma información.
+```
+
+- Iniciar el servicio de Registry con docker-compose.
+
+***`$ docker-compose up -d`***
+
+
+```
+root@dckrprod:~/registry# docker-compose up -d
+Creating network "registry_default" with the default driver
+Pulling registry (registry:2)...
+2: Pulling from library/registry
+49388a8c9c86: Pulling fs layer
+e4d43608dd22: Pulling fs layer
+49388a8c9c86: Downloading [>                                                  ]  32.77kB/2.385MB Waiting
+49388a8c9c86: Downloading [==========>                                        ]  523.2kB/2.385MB Downloading [=======================>                           ]  2.49388a8c9c86: Downloading [==================================================>]  2.49388a8c9c86: Extracting [>                                                  ]  32.49388a8c9c86: Extracting [===================>                               ]  95049388a8c9c86: Extracting [==================================================>]  2.349388a8c9c86: Extracting [==================================================>]  2.349388a8c9c86: Pull complete
+e4d43608dd22: Extracting [>                                                  ]  32.e4d43608dd22: Extracting [=================>                                 ]  720e4d43608dd22: Extracting [=========================================>         ]  1.6e4d43608dd22: Extracting [===========================================>       ]  1.7e4d43608dd22: Pull complete
+3a41740f900c: Pull complete
+e16ef4b76684: Pull complete
+65f212f7c778: Pull complete
+Digest: sha256:d837de65fd9bdb81d74055f1dc9cc9154ad5d8d5328f42f57f273000c402c76d
+Status: Downloaded newer image for registry:2
+Creating registry_registry_1 ...
+Creating registry_registry_1 ... done
+root@dckrprod:~/registry#
+```
+
+
+
+- Verificamos que nuestro Registry está correctamente iniciado.
+
+```
+root@dckrprod:~/registry# docker-compose ps
+       Name                      Command               State           Ports
+-------------------------------------------------------------------------------------
+registry_registry_1   /entrypoint.sh /etc/docker ...   Up      0.0.0.0:5000->5000/tcp
+```
+
+
+---
+>#### Configurar el cliente con Docker Registry
+---
+
+Configurar nuestra máquina virtual para conectarlo al registro privado.
+
+
+- Desde nuestra VM-local, vamos antes de nada a obtener información sobre Docker de nuestra máquina:
+
+***`$ docker info`***
+
+Vamos a fijarnos en la última sección donde define los registros inseguros con los que Docker va a trabajar:
+```
+Insecure Registries:
+ 127.0.0.0/8
+```
+
+
+```
+ubuntu@ubuntu:~$ docker info
+Containers: 8
+ Running: 2
+ Paused: 0
+ Stopped: 6
+Images: 13
+Server Version: 17.05.0-ce
+Storage Driver: aufs
+ Root Dir: /var/lib/docker/aufs
+ Backing Filesystem: extfs
+ Dirs: 49
+ Dirperm1 Supported: true
+Logging Driver: json-file
+Cgroup Driver: cgroupfs
+Plugins:
+ Volume: local
+ Network: bridge host macvlan null overlay
+Swarm: inactive
+Runtimes: runc
+Default Runtime: runc
+Init Binary: docker-init
+containerd version: 9048e5e50717ea4497b757314bad98ea3763c145
+runc version: 9c2d8d184e5da67c95d601382adf14862e4f2228
+init version: 949e6fa
+Security Options:
+ apparmor
+ seccomp
+  Profile: default
+Kernel Version: 4.4.0-98-generic
+Operating System: Ubuntu 16.04.3 LTS
+OSType: linux
+Architecture: x86_64
+CPUs: 1
+Total Memory: 1.953GiB
+Name: ubuntu
+ID: JWJU:EU4K:TQOZ:BENY:33UO:73SV:4WSY:KP6L:4XE4:MJMH:EOGG:EMMY
+Docker Root Dir: /var/lib/docker
+Debug Mode (client): false
+Debug Mode (server): false
+Username: josemanuelcrv
+Registry: https://index.docker.io/v1/
+Experimental: false
+Insecure Registries:
+ 127.0.0.0/8
+Live Restore Enabled: false
+
+WARNING: No swap limit support
+ubuntu@ubuntu:~$
+```
+
+
+
+Para conectar nuestro cliente con el registro privado en nuestro servidor de producción remoto es necesario que aparezca nuestro registro en esta configuración:
+
+- Editar el archivo para añadir la configuración necesaria:
+
+***`$ sudo nano /etc/docker/daemon.json`*** 
+
+```
+ubuntu@ubuntu:~$ sudo nano /etc/docker/daemon.json
+[sudo] password for ubuntu:
+ubuntu@ubuntu:~$ cat /etc/docker/daemon.json
+
+ubuntu@ubuntu:~$ sudo cat /etc/docker/daemon.json
+
+{
+"insecure-registries": ["46.183.116.126:5000"]
+}
+ubuntu@ubuntu:~$
+
+``` 
+
+
+- Reiniciar el servicio de Docker para que actualice los cambios.
+
+***`sudo service docker restart`*** 
+
+Una vez reiniciado el servicio, podemos comprobar que ahora en la sección de _registros inseguros_ aparece la _IP_:_puerto_ del contenedor de nuestro servidor remoto `dckrprod` que contiene nuestro sistema Registry privado.
+
+```
+Insecure Registries:
+ 46.183.116.126:5000
+ 127.0.0.0/8
+Live Restore Enabled: false
+
+WARNING: No swap limit support
+ubuntu@ubuntu:~$
+```
+
+
+
+---
+>#### Publicar imagen en Docker Registry
+---
+
+- Debemos modificar el nombre de la imágen
+- - En ***Docker Cloud*** nos obligaba a estar registrado en la plataforma y a mantener esta estructura de nombre para las imágenes: `identificador\nombre-imagen`
+- - En nuesro ***Registry*** debemos utilizar la siguiente estructura de nombres de imágenes: `ip:puerto/nombre-imagen`  donde se encuentre instalado nuestro registro de imágenes.
+
+
+- Antes de subir desde nuestra VM-local una imagen a nuestro repositorio privado en el servidor remoto, vamos a cambiarle el nombre de acuerado a la especificación anterior:
+
+Para el ejemplo, utilizaremos la imagen más ligera para que la subida sea lo más rapida posible. `busybox  1.13MB`
+
+```
+ubuntu@ubuntu:~$ docker image tag busybox 46.183.116.126:5000/busybox
+ubuntu@ubuntu:~$ docker image ls
+REPOSITORY                    TAG                 IMAGE ID            CREATED             SIZE
+josemanuelcrv/miweb           latest              98a41d17613f        11 days ago         54.3MB
+miweb                         latest              98a41d17613f        11 days ago         54.3MB
+ejemplo                       latest              cff6c019fb4f        2 weeks ago         94.7MB
+mariadb                       latest              abcee1d29aac        2 weeks ago         396MB
+imag-welcome                  latest              7b155699c350        2 weeks ago         94.7MB
+ubuntu                        17.04               5e9fde03a0de        3 weeks ago         94.7MB
+hello-world                   latest              725dcfab7d63        3 weeks ago         1.84kB
+46.183.116.126:5000/busybox   latest              6ad733544a63        3 weeks ago         1.13MB
+busybox                       latest              6ad733544a63        3 weeks ago         1.13MB
+dockercloud/haproxy           latest              d9f469c10c27        5 months ago        42.5MB
+dockercloud/hello-world       latest              0b898a637c19        5 months ago        30.8MB
+nginx                         1.11-alpine         bedece1f06cc        7 months ago        54.3MB
+ubuntu@ubuntu:~$
+```
+
+
+- Subir la imagen al repositorio privado:
+
+***`sudo docker image push 46.183.116.126:5000/busybox`***
+
+
+
+
+
+
+---
+>#### Agregar interfaz a Docker Registry
+---
+
+https://hub.docker.com/r/konradkleine/docker-registry-frontend/
+
+
+```
+root@dckrprod:~/registry# nano docker-compose.yml
+root@dckrprod:~/registry# cat  docker-compose.yml
+version: '3'
+
+services:
+ registry:
+  restart: always
+  image: registry:2
+  ports:
+   - 5000:5000
+  volumes:
+   - ./data:/var/lib/registry
+ web-registry:
+  restart: always
+  image: konradkleine/docker-registry-frontend:v2
+  ports:
+   - 8080:80
+  environment:
+   - ENV_DOCKER_REGISTRY_HOST=46.183.116.126
+   - ENV_DOCKER_REGISTRY_PORT=5000
+root@dckrprod:~/registry#
+
+
+```
+
+
+```
+root@dckrprod:~/registry# docker-compose up -d
+Pulling web-registry (konradkleine/docker-registry-frontend:v2)...
+v2: Pulling from konradkleine/docker-registry-frontend
+85b1f47fba49: Pull complete
+e3c64813de17: Pull complete
+6e61107884ac: Pull complete
+411f14e0e0fd: Pull complete
+987d1071cd71: Pull complete
+95913db6ef30: Pull complete
+1eb7ee3fbde2: Pull complete
+9b6f26b1b1a1: Pull complete
+daa6941a3108: Pull complete
+86cc842193a6: Pull complete
+024ab6890532: Pull complete
+af9b7d0cb338: Pull complete
+02f33fb0dcad: Pull complete
+e8275670ee05: Pull complete
+1c1a56903b01: Pull complete
+afc4e94602b9: Pull complete
+df1a95efa681: Pull complete
+d8bcb7be9e08: Pull complete
+d9c69b7bcc4f: Pull complete
+2a14b209069e: Pull complete
+e7c2bcdf63d5: Pull complete
+efc16e6bbbea: Pull complete
+552460069ca8: Pull complete
+e6b075740da3: Pull complete
+9976bc800046: Pull complete
+Digest: sha256:181aad54ee64312a57f8ccba5247c67358de18886d5e2f383b8c4b80a7a5edf6
+Status: Downloaded newer image for konradkleine/docker-registry-frontend:v2
+registry_registry_1 is up-to-date
+Creating registry_web-registry_1 ...
+Creating registry_web-registry_1 ... done
+root@dckrprod:~/registry#
+
+```
+
+
+
+```
+root@dckrprod:~/registry# docker-compose ps
+         Name                        Command               State               Ports
+------------------------------------------------------------------------------------------------
+registry_registry_1       /entrypoint.sh /etc/docker ...   Up      0.0.0.0:5000->5000/tcp
+registry_web-registry_1   /bin/sh -c $START_SCRIPT         Up      443/tcp, 0.0.0.0:8080->80/tcp
+root@dckrprod:~/registry#
+
+```
+
+
+
+#### INSTALACIÓN LOCAL DE REGISTRY:
+
+- Instalación de Registry en local:
+
+Creamos un archivo `docker-compose.yml` en un nuevo directorio `registry` de nuestra VM-local.
+
+Definimos que el HOST va a ser nuestra máquina local
+
+```
+ubuntu@ubuntu:~/registry$ sudo nano docker-compose.yml
+
+ubuntu@ubuntu:~/registry$ cat docker-compose.yml
+
+version: '3'
+
+services:
+ registry:
+  restart: always
+  image: registry:2
+  ports:
+   - 5000:5000
+  volumes:
+   - ./data:/var/lib/registry
+ web-registry:
+  restart: always
+  image: konradkleine/docker-registry-frontend:v2
+  ports:
+   - 8080:80
+  environment:
+   - ENV_DOCKER_REGISTRY_HOST=192.168.99.14
+   - ENV_DOCKER_REGISTRY_PORT=5000
+```
+
+
+
+- Ejecutar docker-compose para generar los dos contenedores, el registry y el frontal web:
+
+***`docker-compose up -d`***
+
+Etiquetar la imagen con la estructura de nombres de acuerdo al host donde vamos a subirla, en este caso, este Registry está en un contenedor de nuestra VM-local, por lo que indicamos la _IP_ de nuestra VM-local.
+
+***`docker image tag busybox 192.168.99.14:5000/busybox`***
+
+
+
+Subir la imagen al repositorio de Registry de nuestra VM-local:
+
+***`sudo docker image push 192.168.99.14:5000/busybox`***
+
+WEB:
+
+http://192.168.99.14:8080/home
+
+
+- Añadir la dirección y puerto de nuestro Registro Inseguro Local `192.168.99.14:5000`: 
+
+```
+
+
+
+
+ubuntu@ubuntu:~/registry$ sudo nano /etc/docker/daemon.json
+ubuntu@ubuntu:~/registry$ sudo cat /etc/docker/daemon.json
+
+{
+"insecure-registries": ["46.183.116.126:5000", "192.168.99.14:5000"]
+}
+```
+
+
+
+- Reinciar el servicio:
+
+***`ubuntu@ubuntu:~/registry$ sudo service docker restart`***
+
+- Verificar la adición de nuestro registro inseguro local:
+
+```
+ubuntu@ubuntu:~/registry$ docker info
+
+Insecure Registries:
+ 192.168.99.14:5000
+ 46.183.116.126:5000
+ 127.0.0.0/8
+Live Restore Enabled: false
+```
+
+
+
+
+
 
 ---
 ##### _Sección 13_
 #### Conclusiones y resultados.
 
+[final_course_review]
+
+Mapa de algunas herramientas utilizadas en tecnológías Cloud. 
+
+![CloudNativeLandscape][CloudNativeLandscape]
+
 
 ---
 ##### _Sección 14_
 #### Ejercicios y actividades.
+
+```
+Tarea: Crear un fichero compose para publicar un servicio de wordpress local
+120 minutos para finalizar   4 soluciones del estudiante
+Deseamos poner en funcionamiento un sitio de wordpress en nuestra máquina local para realizarle algunas pruebas a su última versión. Necesitamos poder consultar la base de datos con facilidad y acceder a la web. De igual forma necesitamos poder modificar el código fuente durante el proceso.
+```
+
+
+Define un docker-compose que permita levantar Wordpress.
+
+Se compondrá de dos servicios, uno con la imágen de wordpress oficial y otro con una bbdd (mysql), necearia almacenar la información necesaria por Wordpress.  
+
+- Creamos el fichero docker-compose.yml dentro del nuevo directorio destinado al proyecto.
+- Definimos en el servicio _MYSQL_ el nombre de la bbdd `dbwordpress`, las credenciales de acceso para `admin` y para `user`. 
+- Definimos en el servicio _Worpress_ las credenciales de acceso del propio Wordpress a la bbdd. 
+- Creamos un directotio en la raiz desde donde se está ejecutando el comando llamado `db_data` que estará asociado con el volumen dentro del contenedor en `/var/lib/mysql` para que se pesistan los cambios efectuados por Wordpress en la bbdd. 
+
+```
+ubuntu@ubuntu:~/myproyects$ cd wordpress-docker/
+ubuntu@ubuntu:~/myproyects/wordpress-docker$ sudo nano docker-compose.yml
+[sudo] password for ubuntu:
+
+
+ubuntu@ubuntu:~/myproyects/wordpress-docker$ sudo cat docker-compose.yml
+version: '3'
+
+services:
+ db:
+  image: mysql:5.7
+  volumes:
+   - db_data:/var/lib/mysql
+  restart: always
+  environment:
+   MYSQL_ROOT_PASSWORD: admin
+   MYSQL_DATABASE: wordpress
+   MYSQL_USER: wordpress
+   MYSQL_PASSWORD: wordpress
+
+ wordpress:
+  depends_on:
+   - db
+  image: wordpress:latest
+  ports:
+   - 8000:80
+  restart: always
+  environment:
+   WORDPRESS_DB_HOST: db:3306
+   WORDPRESS_DB_USER: wordpress
+   WORDPRESS_DB_PASSWORD: wordpress
+volumes:
+ db_data:
+ubuntu@ubuntu:~/myproyects/wordpress-docker$
+```
+
+- Procesamos el fichero con docker-compose
+
+```
+ubuntu@ubuntu:~/myproyects/wordpress-docker$ docker-compose up -d
+Creating volume "wordpressdocker_db_data" with default driver
+Creating wordpressdocker_db_1 ...
+Creating wordpressdocker_db_1 ... done
+Creating wordpressdocker_wordpress_1 ...
+Creating wordpressdocker_wordpress_1 ... done
+```
+
+- Verificamos que los contenedores o los procesos de docker-compose están corriendo.
+
+```
+ubuntu@ubuntu:~/myproyects/wordpress-docker$ docker container ls
+CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                  NAMES
+971e650f726d        wordpress:latest    "docker-entrypoint..."   6 minutes ago       Up 6 minutes        0.0.0.0:8000->80/tcp   wordpressdocker_wordpress_1
+d47d14b6f82d        mysql:5.7           "docker-entrypoint..."   6 minutes ago       Up 6 minutes        3306/tcp               wordpressdocker_db_1
+
+ubuntu@ubuntu:~/myproyects/wordpress-docker$ docker-compose ps
+           Name                          Command               State          Ports
+-------------------------------------------------------------------------------------------
+wordpressdocker_db_1          docker-entrypoint.sh mysqld      Up      3306/tcp
+wordpressdocker_wordpress_1   docker-entrypoint.sh apach ...   Up      0.0.0.0:8000->80/tcp
+```
+
+Accedemos desde el navegador a la _IP_ de nuestra VM-local y el puerto por donde se publica la web `http://192.168.99.14:8000/` 
+
+Observamos el correcto acceso a la página de bienvenida de Wordpress, donde tras la elección de idioma nos ofrece comenzar a configurar un nuevo site-wordpress.
+
+[wordpress-site-config-1]
+
+[wordpress-site-config-2]
+
+
+Nombre del sitio: hellomoon
+password: ssnha^#8)fXi#(sme&
+
+
+- Ahora vamos a acceder al contenedor de la bbdd:
+
+***`docker exec -it wordpressdocker_db_1 mysql -uroot -p`***
+
+El Password es el que establecimos cuando creamos el contenedor, definida en la variable: `MYSQL_ROOT_PASSWORD: admin`
+
+```
+ubuntu@ubuntu:~/myproyects/wordpress-docker$ docker exec -it wordpressdocker_db_1 mysql -uroot -p
+Enter password:admin
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 65
+Server version: 5.7.20 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+```
+
+
+- Vamos a verificar por consola qué Bases de Datos tiene este contedor:
+
+```
+mysql> show databases;
+
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
+| wordpress          |
++--------------------+
+5 rows in set (0.00 sec)
+
+mysql>
+
+```
+
+- Accedemos a la bbdd de wordpress y mostramos las tablas que contiene:
+
+```
+mysql> SHOW TABLES;
++-----------------------+
+| Tables_in_wordpress   |
++-----------------------+
+| wp_commentmeta        |
+| wp_comments           |
+| wp_links              |
+| wp_options            |
+| wp_postmeta           |
+| wp_posts              |
+| wp_term_relationships |
+| wp_term_taxonomy      |
+| wp_termmeta           |
+| wp_terms              |
+| wp_usermeta           |
+| wp_users              |
++-----------------------+
+12 rows in set (0.00 sec)
+
+mysql>
+
+```
+
+- Mostramos el contenido de alguna de las tablas, por ejemplo `wp_users`:
+
+```
+mysql> SELECT * FROM wp_users;
++----+---------------+------------------------------------+---------------+--------------------------+----------+---------------------+---------------------+-------------+---------------+
+| ID | user_login    | user_pass                          | user_nicename | user_email               | user_url | user_registered     | user_activation_key | user_status | display_name  |
++----+---------------+------------------------------------+---------------+--------------------------+----------+---------------------+---------------------+-------------+---------------+
+|  1 | josemanuelcrv | $P$B0CI5rVchhIkpt5DI/qhW55D4YfP0i. | josemanuelcrv | josemanuel.crv@gmail.com |          | 2017-12-05 14:53:43 |                     |           0 | josemanuelcrv |
++----+---------------+------------------------------------+---------------+--------------------------+----------+---------------------+---------------------+-------------+---------------+
+1 row in set (0.00 sec)
+
+mysql>exit
+Bye
+ubuntu@ubuntu:~/myproyects/wordpress-docker$
+```
+
+
+
+- Ahora vamos a añadir un nuevo servicio para poder administrar la bbdd de forma visual, a través del conocido programa phpMyAdmin.
+
+- - Configuramos este nuevo servicio definiendo los siguiente valores:
+- - Imagen base: `phpmyadmin/phpmyadmin`  es la oficial. 
+- - Nombre del contenedor: `phpmyadmin`
+- - Varibles de entorno:  definidas con las credenciales de conexión con la bbdd definida en el primer servicio `db` .
+- - Política de recuperación: Se auto-reiniciará en caso caída del contenedor.
+- - Puerto: Servicio publicado por el puerto `8181`,  evitando colisión con otro servicio existente `hello-world` publicado por el `8080`.
+- - Volumen: Directorio /sessions solo en la raiz del contenedor.
+
+```
+ubuntu@ubuntu:~/myproyects/wordpress-docker$ sudo nano docker-compose.yml
+
+ubuntu@ubuntu:~/myproyects/wordpress-docker$ sudo cat docker-compose.yml
+version: '3'
+
+services:
+ db:
+  image: mysql:5.7
+  container_name: mysql_db
+  volumes:
+   - db_data:/var/lib/mysql
+  restart: always
+  environment:
+   MYSQL_ROOT_PASSWORD: admin
+   MYSQL_DATABASE: wordpress
+   MYSQL_USER: wordpress
+   MYSQL_PASSWORD: wordpress
+
+ wordpress:
+  depends_on:
+   - db
+  image: wordpress:latest
+  container_name: wordpress_cms
+  ports:
+   - 8000:80
+  restart: always
+  environment:
+   WORDPRESS_DB_HOST: db:3306
+   WORDPRESS_DB_USER: wordpress
+   WORDPRESS_DB_PASSWORD: wordpress
+
+ phpmyadmin:
+  image: phpmyadmin/phpmyadmin
+  container_name: phpmyadmin
+  environment:
+   MYSQL_USERNAME: wordpress
+   MYSQL_ROOT_PASSWORD: admin
+  restart: always
+  ports:
+   - 8181:80
+  volumes:
+   - /sessions
+
+volumes:
+ db_data:
+
+
+ubuntu@ubuntu:~/myproyects/wordpress-docker$
+```
+
+
+- Procesamos el fichero docker-compose.yml. 
+
+Comenzará a descargar la imagen de phpMyAdmin que aún no disponíamos y, al finalizar la descarga, comenzará a crear los contenedores e iniciar los servicios:
+
+```
+ubuntu@ubuntu:~/myproyects/wordpress-docker$ docker-compose up -d
+ubuntu@ubuntu:~/myproyects/wordpress-docker$ docker-compose up -d
+Pulling phpmyadmin (phpmyadmin/phpmyadmin:latest)...
+latest: Pulling from phpmyadmin/phpmyadmin
+b56ae66c2937: Pull complete
+93cb6536f16d: Pull complete
+789a0a6da2b4: Pull complete
+a44ddb6a2610: Pull complete
+ab68eb8c1c8d: Pull complete
+69a585d74b76: Pull complete
+6bc4bbea6af0: Pull complete
+Digest: sha256:5e3b68a7ecddc5d182f7e49251934cdf988680b533dcaf7fd389d8797f4be383
+Status: Downloaded newer image for phpmyadmin/phpmyadmin:latest
+Creating mysql_db ...
+Creating phpmyadmin ...
+Creating mysql_db ... done
+Creating phpmyadmin ... done
+Creating wordpress_cms ...
+Creating wordpress_cms ... done
+
+
+ubuntu@ubuntu:~/myproyects/wordpress-docker$ docker-compose ps
+    Name                   Command               State          Ports
+-----------------------------------------------------------------------------
+mysql_db        docker-entrypoint.sh mysqld      Up      3306/tcp
+phpmyadmin      /run.sh phpmyadmin               Up      0.0.0.0:8181->80/tcp
+wordpress_cms   docker-entrypoint.sh apach ...   Up      0.0.0.0:8000->80/tcp
+
+ubuntu@ubuntu:~/myproyects/wordpress-docker$
+```
+
+
+
+
+---
+##### _Sección 15_
+#### Fuetes.
+
+
+Compose Curl: 
+https://docs.docker.com/compose/install/#install-compose
+
+https://github.com/docker/compose/releases
+
+https://hub.docker.com/r/docker/compose/
+
+busybox:
+
+https://docs.docker.com/samples/library/busybox/#run-busybox-shell
+
+docker-registry: 
+
+https://docs.docker.com/registry/deploying/#customize-the-published-port
+
+docker-registry-insecure: 
+
+https://docs.docker.com/registry/insecure/#deploy-a-plain-http-registry
+
+docker-registry-frontend: 
+
+https://hub.docker.com/r/konradkleine/docker-registry-frontend/
+
+
+kitematic wordpress: 
+
+http://192.168.99.100:8000/ (Entrar con kitematic o docker-terminal )
+
+Repo docker-hub: 
+
+https://hub.docker.com/u/josemanuelcrv/
+
+Repo local-privado-registry: 
+
+http://192.168.99.14:8080/home (front buscador para registri:5000)
+
+Mapa de tecnologías cloud: 
+
+https://raw.githubusercontent.com/cncf/landscape/master/landscape/CloudNativeLandscape_latest.jpg
+
+How to Deploy WordPress with Docker Compose: 
+
+https://www.upcloud.com/support/deploy-wordpress-with-docker-compose/
+
+MySQL Docker Containers: Understanding the basics: 
+
+https://severalnines.com/blog/mysql-docker-containers-understanding-basics
+
+mysql/mysql-docker: 
+
+https://github.com/mysql/mysql-docker
+
+Getting Information About Databases and Tables: 
+
+https://dev.mysql.com/doc/refman/5.5/en/getting-information.html
+
+MySQL command to show list of databases on server: 
+
+https://www.cyberciti.biz/faq/mysql-command-to-show-list-of-databases-on-server/
+
+Docker cookbook. Subir una imagen a nuestro Docker Registry privado: 
+
+https://loquemeinteresadelared.wordpress.com/2016/08/10/docker-cookbook-subir-una-imagen-a-nuestro-docker-registry-privado/
+
+Docker Swarm con Docker Machine, Scripts:
+
+http://mmorejon.github.io/blog/docker-swarm-con-docker-machine-scripts/
+
+How To Install Wordpress and PhpMyAdmin with Docker Compose on Ubuntu 14.04:
+
+https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-and-phpmyadmin-with-docker-compose-on-ubuntu-14-04
+
+Docker Hub - phpmyadmin/phpmyadmin:
+
+https://hub.docker.com/r/phpmyadmin/phpmyadmin/
+
+GitHub - phpmyadmin/docker
+
+https://github.com/phpmyadmin/docker
+
 
 
 
@@ -1489,6 +3946,16 @@ file1  file2
 [img-registry]:https://blog.irontec.com/wp-content/uploads/2017/02/registry-274x300.png
 [img-docker_vm]: http://www.media.formandome.es/markdownslides/docker/img/docker_vs_vm.jpg
 [img-docker+vm]: https://www.docker.com/sites/default/files/containers-vms-together%402x.png
+
+
+[CloudNativeLandscape]:https://raw.githubusercontent.com/cncf/landscape/master/landscape/CloudNativeLandscape_latest.jpg
+
+
+
+
+
+
+[website]: https://github.com/mmorejon/cursodocker-website.git
 
 
 [s1]: <https://github.com/josemanuelCRV/docker-notes#introducción-a-contenedores-y-docker>
@@ -1528,18 +3995,45 @@ file1  file2
 [s6s3]: <https://github.com/josemanuelCRV/docker-notes#utilizar-contenedores-como-volúmenes-de-datos>
 [s6s4]: <https://github.com/josemanuelCRV/docker-notes#salvar-la-información>
 
-
-
-
-
-
 [s7]: <https://github.com/josemanuelCRV/docker-notes#publicar-servicios>
+[s7s1]: <https://github.com/josemanuelCRV/docker-notes#obtener-ip-de-la-máquina-virtual>
+[s7s2]: <https://github.com/josemanuelCRV/docker-notes#establece-ip-estática-en-la-máquina-virtual>
+[s7s3]: <https://github.com/josemanuelCRV/docker-notes#qué-es-publicar-un-servicio>
+[s7s4]: <https://github.com/josemanuelCRV/docker-notes#publicar-un-servicio-con-nginx>
+[s7s5]: <https://github.com/josemanuelCRV/docker-notes#publicar-servicios-definiendo-el-puerto>
+[s7s6]: <https://github.com/josemanuelCRV/docker-notes#publicar-mi-sitio-web>
+
 [s8]: <https://github.com/josemanuelCRV/docker-notes#publicar-imagenes-en-docker-cloud>
+[s8s1]: <https://github.com/josemanuelCRV/docker-notes#estructura-del-proyecto-pensando-en-doceker>
+[s8s2]: <https://github.com/josemanuelCRV/docker-notes#registrar-repositorio-en-docker-cloud>
+[s8s3]: <https://github.com/josemanuelCRV/docker-notes#publicar-imagen-en-docker-cloud>
+[s8s4]: <https://github.com/josemanuelCRV/docker-notes#fichero-dockerignore>
+
 [s9]: <https://github.com/josemanuelCRV/docker-notes#publicar-imagenes-desde-github>
+[s9s1]: <https://github.com/josemanuelCRV/docker-notes#estructura-del-proyecto-pensando-en-doceker>
+[s9s2]: <https://github.com/josemanuelCRV/docker-notes#registrar-repositorio-en-docker-cloud>
+[s9s3]: <https://github.com/josemanuelCRV/docker-notes#publicar-imagen-en-docker-cloud>
 
 [s10]: <https://github.com/josemanuelCRV/docker-notes#desplegar-en-producción>
+[s10s1]: <https://github.com/josemanuelCRV/docker-notes#preparar-entorno-de-producción>
+[s10s2]: <https://github.com/josemanuelCRV/docker-notes#publicar-nuestro-servicio-en-producción>
+[s10s3]: <https://github.com/josemanuelCRV/docker-notes#versionar-nuestras-imágenes>
+
 [s11]: <https://github.com/josemanuelCRV/docker-notes#conectando-contenedores>
+[s11s1]: <https://github.com/josemanuelCRV/docker-notes#conectar-contenedores-manualmente>
+[s11s2]: <https://github.com/josemanuelCRV/docker-notes#qué-es-docker-compose>
+[s11s3]: <https://github.com/josemanuelCRV/docker-notes#instalando-docker-compose>
+[s11s4]: <https://github.com/josemanuelCRV/docker-notes#creando-fichero-compose>
+[s11s5]: <https://github.com/josemanuelCRV/docker-notes#escalar-servicios>
+
 [s12]: <https://github.com/josemanuelCRV/docker-notes#registros-privados-en-docker>
+[s12s1]: <https://github.com/josemanuelCRV/docker-notes#qué-es-docker-registry>
+[s12s2]: <https://github.com/josemanuelCRV/docker-notes#instalar-docker-registry>
+[s12s3]: <https://github.com/josemanuelCRV/docker-notes#configurar-el-cliente-con-docker-registry>
+[s12s4]: <https://github.com/josemanuelCRV/docker-notes#publicar-imagen-en-docker-registry>
+[s12s5]: <https://github.com/josemanuelCRV/docker-notes#agregar-interfaz-a-docker-registry>
+[s12s6]: <https://github.com/josemanuelCRV/docker-notes#escalar-servicios>
+
 [s13]: <https://github.com/josemanuelCRV/docker-notes#conclusiones-y-resultados>
 [s14]: <https://github.com/josemanuelCRV/docker-notes#ejercicios-y-actividades>
 
