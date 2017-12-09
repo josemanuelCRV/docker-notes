@@ -152,7 +152,7 @@ Es posible que coexistan MV y Contenedores a la vez. Esta mezcla, bien combinada
 >#### Plataformas disponibles para la instalación de Docker
 ---
 - El ***sistema principal de Docker*** (motor/engine) se encuentra disponible para instalarlo sobre plataformas con sistemas operativos basados en el ***Kernel de Linux***. 
-- Docker también permite instalarlo sobre plataformas ***Windows*** gracias a [Kitmatic][https://kitematic.com/]. Es un programa que contiene las herramientas Docker a través de una interfaz gráfica. Al ser necesario un OS basado en Linux, para solucionarlo, éste programa crea una máquina virtual ligera para instalar _Ubuntu Server_ como sistema operativo sobre el que  montará el motor de Docker. 
+- Docker también permite instalarlo sobre plataformas ***Windows*** gracias a [Kitmatic]: <https://kitematic.com/>. Es un programa que contiene las herramientas Docker a través de una interfaz gráfica. Al ser necesario un OS basado en Linux, para solucionarlo, éste programa crea una máquina virtual ligera para instalar _Ubuntu Server_ como sistema operativo sobre el que  montará el motor de Docker. 
 - De la misma forma, Docker, facilita `Kitematic` para sistemas ***macOS***. 
 
 #
@@ -1509,7 +1509,7 @@ Modo promiscuo (default): Denegar
 Dirección MAC: XXXXXXXXXXX  ===> Refrescar para no entrar en conflicto con la MAC del adaptador #1.
 Cable conectado (default): check true
 
-[][img-conf-vm-net]
+[img-conf-vbox-net]
 
 Una vez añadido el adaptador de red en la máquina virtual, es necesario habilitarlo en la configuración.
 
@@ -3948,7 +3948,7 @@ https://github.com/phpmyadmin/docker
 [img-docker_vm]: http://www.media.formandome.es/markdownslides/docker/img/docker_vs_vm.jpg
 [img-docker+vm]: https://www.docker.com/sites/default/files/containers-vms-together%402x.png
 
-[img-conf-vbox-net]:docker-notes/doc_img/conf-vm-net.PNG 
+[img-conf-vbox-net]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/conf-vbox-net.PNG 
 
 
 
