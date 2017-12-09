@@ -152,7 +152,7 @@ Es posible que coexistan MV y Contenedores a la vez. Esta mezcla, bien combinada
 >#### Plataformas disponibles para la instalación de Docker
 ---
 - El ***sistema principal de Docker*** (motor/engine) se encuentra disponible para instalarlo sobre plataformas con sistemas operativos basados en el ***Kernel de Linux***. 
-- Docker también permite instalarlo sobre plataformas ***Windows*** gracias a `Kitmatic`. Es un programa que contiene las herramientas Docker a través de una interfaz gráfica. Al ser necesario un OS basado en Linux, para solucionarlo, éste programa crea una máquina virtual ligera para instalar _Ubuntu Server_ como sistema operativo sobre el que  montará el motor de Docker. 
+- Docker también permite instalarlo sobre plataformas ***Windows*** gracias a [Kitmatic][https://kitematic.com/]. Es un programa que contiene las herramientas Docker a través de una interfaz gráfica. Al ser necesario un OS basado en Linux, para solucionarlo, éste programa crea una máquina virtual ligera para instalar _Ubuntu Server_ como sistema operativo sobre el que  montará el motor de Docker. 
 - De la misma forma, Docker, facilita `Kitematic` para sistemas ***macOS***. 
 
 #
@@ -1490,7 +1490,7 @@ Primero vamos a ver dónde se encuentran las secciones de configuración de red,
 
 `Archivos => Preferencias => Red => Redes-solo-anfitrión` 
 
-[][img-conf-vbox-net]
+![][img-conf-vbox-net]
 
 
 
@@ -2343,10 +2343,10 @@ root@dckrprod:~#
 
 
 ***Actualizamos la versión de Ubuntu instalada***
-
+```
 root@dckrprod:~# sudo do-release-upgrade -d
 root@dckrprod:~# sudo do-release-upgrade -m server
-
+```
 
 ***Instalamos Docker en el servidor ***
 
@@ -2440,11 +2440,12 @@ Vamos a definir una nueva regla en la sección _Builds de Docker Cloud_.
 
 - Añadimos una nueva regla.
 - - Indicamos en ***`Source Type`*** que utilice _Tag_ en lugar de _Branch_.
-- - Especificamos una _regex_ para que identificar nuestra etiqueta.
-- - ***_`Source_`***: `/^v([0-9.]+)$/` (v y 3 dígitos separados por puntos). Docker iniciará una nueva construcción cuando encuentre este patrón, por ejemplo: `v1.2.3`
-- - ***_`Docker Tag_`***: `{\1}` Etiqueta que va a asignar Docker a la nueva imágen. el resultado será el número correspondiente a la versión en GitHub. `1.0.2`
+- - Especificamos una _regex_ para identificar nuestra etiqueta.
+- - ***Source***: `/^v([0-9.]+)$/` (v y 3 dígitos separados por puntos). Docker iniciará una nueva construcción cuando encuentre este patrón, por ejemplo: `v1.2.3`
+- - ***Docker Tag***: `{\1}` Etiqueta que va a asignar Docker a la nueva imágen. el resultado será el número correspondiente a la versión en GitHub. `1.0.2`
 
 [image-tag]
+
 
 - Añadimos la etiqueta a nuestros fuentes en GitHub.
 
@@ -3946,6 +3947,11 @@ https://github.com/phpmyadmin/docker
 [img-registry]:https://blog.irontec.com/wp-content/uploads/2017/02/registry-274x300.png
 [img-docker_vm]: http://www.media.formandome.es/markdownslides/docker/img/docker_vs_vm.jpg
 [img-docker+vm]: https://www.docker.com/sites/default/files/containers-vms-together%402x.png
+
+[img-conf-vbox-net]:docker-notes/doc_img/conf-vm-net.PNG 
+
+
+
 
 
 [CloudNativeLandscape]:https://raw.githubusercontent.com/cncf/landscape/master/landscape/CloudNativeLandscape_latest.jpg
