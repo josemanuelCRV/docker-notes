@@ -2149,23 +2149,21 @@ Configurar nuestro repositorio de Docker Cloud para que se contruyan las imágen
 
 - 1º Habilitar un proveedor de fuentes [GitHub | Bitbucket]
 
-![][img-sourceprovider]https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/enable-github-source-provider.PNG
+![][img-sourceprovider]
 
-![][img-git-permiss-cloud]
 
 
 - 2º Crear repositorio en Docker Cloud asociado al proveedor de fuentes GitHub
 
-![][img-create-repo-docker-cloud-associated] https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/create-repo-docker-cloud-associated.PNG
+![][img-create-repo-docker-cloud-associated]
 
 
-En la sección de Build Settings, asociar como proveedor de fuentes nuestro repositorio en GitHub.
+- En la sección de Build Settings, asociar como proveedor de fuentes nuestro repositorio en GitHub.
 
 ![][img-config-autobuild]
 
 
-En Builds Rules, indicar la rama, el Tag y la localización del archivo `dockerfile` en el que se basará para la construcción.
-
+- En Builds Rules, indicar la rama, el Tag y la localización del archivo `dockerfile` en el que se basará para la construcción. 
 En esta ocasión, le estamos indicando que se encuentra en la raíz del proyecto y se llama Dockerfile.
 
 (Sólo crear el proyecto, no crear y construir)
@@ -3161,8 +3159,10 @@ Beneficios:
 - Almacenamiento propio sin dependencia total de Docker Cloud.
 - Almacenamiento privado de todas nuestras imágenes. Docker Cloud sólo permite una imagen privada de forma gratuita.
 
+###### Flujo de trabajo con Docker Cloud/Store
 ![][img-pre-registry]
 
+###### Flujo de trabajo con Registry
 ![][img-pos-registry]
 
 
