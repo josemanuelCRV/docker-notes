@@ -10,14 +10,14 @@
 - [01 - Introducción a contenedores y Docker][s1]
 - [02 - Instalar Docker][s2]
 - [03 - Primeros pasos con Docker][s3]
-- [04 - Rutinas diarias con imagenes y contenedores][s4]
+- [04 - Rutinas diarias con imágenes y contenedores][s4]
 
 ##### Segundo bloque
-- [05 - Construyendo imagenes][s5]
+- [05 - Construyendo imágenes][s5]
 - [06 - Volúmenes en Docker][s6]
 - [07 - Publicar servicios][s7]
-- [08 - Publicar imagenes en Docker Cloud][s8]
-- [09 - Publicar imagenes desde Github][s9]
+- [08 - Publicar imágenes en Docker Cloud][s8]
+- [09 - Publicar imágenes desde Github][s9]
 
 ##### Tercer bloque
 - [10 - Desplegar en producción][s10]
@@ -43,7 +43,7 @@
 ##### _Sección 01_
 ### Introducción a contenedores y Docker.
 - [Comportamiento distinto en función del entorno][s1s1]
-- [¿Qué son los contenedores y las imagenes?][s1s2]
+- [¿Qué son los contenedores y las imágenes?][s1s2]
 - [¿Qué es Docker?][s1s3]
 - [Productos y herramientas][s1s4]
 - [Los Contenedores no son máquinas virtuales][s1s5]
@@ -60,7 +60,7 @@ Docker nos permite eliminar este tipo de conflictos mediante el uso de Imágenes
 
 
 ---
->#### ¿Qué son los contenedores y las imagenes?
+>#### ¿Qué son los contenedores y las imágenes?
 ---
 
 Un ***contenedor*** es una unidad de software estandarizada, es un paquete ejecutable, ligero y autónomo con todo lo necesario para su ejecución. (App, servidor de la app, bibliotecas y componentes, configuraciones, O.S. con sólo los ficheros necesarios).
@@ -69,7 +69,7 @@ Es ***portable***, al conservar todos los elementos de una máquina a otra.
 
 Funcionan de forma ***aislada***, sin necesitar de otros procesos para su ejecución ni entrar en conflicto con dependencias de otros contenedores desplegados en el mismo servidor, dado que los contenedores ***son estancos***.
 
- Las ***Imagenes*** son el resultado del empaquetado y el ***Contenedor*** es la ejecución de la imagen. 
+ Las ***imágenes*** son el resultado del empaquetado y el ***Contenedor*** es la ejecución de la imagen. 
 - De una imagen pueden ejecutarse muchos contenedores.
 - Una imagen no tiene estado, sólo es el empaquetado. 
 - Un contenedor puede tener distintos estados (Iniciado - Detenido/Pausado - Terminado)
@@ -95,15 +95,15 @@ Utilizado por ***Programadores & Administradores***
 ---
 >#### Productos y herramientas
 ---
-Utilizados para la gestión de los contenedores e imagenes:
+Utilizados para la gestión de los contenedores e imágenes:
 
 | Logo | Herramienta | 
 | ------ | ------ | 
-|![][img-docker_lite] | ***Docker:***  Motor principal para la gestión de contenedores. Encargado de crear, obtener y publicar imagenes, así como el despliegue, ejecución y parada de los contenedores.
+|![][img-docker_lite] | ***Docker:***  Motor principal para la gestión de contenedores. Encargado de crear, obtener y publicar imágenes, así como el despliegue, ejecución y parada de los contenedores.
 | ![][img-compose]  | ***Docker-Compose:*** Ayuda para gestionar múltiples contenedores y servicios al mismo tiempo a través de sencillas configuraciones. |
-| ![][img-swarm] | ***Docker-Swarm:*** Ayuda para gestionar las imagenes y contenedores, no solo en un nodo, sino a través de clusteres. |
+| ![][img-swarm] | ***Docker-Swarm:*** Ayuda para gestionar las imágenes y contenedores, no solo en un nodo, sino a través de clusteres. |
 | ![][img-jubernates] | **Ver Kubernates:*** El producto de Google sustituye a Docker-Swarm . |
-| ![][img-machine] | ***Docker-Machine:*** Ayuda para gestionar las imagenes y contenedores, no solo en un nodo, sino a través de clusteres. |
+| ![][img-machine] | ***Docker-Machine:*** Ayuda para gestionar las imágenes y contenedores, no solo en un nodo, sino a través de clusteres. |
 | ![][img-registry] | ***Docker-Registry:*** Permite Almacenar y gestio |
 
 #
@@ -124,7 +124,7 @@ Si nuestra intención es disponer de un estudio en lugar de toda una casa, estar
 - - Comparten arquitectura (tuberías, electricidad, desagües...)
 - - Ventaja de diferentes tamaños de apartamentos en función de las necesidades.
 
-- La construcción de las imagenes con Docker parten de lo más básico y van adicionando sólo lo necesario.
+- La construcción de las imágenes con Docker parten de lo más básico y van adicionando sólo lo necesario.
 - La construcción de máquinas virtuales se realiza al inverso, parten de una instalación de todo el sistema operativo y, dependiendo de la aplicación, se van instalando los componentes necesarios.
 
 
@@ -185,7 +185,8 @@ La conexión SSH desde un invitado por el puerto 2222 será encaminado al puerto
 
 ***`$ ssh ubuntu@localhost -p 2222`***
 
-![][img-docker_vm]
+![][img-vbox-net-rules-redirect]
+
 
 #
 
@@ -273,11 +274,11 @@ El resto de este artículo asume que está ejecutando el comando docker como un 
 ---
 >#### Nuestro primer contenedor
 ---
-Los contenedores Docker se ejecutan desde imagenes de Docker. De forma predeterminada, extrae estas imagenes de Docker Hub, un registro de Docker administrado por Docker, la compañía detrás del proyecto Docker. 
+Los contenedores Docker se ejecutan desde imágenes de Docker. De forma predeterminada, extrae estas imágenes de Docker Hub, un registro de Docker administrado por Docker, la compañía detrás del proyecto Docker. 
 
-Cualquier persona puede construir y alojar sus imagenes Docker en Docker Hub, por lo que la mayoría de las aplicaciones y distribuciones Linux que necesitará para ejecutar contenedores Docker tienen imagenes alojadas en Docker Hub.
+Cualquier persona puede construir y alojar sus imágenes Docker en Docker Hub, por lo que la mayoría de las aplicaciones y distribuciones Linux que necesitará para ejecutar contenedores Docker tienen imágenes alojadas en Docker Hub.
 
-Para comprobar si puede acceder y descargar imagenes de Docker Hub, escriba:
+Para comprobar si puede acceder y descargar imágenes de Docker Hub, escriba:
 ```
 $ docker run hello-world
 ```
@@ -294,9 +295,9 @@ This message shows that your installation appears to be working correctly.
 ##### _Sección 03_
 #### Primeros pasos con Docker.
 - [Estructura de comandos][s3s1]
-- [Imagenes y Contenedores][s3s2]
+- [imágenes y Contenedores][s3s2]
 - [Docker Store][s3s3]
-- [Imagenes oficiales de Docker en GitHub][s3s4]
+- [imágenes oficiales de Docker en GitHub][s3s4]
 
 #
 
@@ -410,11 +411,11 @@ $ docker info
 #
 
 ---
->#### Imagenes y Contenedores
+>#### imágenes y Contenedores
 ---
-Algunas acciones con Imagenes y Contenedores: 
+Algunas acciones con imágenes y Contenedores: 
 
-| Imagenes      | Contenedores  |
+| imágenes      | Contenedores  |
 | ------------- |:-------------:|
 | pull          | run           |
 | push          | stop          |
@@ -442,15 +443,15 @@ $ docker container --help
 >### Docker Store [(site)](https://store.docker.com/)
 ---
 
-Plataforma donde obtener información sobre las imagenes que tiene Docker.
-Con el buscador web de Docker Store podemos encontrar imagenes oficiales y de la comunidad, aplicar filtros por categorías, ver descripción, información de descarga y utilización sobre las imagenes.
+Plataforma donde obtener información sobre las imágenes que tiene Docker.
+Con el buscador web de Docker Store podemos encontrar imágenes oficiales y de la comunidad, aplicar filtros por categorías, ver descripción, información de descarga y utilización sobre las imágenes.
 
-***Desde la terminal de comandos***, también podemos realizar búsquedas de imagenes: 
-Puede buscar imagenes disponibles en Docker Hub utilizando el comando docker con el subcomando search. Por ejemplo, para buscar la imagen de Ubuntu, escriba:
+***Desde la terminal de comandos***, también podemos realizar búsquedas de imágenes: 
+Puede buscar imágenes disponibles en Docker Hub utilizando el comando docker con el subcomando search. Por ejemplo, para buscar la imagen de Ubuntu, escriba:
 ```
 $ docker search ubuntu
 ```
-El script rastreará Docker Hub y devolverá una lista de todas las imagenes cuyo nombre coincida con la cadena de búsqueda. En este caso, la salida será similar a esto:
+El script rastreará Docker Hub y devolverá una lista de todas las imágenes cuyo nombre coincida con la cadena de búsqueda. En este caso, la salida será similar a esto:
 
 ```
 Output
@@ -486,7 +487,7 @@ ubuntu              latest              c5f1cf30c96b        7 days ago          
 hello-world         latest              94df4f0ce8a4        2 weeks ago         967 B
 ```
 
-Como veremos más adelante, las imagenes que utilice para ejecutar contenedores pueden modificarse y utilizarse para generar nuevas imagenes, que luego pueden cargarse (pushed es el término técnico) a Docker Hub u otros registros de Docker.
+Como veremos más adelante, las imágenes que utilice para ejecutar contenedores pueden modificarse y utilizarse para generar nuevas imágenes, que luego pueden cargarse (pushed es el término técnico) a Docker Hub u otros registros de Docker.
 
 
 
@@ -517,7 +518,7 @@ ubuntu@ubuntu:~$
 #
 
 ---
->#### Imagenes oficiales de Docker en GitHub
+>#### Imágenes oficiales de Docker en GitHub
 ---
 
 A través de [_GitHub_](https://github.com/docker-library), podremos consultar las versiones de cada imagen oficial, junto a su documentación técnica. 
@@ -529,12 +530,12 @@ Por ejemplo, las distintas versiones disponibles de [Ubuntu](https://github.com/
 
 ---
 ##### _Sección 04_
-#### Rutinas con imagenes y contenedores.
+#### Rutinas con imágenes y contenedores.
 
 - [Iniciar y listar contenedores][s4s1]
 - [Mostrar los logs][s4s2]
-- [Eliminar imagenes y contenedores locales][s4s3]
-- [Salvar y cargar imagenes][s4s4]
+- [Eliminar imágenes y contenedores locales][s4s3]
+- [Salvar y cargar imágenes][s4s4]
 
 #
 
@@ -689,7 +690,7 @@ KiB Swap:  2093052 total,  2093052 free,        0 used.  1797088 avail Mem
 #
 
 ---
->#### Eliminar imagenes y contenedores locales
+>#### Eliminar imágenes y contenedores locales
 ---
 
 ***Borrando un contenedor:*** (Si está arrancado debemos detenerlo previamente)
@@ -714,7 +715,7 @@ Es posible forzar el borrado utilizando el flag `-f`, pero es preferible que nos
 
 ***`$ docker image rm [OPTIONS] IMAGE-NAME [IMAGE...]`***
 
-Listamos las imagenes:
+Listamos las imágenes:
 
 ```
 ubuntu@ubuntu:~$ docker image ls
@@ -733,7 +734,7 @@ $ docker image rm ubuntu:17.04
 
 
 ---
->#### Salvar y cargar imagenes
+>#### Salvar y cargar imágenes
 ---
 
 ***`$ docker image save [OPTIONS] IMAGE [IMAGE...]`***
@@ -784,7 +785,7 @@ drwx------ 2 ubuntu ubuntu     4096 nov 11 21:37 .cache
 
 Pasemos a realizar el proceso inverso, borraremos la imagen original del repositorio local para  poseteriormente genera una imagen cargándola desde el fichero creado anteriormente:
 
-***1º*** - Eliminaremos la imagen de nuestro repositorio local de imagenes para realizar el proceso inverso: 
+***1º*** - Eliminaremos la imagen de nuestro repositorio local de imágenes para realizar el proceso inverso: 
 ```
 $ docker image rm ubuntu:17.04
 ```
@@ -830,7 +831,7 @@ jolly_engelbart
 
 #
 
-***2º*** - Una  vez eliminada la imagen, vamos a ver cómo cargar imagenes desde archivos.
+***2º*** - Una  vez eliminada la imagen, vamos a ver cómo cargar imágenes desde archivos.
 
 ***`$ docker image load [OPTIONS] IMAGE`***
 
@@ -850,7 +851,7 @@ hello-world         latest              725dcfab7d63        8 days ago          
 ---
 ## _Segundo bloque_
 ##### _Sección 05_
-#### Construyendo imagenes.
+#### Construyendo imágenes.
 
 - [Introducción a Dockerfile][s5s1]
 - [Construcción de la primera imagen][s5s2]
@@ -862,7 +863,7 @@ hello-world         latest              725dcfab7d63        8 days ago          
 ---
 >#### Introducción a Dockerfile
 ---
-Docker construye las imagenes a partir de las instrucciones definidas en el fichero de texto Dockerfile.
+Docker construye las imágenes a partir de las instrucciones definidas en el fichero de texto Dockerfile.
 Dockefile define la estructura necesaria para que nuestra aplicación funcione correctamente.
 - Dependencias del sistema operativo.
 - Programas (servidor, bbdd...).
@@ -872,7 +873,7 @@ Dockefile define la estructura necesaria para que nuestra aplicación funcione c
 
 Una vez que definido nuestro Dockerfile, podemos lanzar desde la línea de comandos el comando _`build`_, encargado de leer y procesar el fichero Dockerfile para llevar a cabo la construcción de la imagen.
 
-Las imagenes construidas ***se estructuran en capas***. Cada línea del fichero dockerfile representa una capa.
+Las imágenes construidas ***se estructuran en capas***. Cada línea del fichero dockerfile representa una capa.
 
 ---
 >#### Construcción de la primera imagen
@@ -945,7 +946,7 @@ ubuntu@ubuntu:~/mydockerfiles$ docker container run imag-welcome
 Bienvenido al Curso de Docker
 ```
 
-***Comando asociados a las imagenes de Docker:***
+***Comando asociados a las imágenes de Docker:***
 
 ***_$ docker image history --help_***
 
@@ -1155,7 +1156,7 @@ No nos obliga a incorporar la estructura de ficheros en una ubicación específi
 - Son creados cuando se inician los contenedores.
 - Pueden ser utilizados entre varios contenedores. (ejemplo anterior)
 - Los cambios en los datos de los volúmenes son reflejados en los contenedores automáticamente.
-- Al actualizar las imagenes, no se modifica la información en los volúmenes.
+- Al actualizar las imágenes, no se modifica la información en los volúmenes.
 - La información contenida en el volumen no se elimina al eliminar los contenedores.
 
 ***Formas de uso de los volúmenes***
@@ -1509,7 +1510,7 @@ Modo promiscuo (default): Denegar
 Dirección MAC: XXXXXXXXXXX  ===> Refrescar para no entrar en conflicto con la MAC del adaptador #1.
 Cable conectado (default): check true
 
-[img-conf-vbox-net]
+![][img-conf-vm-net]
 
 Una vez añadido el adaptador de red en la máquina virtual, es necesario habilitarlo en la configuración.
 
@@ -1548,7 +1549,7 @@ lo        Link encap:Bucle local
           Bytes RX:11840 (11.8 KB)  TX bytes:11840 (11.8 KB)
 ```
 
-Observamos que las redes que están dadas de alta son _[docker0, enp0s3, lo]_, pero 
+Observamos que las redes que están dadas de alta son _[docker0, enp0s3, lo]_:
 
 
 - Vamos a listar las las redes que existen en total en nuestro sistema:
@@ -1709,7 +1710,7 @@ Las comunicaciones del exterior accederían a la máquina Host por el puerto 808
 La máquina Host, que fue la que inció el contenedor, sabe que las peticiones que le lleguen por el puerto 8080 debe redireccionarlas al puerto 80 de nuestro contenedor.
 
 - El puerto 8080, puerto con el que trabaja la máquina Host, se define al inciarse el contenedor.
-- El puerto 80, puerto con el que trabaja el contenedor, se define durante la creación de la imágen, en el Dockerfile.
+- El puerto 80, puerto con el que trabaja el contenedor, se define durante la creación de la imagen, en el Dockerfile.
 
 
 De esta forma, todas las personas podrán acceder a la máquina que ha iniciado el contenedor y a través de este puente acceder al servicio del contenedor.
@@ -1741,8 +1742,8 @@ Status: Downloaded newer image for nginx:1.11-alpine
 
 ***Ver los puertos definidos en la imagen de Nginx***
 
-Como recordarémos, los puertos de los contenedores son definidos durante la creación de la imágen. 
-Vamos a conocer qué puertos se definieron durante la creación de la imágen de Nginx descargada.
+Como recordarémos, los puertos de los contenedores son definidos durante la creación de la imagen. 
+Vamos a conocer qué puertos se definieron durante la creación de la imagen de Nginx descargada.
 
 ***`$ docker image inspect nginx:1.11-alpine | more`***
 
@@ -1899,7 +1900,7 @@ Successfully tagged miweb:latest
 ```
 
 
-Verificamos todas las las imagenes:
+Verificamos todas las imágenes:
 
 ```
 ubuntu@ubuntu:~/repos/cursodocker-website$ docker image ls
@@ -1930,7 +1931,7 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 
 ---
 ##### _Sección 08_
-#### Publicar imagenes en Docker Cloud.
+#### Publicar imágenes en Docker Cloud.
 
 - [Estructura del proyecto pensando en Doceker][s8s1]
 - [Registrar repositorio en Docker Cloud][s8s2]
@@ -1990,24 +1991,20 @@ proyecto
 ---
 >#### Registrar repositorio en Docker Cloud
 ---
-Creamos un repositorio en Docker Cloud para almacenar nuestras imágenes del proyecto
+Creamos un repositorio en [Docker Cloud][dockercloud] para almacenar nuestras imágenes del proyecto
 
-https://cloud.docker.com/
+Una vez que subidas las imágenes al repositorio en Docker Cloud, podremos acceder y descargarlas desde [Docker Store][DockerStore].
 
-Una vez que subidas las imágenes al repositorio en Docker Cloud, podremos acceder y descargarlas desde Docker Store.
-
-https://store.docker.com/
+![][img-flujo-docker-cloud]
 
 ---
 >#### Publicar imagen en Docker Cloud
 ---
 - Primero hemos creado un repositorio en Docker Cloud.
-- A continuación subiremos nuestra imágen al repositorio. `($ docker push josemanuelcrv/miweb:tagname)`
+- A continuación subiremos nuestra imagen al repositorio. `($ docker push josemanuelcrv/miweb:tagname)`
 - Seguidamente la descargaremos desde Docker Store. `($ docker pull josemanuelcrv/miweb)`
-- 
 
-
-Vamos a renombrar el nombre de nuestra imágen `miweb`, dado que al crear el repositorio observamos que nos asigna nuestro identificador, en este caso `josemanuelcrv`/miweb.
+Vamos a renombrar el nombre de nuestra imagen `miweb`, dado que al crear el repositorio observamos que nos asigna nuestro identificador, en este caso `josemanuelcrv`/miweb.
 
 Docker Cloud requiere que para la estructura de nombre de imágenes indiquemos el nombre específico de nuestro repositorio `josemanuelcrv/miweb`.
 
@@ -2043,7 +2040,7 @@ Login Succeeded
 ubuntu@ubuntu:~$
 ```
 
-***Subir la imágen al repositorio***
+***Subir la imagen al repositorio***
 
 ```
 ubuntu@ubuntu:~$ docker image push josemanuelcrv/miweb
@@ -2058,13 +2055,13 @@ latest: digest: sha256:79d3e4b1cc1954f7527283fd5042891312b67305ee2de68497b681614
 ubuntu@ubuntu:~$
 ```
 
-_Pasos que realiza Docker al subir las imagenes:_
+_Pasos que realiza Docker al subir las imágenes:_
 
 1º Lista las capas que tiene esta imagen y las va subiendo de una en una.
 
-Nuestra imágen fue creada partiendo de:
+Nuestra imagen fue creada partiendo de:
 
-1ª Capa: base de la imágen de Nginx
+1ª Capa: base de la imagen de Nginx
 
 Adicionalmente:
 
@@ -2120,7 +2117,7 @@ Con el archivo `.dockerignore`  definimos el contenido que no queremos que sea c
 
 ---
 ##### _Sección 09_
-#### Publicar imagenes desde Github.
+#### Publicar imágenes desde Github.
 
 - [Filosofía de trabajo con GitHub][s9s1]
 - [Crear imágenes desde Github][s9s2]
@@ -2134,14 +2131,12 @@ Con el archivo `.dockerignore`  definimos el contenido que no queremos que sea c
 
 Ventajas:
 
-- Elimina la responsabilidad al desarrollador de cada aplicación a tener que construir él mismo la imágen.
-- Flujo de despliegue más rápido. Solo es necesario subir los fuentes a GitHub para ponerlos a disposición de Docker Cloud.
-- Tareas más ligeras al sólo subir ficheros a GitHub y no imágenes a Docker Cloud.
+- Elimina la responsabilidad al desarrollador de cada aplicación a tener que construir él mismo la imagen.
+- Flujo de despliegue más rápido. Solo es necesario subir los fuentes a GitHub y asociarlo con Docker Cloud.
+- Tareas más ligeras al sólo subir ficheros a GitHub, en lugar de imágenes a Docker Cloud.
 - Delega el trabajo de procesado de las capas de dockerfile a Docker Cloud para construir las imágenes.
 
-[imag-flujo-trabajo]
-
-
+![][img-flujo-docker-git]
 
 
 ---
@@ -2152,12 +2147,22 @@ Trabajo ejecutado de forma conjunta y colaborativa entre las dos plataformas, Gi
 Configurar nuestro repositorio de Docker Cloud para que se contruyan las imágenes de forma automática.
 
 
-- 1º Habilitar un proveedor de fuentes [GitHub - Bitbucket]
-[img-config-autobuild]
+- 1º Habilitar un proveedor de fuentes [GitHub | Bitbucket]
+
+![][img-sourceprovider]https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/enable-github-source-provider.PNG
+
+![][img-git-permiss-cloud]
+
 
 - 2º Crear repositorio en Docker Cloud asociado al proveedor de fuentes GitHub
 
+![][img-create-repo-docker-cloud-associated] https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/create-repo-docker-cloud-associated.PNG
+
+
 En la sección de Build Settings, asociar como proveedor de fuentes nuestro repositorio en GitHub.
+
+![][img-config-autobuild]
+
 
 En Builds Rules, indicar la rama, el Tag y la localización del archivo `dockerfile` en el que se basará para la construcción.
 
@@ -2165,12 +2170,12 @@ En esta ocasión, le estamos indicando que se encuentra en la raíz del proyecto
 
 (Sólo crear el proyecto, no crear y construir)
 
-[create-repo-docker-cloud-associated]
+![][img-autobuild-git-branch]
 
 
 - Una vez creado, accedemos a la sección de construcciones _Builds_ para lanzar nosotros mismos la construcción _Automated Builds_
 
-[trigger-config]
+![][img-trigger-config]
 
 
 
@@ -2223,7 +2228,7 @@ To https://github.com/josemanuelCRV/docker-proyect.git
 ubuntu@ubuntu:~/repos/docker-proyect/docker-proyect$
 ```
 
-Automáticamente, Docker Cloud detectará el cambio en el repositorio y disparará el _trigger_ para volver a construir la imágen.
+Automáticamente, Docker Cloud detectará el cambio en el repositorio y disparará el _trigger_ para volver a construir la imagen.
 
 ***Construcción de forma automática en Docker Cloud.***
 
@@ -2260,17 +2265,20 @@ Nos ofrece crear un servidor privado _VPS_ de prueba donde instalar nuestros ser
 (Crear cuenta; Solicita _VISA_; 5€ de prueba; facturación por horas runnig server; debe borrar servidor para stop)
 
 Otras plataformas:
+
 https://ginernet.com/es/
 
 En la máquina de producción instalaremos unicamente lo fundamental, debe ser lo más ligera posible.
 
 - Para nuestras necesidades, Instalaremos una base de Ubuntu y luego Docker.
 
-[create-vps-2]
+![][img-create-vps-2]
+
+![][img-create-vps-3]
 
 - Agregar llave _SSH_
 
-[ssh_key-vps]
+![][img-ssh_key-vps]
 
 
 
@@ -2348,7 +2356,9 @@ root@dckrprod:~# sudo do-release-upgrade -d
 root@dckrprod:~# sudo do-release-upgrade -m server
 ```
 
-***Instalamos Docker en el servidor ***
+#
+
+***Instalamos Docker en el servidor***
 
 Replicar los pasos de instalación vistos en la sección de [Instalar Docker en Ubutu][s2s3]
 
@@ -2431,7 +2441,7 @@ root@dckrprod:~#
 >#### Versionar nuestras imágenes
 ---
 
-Como indicamos anteriormente, por cada última construcción de imágen que realiza Docker, por defecto, asigna el _tag_ _`latest`_. 
+Como indicamos anteriormente, por cada última construcción de imagen que realiza Docker, por defecto, asigna el _tag_ _`latest`_. 
 
 Normalmente vamos a necesitar trabajar con etiquetas específicas, como puede ser un nombre/sufjo, un determinado patrón, una versión asignada en el repositorio de GitHub, entre otras.
 
@@ -2442,9 +2452,9 @@ Vamos a definir una nueva regla en la sección _Builds de Docker Cloud_.
 - - Indicamos en ***`Source Type`*** que utilice _Tag_ en lugar de _Branch_.
 - - Especificamos una _regex_ para identificar nuestra etiqueta.
 - - ***Source***: `/^v([0-9.]+)$/` (v y 3 dígitos separados por puntos). Docker iniciará una nueva construcción cuando encuentre este patrón, por ejemplo: `v1.2.3`
-- - ***Docker Tag***: `{\1}` Etiqueta que va a asignar Docker a la nueva imágen. el resultado será el número correspondiente a la versión en GitHub. `1.0.2`
+- - ***Docker Tag***: `{\1}` Etiqueta que va a asignar Docker a la nueva imagen. el resultado será el número correspondiente a la versión en GitHub. `1.0.2`
 
-[image-tag]
+![][img-tag]
 
 
 - Añadimos la etiqueta a nuestros fuentes en GitHub.
@@ -2464,7 +2474,7 @@ To https://github.com/josemanuelCRV/docker-proyect.git
 
 - Observamos que se ha creado la etiqueta en GitHub y ha comenzado la autoconstrucción en _Docker Cloud_.
 
-[tag-autobuild]
+![][img-tag-autobuild]
 
 
 - Accedemos a nuestro servidor remoto de producción `dckrprod` y descargamos la nueva imagen especificando el `nombre_imagen:version`.
@@ -2518,16 +2528,20 @@ CONTAINER ID        IMAGE                                COMMAND                
 ---
 Vamos a conectar múltiples contenedores para que se intercambien información y juntos puedan ofrecer servicios que brinden un mejor resultado.
 
-Escenario [img multi-cont-link]
+Escenario 
 
-Dispondremos de dos contenedores. Ambos contenedores contendrán una imágen básica de MariaDB. Un contendor hará de sistema de bbdd y el otro contenedor será el cliente consumidor de información conectandose a la bbdd. 
+![][img multi-cont-link]
+
+
+
+Dispondremos de dos contenedores. Ambos contenedores contendrán una imagen básica de MariaDB. Un contendor hará de sistema de bbdd y el otro contenedor será el cliente consumidor de información conectandose a la bbdd. 
 
 Docker facilita el recurso `Link` que permite crear un puente de cominicación de manera segura. 
 
 
 ***Creando el Contenedor con el sistema de BBDD***
 
-- Descargar en nuestra VM-local la imágen de MariaDB
+- Descargar en nuestra VM-local la imagen de MariaDB
 
 ```
 ubuntu@ubuntu:~$ docker image pull mariadb
@@ -2555,7 +2569,7 @@ Status: Downloaded newer image for mariadb:latest
 
 ***`$ docker container run --name db-servidor -e MYSQL_ROOT_PASSWORD=mi-clave -d mariadb`***
 
-`-e` => permite adicionar al inicio del contenedor una nueva variable de entorno. En este caso le asignamos el password de nuestra bbdd.
+`-e` => Permite adicionar al inicio del contenedor una nueva variable de entorno. En este caso le asignamos el password de nuestra bbdd.
 
 ```
 ubuntu@ubuntu:~$ docker container run --name db-servidor -e MYSQL_ROOT_PASSWORD=mi-clave -d mariadb
@@ -2856,7 +2870,8 @@ El balanceador de carga es el único que estará conectado con nuestra VM-local,
 
 A su vez, el contenedor del balanceador estará conectado por `--link` con el contenedor del sitio web. De esta forma, podremos estar dando servicio sin necesidad de publicar y exponer nuestra web.
 
-[img Web y balanceador]
+
+![][img-balanceador]
 
 
 - Vamos a crear el archivo `docker-compose.yml`. 
@@ -2942,8 +2957,6 @@ CONTAINER ID        IMAGE                     COMMAND                  CREATED  
 http://192.168.99.14/
 ```
 
-[img web-site-proxy]
-
 Observamos en el mensaje de la página que el contenedor iniciado para ofrecer esta web corresponde con el contenedor creado: My hostname is 0e65bb643e2e
 
 
@@ -2955,7 +2968,7 @@ Observamos en el mensaje de la página que el contenedor iniciado para ofrecer e
 
 El aumento de instancias de nuestros servicios nos permite poder garantizar la disponibilidad frente a un aumeto de accesos superior al soportado.
 
-[imag-proxy_escalable]
+![][imag-proxy_escalable]
 
 
 Consultar la ayuda sobre ***`docker-compose scale --help`***
@@ -3015,7 +3028,7 @@ ubuntu@ubuntu:~/proxy$
 ```
 
 
-[img- 4 ventanas escaladas]
+![][img-scalable-4]
 
 
 ***Desescalada de los servicios...***
@@ -3125,7 +3138,7 @@ lb_1   | INFO:haproxy:===========END===========
 
 ---
 ##### _Sección 12_
-#### Registro privado de imagenes.
+#### Registro privado de imágenes.
 
 - [¿Qué es Docker Registry?][s12s1]
 - [Instalar Docker Registry][s12s2]
@@ -3146,10 +3159,11 @@ Beneficios:
 - Total control sobre la configuración de despliegue de las imágenes.
 - Integración de las imágenes al flujo de desarrollo local.
 - Almacenamiento propio sin dependencia total de Docker Cloud.
-- Almacenamiento privado de todas nuestras imágenes. Docker Cloud sólo permite una imágen privada de forma gratuita.
+- Almacenamiento privado de todas nuestras imágenes. Docker Cloud sólo permite una imagen privada de forma gratuita.
 
-[img pre y pos registry]
+![][img-pre-registry]
 
+![][img-pos-registry]
 
 
 ---
@@ -3175,7 +3189,7 @@ version: '3'
 services:
  registry:  ---------------------> Único servicio.
   restart: always  --------------> En caso de caída se reinicie siempre.
-  image: registry:2  ------------> Imágen y versión de registry.
+  image: registry:2  ------------> imagen y versión de registry.
   ports:
    - 5000:5000  -----------------> Único puerto publicado, mismo puerto ext:int.
   volumes:
@@ -3333,7 +3347,7 @@ ubuntu@ubuntu:~$
 >#### Publicar imagen en Docker Registry
 ---
 
-- Debemos modificar el nombre de la imágen
+- Debemos modificar el nombre de la imagen
 - - En ***Docker Cloud*** nos obligaba a estar registrado en la plataforma y a mantener esta estructura de nombre para las imágenes: `identificador\nombre-imagen`
 - - En nuesro ***Registry*** debemos utilizar la siguiente estructura de nombres de imágenes: `ip:puerto/nombre-imagen`  donde se encuentre instalado nuestro registro de imágenes.
 
@@ -3365,8 +3379,6 @@ ubuntu@ubuntu:~$
 - Subir la imagen al repositorio privado:
 
 ***`sudo docker image push 46.183.116.126:5000/busybox`***
-
-
 
 
 
@@ -3553,7 +3565,7 @@ Live Restore Enabled: false
 ##### _Sección 13_
 #### Conclusiones y resultados.
 
-[final_course_review]
+![][img-final-review]
 
 Mapa de algunas herramientas utilizadas en tecnológías Cloud. 
 
@@ -3573,7 +3585,7 @@ Deseamos poner en funcionamiento un sitio de wordpress en nuestra máquina local
 
 Define un docker-compose que permita levantar Wordpress.
 
-Se compondrá de dos servicios, uno con la imágen de wordpress oficial y otro con una bbdd (mysql), necearia almacenar la información necesaria por Wordpress.  
+Se compondrá de dos servicios, uno con la imagen de wordpress oficial y otro con una bbdd (mysql), necearia almacenar la información necesaria por Wordpress.  
 
 - Creamos el fichero docker-compose.yml dentro del nuevo directorio destinado al proyecto.
 - Definimos en el servicio _MYSQL_ el nombre de la bbdd `dbwordpress`, las credenciales de acceso para `admin` y para `user`. 
@@ -3647,13 +3659,17 @@ Accedemos desde el navegador a la _IP_ de nuestra VM-local y el puerto por donde
 
 Observamos el correcto acceso a la página de bienvenida de Wordpress, donde tras la elección de idioma nos ofrece comenzar a configurar un nuevo site-wordpress.
 
-[wordpress-site-config-1]
+![][img-wordpress-site-config-1]
 
-[wordpress-site-config-2]
+![][img-wordpress-site-config-2]
 
 
 Nombre del sitio: hellomoon
 password: ssnha^#8)fXi#(sme&
+
+![][img-wordpress-site-config-3]
+
+![][img-web-wordpress]
 
 
 - Ahora vamos a acceder al contenedor de la bbdd:
@@ -3744,7 +3760,6 @@ ubuntu@ubuntu:~/myproyects/wordpress-docker$
 ```
 
 
-
 - Ahora vamos a añadir un nuevo servicio para poder administrar la bbdd de forma visual, a través del conocido programa phpMyAdmin.
 
 - - Configuramos este nuevo servicio definiendo los siguiente valores:
@@ -3806,6 +3821,7 @@ volumes:
 ubuntu@ubuntu:~/myproyects/wordpress-docker$
 ```
 
+![][img-phpmyadmin]
 
 - Procesamos el fichero docker-compose.yml. 
 
@@ -3843,7 +3859,7 @@ wordpress_cms   docker-entrypoint.sh apach ...   Up      0.0.0.0:8000->80/tcp
 ubuntu@ubuntu:~/myproyects/wordpress-docker$
 ```
 
-
+![][img-phpmyadmin-web]
 
 
 ---
@@ -3947,26 +3963,49 @@ https://github.com/phpmyadmin/docker
 [img-registry]:https://blog.irontec.com/wp-content/uploads/2017/02/registry-274x300.png
 [img-docker_vm]: http://www.media.formandome.es/markdownslides/docker/img/docker_vs_vm.jpg
 [img-docker+vm]: https://www.docker.com/sites/default/files/containers-vms-together%402x.png
-
 [img-conf-vbox-net]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/conf-vbox-net.PNG 
+[img-conf-vm-net]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/conf-vm-net.PNG
+[img-vbox-net-rules-redirect]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/conf-vbox-net-rules-redirect.PNG
+[img-flujo-docker-cloud]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/docker_cloud.PNG
+[img-flujo-docker-git]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/docker_github.PNG
+[img-sourceprovider]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/enable-github-source-provider.PNG
+[img-git-permiss-cloud]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/github-dockercloud-access-permission.PNG
+[img-create-repo-docker-cloud-associated]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/create-repo-docker-cloud-associated.PNG
+[img-config-autobuild]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/conf-autobuild.PNG
+[img-autobuild-git-branch]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/associate-repo-github.PNG
+[img-trigger-config]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/trigger-config.PNG
+[img-create-vps-2]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/create-vps-2.PNG
+[img-create-vps-3]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/create-vps-3.PNG
+[img-ssh_key-vps]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/ssh_key-vps.PNG
+[img-tag]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/tags_rules.PNG
+[img-tag-autobuild]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/tag-autobuild.PNG
+[img multi-cont-link]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/link.PNG
+[img-balanceador]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/proxy_link.PNG
+[imag-proxy_escalable]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/proxy_escalable.PNG
+[img-scalable-4]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/escalable-4.PNG
+[img-pre-registry]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/pre-registry-flow.PNG
+[img-pos-registry]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/pos-registry-flow.PNG
+[wordpress-site-config-1]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/wordpress_site-config_1.PNG
+[wordpress-site-config-2]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/wordpress_site-config_2.PNG
+[wordpress-site-config-3]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/wordpress_site-config_hellomoon.PNG
+[img-web-wordpress]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/web_hellomoon_1.PNG
+[img-phpmyadmin-login]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/phpmyadmin_login.PNG
+[img-phpmyadmin-web]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/phpmyadmin_wordpress_db.PNG 
+[img-final-review]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/final_course_review.PNG
 
 
 
 
-
+[dockercloud]: https://cloud.docker.com/
+[DockerStore]: https://store.docker.com/
 [CloudNativeLandscape]:https://raw.githubusercontent.com/cncf/landscape/master/landscape/CloudNativeLandscape_latest.jpg
-
-
-
-
-
 
 [website]: https://github.com/mmorejon/cursodocker-website.git
 
 
 [s1]: <https://github.com/josemanuelCRV/docker-notes#introducción-a-contenedores-y-docker>
 [s1s1]: <https://github.com/josemanuelCRV/docker-notes#comportamiento-distinto-en-función-del-entorno>
-[s1s2]: <https://github.com/josemanuelCRV/docker-notes#qué-son-los-contenedores-y-las-imagenes>
+[s1s2]: <https://github.com/josemanuelCRV/docker-notes#qué-son-los-contenedores-y-las-imágenes>
 [s1s3]: <https://github.com/josemanuelCRV/docker-notes#qué-es-docker>
 [s1s4]: <https://github.com/josemanuelCRV/docker-notes#productos-y-herramientas>
 [s1s5]: <https://github.com/josemanuelCRV/docker-notes#los-contenedores-no-son-máquinas-virtuales>
@@ -3979,17 +4018,17 @@ https://github.com/phpmyadmin/docker
 
 [s3]: <https://github.com/josemanuelCRV/docker-notes#primeros-pasos-con-docker>
 [s3s1]: <https://github.com/josemanuelCRV/docker-notes#estructura-de-comandos>
-[s3s2]: <https://github.com/josemanuelCRV/docker-notes#imagenes-y-contenedores>
+[s3s2]: <https://github.com/josemanuelCRV/docker-notes#imágenes-y-contenedores>
 [s3s3]: <https://github.com/josemanuelCRV/docker-notes#docker-store>
-[s3s4]: <https://github.com/josemanuelCRV/docker-notes#imagenes-oficiales-de-docker-en-github>
+[s3s4]: <https://github.com/josemanuelCRV/docker-notes#imágenes-oficiales-de-docker-en-github>
 
-[s4]: <https://github.com/josemanuelCRV/docker-notes#rutinas-con-imagenes-y-contenedores>
+[s4]: <https://github.com/josemanuelCRV/docker-notes#rutinas-con-imágenes-y-contenedores>
 [s4s1]: <https://github.com/josemanuelCRV/docker-notes#iniciar-y-listar-los-contenedores>
 [s4s2]: <https://github.com/josemanuelCRV/docker-notes#mostrar-los-logs>
-[s4s3]: <https://github.com/josemanuelCRV/docker-notes#eliminar-imagenes-y-contenedores-locales>
-[s4s4]: <https://github.com/josemanuelCRV/docker-notes#salvar-y-cargar-imagenes>
+[s4s3]: <https://github.com/josemanuelCRV/docker-notes#eliminar-imágenes-y-contenedores-locales>
+[s4s4]: <https://github.com/josemanuelCRV/docker-notes#salvar-y-cargar-imágenes>
 
-[s5]: <https://github.com/josemanuelCRV/docker-notes#construyendo-imagenes>
+[s5]: <https://github.com/josemanuelCRV/docker-notes#construyendo-imágenes>
 [s5s1]: <https://github.com/josemanuelCRV/docker-notes#introducción-a-dockerfile>
 [s5s2]: <https://github.com/josemanuelCRV/docker-notes#construcción-de-la-primera-imagen>
 [s5s3]: <https://github.com/josemanuelCRV/docker-notes#instrucciones-en-dockerfile>
@@ -4009,13 +4048,13 @@ https://github.com/phpmyadmin/docker
 [s7s5]: <https://github.com/josemanuelCRV/docker-notes#publicar-servicios-definiendo-el-puerto>
 [s7s6]: <https://github.com/josemanuelCRV/docker-notes#publicar-mi-sitio-web>
 
-[s8]: <https://github.com/josemanuelCRV/docker-notes#publicar-imagenes-en-docker-cloud>
+[s8]: <https://github.com/josemanuelCRV/docker-notes#publicar-imágenes-en-docker-cloud>
 [s8s1]: <https://github.com/josemanuelCRV/docker-notes#estructura-del-proyecto-pensando-en-doceker>
 [s8s2]: <https://github.com/josemanuelCRV/docker-notes#registrar-repositorio-en-docker-cloud>
 [s8s3]: <https://github.com/josemanuelCRV/docker-notes#publicar-imagen-en-docker-cloud>
 [s8s4]: <https://github.com/josemanuelCRV/docker-notes#fichero-dockerignore>
 
-[s9]: <https://github.com/josemanuelCRV/docker-notes#publicar-imagenes-desde-github>
+[s9]: <https://github.com/josemanuelCRV/docker-notes#publicar-imágenes-desde-github>
 [s9s1]: <https://github.com/josemanuelCRV/docker-notes#estructura-del-proyecto-pensando-en-doceker>
 [s9s2]: <https://github.com/josemanuelCRV/docker-notes#registrar-repositorio-en-docker-cloud>
 [s9s3]: <https://github.com/josemanuelCRV/docker-notes#publicar-imagen-en-docker-cloud>
