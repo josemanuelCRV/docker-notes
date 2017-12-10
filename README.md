@@ -3665,11 +3665,6 @@ Accedemos desde el navegador a la _IP_ de nuestra VM-local y el puerto por donde
 
 ![][img-wordpress-site-config-1]
 
-![][img-wordpress-site-config-2]
-
-
-Nombre del sitio: hellomoon
-password: ssnha^#8)fXi#(sme&
 
 ![][img-wordpress-site-config-3]
 
