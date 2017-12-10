@@ -111,6 +111,11 @@ Utilizados para la gestión de los contenedores e imágenes:
 ---
 >#### Los Contenedores no son máquinas virtuales
 ---
+
+Vamos a mostrar las diferencias/ventajas entre máquinas virtuales y contenedores a trvés de un paralelísmo donde las máquinas virtuales representan _Casas_ y los Contenedores representan _Pisos_.
+
+ ventajas que ofrece Docker frente a las máquinas virtuales haciendo un paralelísmo entre Casas-Challets Vs Pisos.
+
 - ***Las máquinas virtuales:*** (Casa)
 - - Son totalmente independientes y ofrecen protección.
 - - Tiene su propia infraestructura, (tuberías, desagües, electricidad)
@@ -152,7 +157,7 @@ Es posible que coexistan MV y Contenedores a la vez. Esta mezcla, bien combinada
 >#### Plataformas disponibles para la instalación de Docker
 ---
 - El ***sistema principal de Docker*** (motor/engine) se encuentra disponible para instalarlo sobre plataformas con sistemas operativos basados en el ***Kernel de Linux***. 
-- Docker también permite instalarlo sobre plataformas ***Windows*** gracias a [Kitmatic]: <https://kitematic.com/>. Es un programa que contiene las herramientas Docker a través de una interfaz gráfica. Al ser necesario un OS basado en Linux, para solucionarlo, éste programa crea una máquina virtual ligera para instalar _Ubuntu Server_ como sistema operativo sobre el que  montará el motor de Docker. 
+- Docker también permite instalarlo sobre plataformas ***Windows*** gracias a [Kitmatic](https://kitematic.com/). Es un programa que contiene las herramientas Docker a través de una interfaz gráfica. Al ser necesario un OS basado en Linux, para solucionarlo, éste programa crea una máquina virtual ligera para instalar _Ubuntu Server_ como sistema operativo sobre el que  montará el motor de Docker. 
 - De la misma forma, Docker, facilita `Kitematic` para sistemas ***macOS***. 
 
 #
@@ -180,12 +185,17 @@ Desde la interface de VBox, entramos en:
 - `Setting->Network->Advance->Reenvio de Puertos` de la máquina creada.
 - publicamos el `HostPort` -> ***22*** al  `GuestPort` ->***2222***.
 
+
+![][img-vbox-net-rules-redirect]
+
+
+
 La conexión SSH desde un invitado por el puerto 2222 será encaminado al puerto 22 de la máquina creada. 
 - ***Conectamos a la máquina***  por el puerto 2222 desde un cliente SSH,(MobaXterm,Putty..):
 
 ***`$ ssh ubuntu@localhost -p 2222`***
 
-![][img-vbox-net-rules-redirect]
+
 
 
 #
@@ -637,7 +647,7 @@ KiB Swap:  2093052 total,  2093052 free,        0 used.  1790160 avail Mem
     1 root      20   0   38912   3208   2832 R  0.0  0.2   0:00.03 top
 ```
 
-El flag `--detach` permite que los procesos que se ejecutan de este contenedor no estén anclados a esta terminal, permitiéndonos no detener el contenedor y seguir haciendo otras actividades:
+El flag `--detach` permite que los procesos que se ejecutan en este contenedor no estén anclados a esta terminal, realizándolos en segundo plano. No detiene el contenedor al salir y seguir haciendo otras actividades:
 
 ***`$ docker container run --detach ubuntu:17.04 top -b`***
 
@@ -2232,11 +2242,11 @@ Automáticamente, Docker Cloud detectará el cambio en el repositorio y disparar
 
 Observamos en la inforamción de la construcción que el número entre paréntesis corresponde al _Id_ de commit realizado.
 
-[building-2]
+![][img-building-2]
 
 
 Verificar en Docker Cloud la nueva construcción y desde dónde se realizó.
-[img]
+![][img-building-3]
 
 
 
@@ -3974,6 +3984,9 @@ https://github.com/phpmyadmin/docker
 [img-config-autobuild]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/conf-autobuild.PNG
 [img-autobuild-git-branch]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/associate-repo-github.PNG
 [img-trigger-config]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/trigger-config.PNG
+
+[img-building-2]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/building-2.PNG
+[img-building-3]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/building-3.PNG
 [img-create-vps-2]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/create-vps-2.PNG
 [img-create-vps-3]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/create-vps-3.PNG
 [img-ssh_key-vps]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/ssh_key-vps.PNG
