@@ -2187,14 +2187,6 @@ En esta ocasión, le estamos indicando que se encuentra en la raíz del proyecto
 
 
 
-[imágenes]
-- config - activar conector github en Docker Cloud
-- - elegir repo/rama 
-- - Contrucciones recientes
-- - Trigguer build - Automated builds
-- - (788ed315) corresponde al commit
-- - ver detalle, pasos construcción de docker cloud igual q en local.
-
 
 ---
 >#### Actualización de nuestras imágenes
@@ -2240,14 +2232,15 @@ Automáticamente, Docker Cloud detectará el cambio en el repositorio y disparar
 
 ***Construcción de forma automática en Docker Cloud.***
 
-Observamos en la inforamción de la construcción que el número entre paréntesis corresponde al _Id_ de commit realizado.
+- Observamos en la inforamción de la construcción que el número entre paréntesis corresponde al _Id_ de commit realizado.
 
 ![][img-building-2]
 
 
-Verificar en Docker Cloud la nueva construcción y desde dónde se realizó.
-![][img-building-3]
+- Verificar en Docker Cloud la nueva construcción y desde dónde se realizó.
 
+![][img-building-3]
+  
 
 
 
@@ -3665,9 +3658,10 @@ wordpressdocker_db_1          docker-entrypoint.sh mysqld      Up      3306/tcp
 wordpressdocker_wordpress_1   docker-entrypoint.sh apach ...   Up      0.0.0.0:8000->80/tcp
 ```
 
+
 Accedemos desde el navegador a la _IP_ de nuestra VM-local y el puerto por donde se publica la web `http://192.168.99.14:8000/` 
 
-Observamos el correcto acceso a la página de bienvenida de Wordpress, donde tras la elección de idioma nos ofrece comenzar a configurar un nuevo site-wordpress.
+- Observamos el correcto acceso a la página de bienvenida de Wordpress, donde tras la elección de idioma nos ofrece comenzar a configurar un nuevo site-wordpress.
 
 ![][img-wordpress-site-config-1]
 
@@ -3777,7 +3771,7 @@ ubuntu@ubuntu:~/myproyects/wordpress-docker$
 - - Nombre del contenedor: `phpmyadmin`
 - - Varibles de entorno:  definidas con las credenciales de conexión con la bbdd definida en el primer servicio `db` .
 - - Política de recuperación: Se auto-reiniciará en caso caída del contenedor.
-- - Puerto: Servicio publicado por el puerto `8181`,  evitando colisión con otro servicio existente `hello-world` publicado por el `8080`.
+- - Puerto: Servicio publicado por el puerto `8181`, evita colisión con servicio `hello-world` que ocupa el puerto `8080`.
 - - Volumen: Directorio /sessions solo en la raiz del contenedor.
 
 ```
@@ -3878,6 +3872,7 @@ ubuntu@ubuntu:~/myproyects/wordpress-docker$
 
 
 Compose Curl: 
+
 https://docs.docker.com/compose/install/#install-compose
 
 https://github.com/docker/compose/releases
@@ -3984,7 +3979,6 @@ https://github.com/phpmyadmin/docker
 [img-config-autobuild]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/conf-autobuild.PNG
 [img-autobuild-git-branch]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/associate-repo-github.PNG
 [img-trigger-config]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/trigger-config.PNG
-
 [img-building-2]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/building-2.PNG
 [img-building-3]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/building-3.PNG
 [img-create-vps-2]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/create-vps-2.PNG
@@ -3998,9 +3992,9 @@ https://github.com/phpmyadmin/docker
 [img-scalable-4]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/escalable-4.PNG
 [img-pre-registry]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/pre-registry-flow.PNG
 [img-pos-registry]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/pos-registry-flow.PNG
-[wordpress-site-config-1]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/wordpress_site-config_1.PNG
-[wordpress-site-config-2]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/wordpress_site-config_2.PNG
-[wordpress-site-config-3]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/wordpress_site-config_hellomoon.PNG
+[img-wordpress-site-config-1]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/wordpress_site-config_1.PNG
+[img-wordpress-site-config-2]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/wordpress_site-config_2.PNG
+[img-wordpress-site-config-3]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/wordpress_site-config_hellomoon.PNG
 [img-web-wordpress]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/web_hellomoon_1.PNG
 [img-phpmyadmin-login]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/phpmyadmin_login.PNG
 [img-phpmyadmin-web]: https://github.com/josemanuelCRV/docker-notes/blob/master/doc_img/phpmyadmin_wordpress_db.PNG 
