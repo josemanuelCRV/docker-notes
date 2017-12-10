@@ -3820,7 +3820,7 @@ volumes:
 ubuntu@ubuntu:~/myproyects/wordpress-docker$
 ```
 
-![][img-phpmyadmin]
+
 
 - Procesamos el fichero docker-compose.yml. 
 
@@ -3857,6 +3857,9 @@ wordpress_cms   docker-entrypoint.sh apach ...   Up      0.0.0.0:8000->80/tcp
 
 ubuntu@ubuntu:~/myproyects/wordpress-docker$
 ```
+
+
+![][img-phpmyadmin-login]
 
 ![][img-phpmyadmin-web]
 
