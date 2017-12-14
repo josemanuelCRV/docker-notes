@@ -3898,9 +3898,6 @@ kitematic wordpress:
 
 http://192.168.99.100:8000/ (Entrar con kitematic o docker-terminal )
 
-Repo docker-hub: 
-
-https://hub.docker.com/u/josemanuelcrv/
 
 Repo local-privado-registry: 
 
@@ -3925,6 +3922,9 @@ https://github.com/mysql/mysql-docker
 Getting Information About Databases and Tables: 
 
 https://dev.mysql.com/doc/refman/5.5/en/getting-information.html
+
+MySQL Documentation:
+https://dev.mysql.com/doc/ 
 
 MySQL command to show list of databases on server: 
 
@@ -3957,7 +3957,6 @@ https://github.com/phpmyadmin/docker
 [img-dockerhead]: https://jsitech1.gitbooks.io/meet-docker/content/DockerLogo.png "Icono Docker"
 [img-docker]: https://www.docker.com/sites/default/files/Package%20software.png
 [img-container]: https://www.docker.com/sites/default/files/Container%402x.png
-
 [img-docker_lite]: https://raw.githubusercontent.com/docker-library/docs/c350af05d3fac7b5c3f6327ac82fe4d990d8729c/docker/logo.png
 [img-compose]:https://cdn-images-1.medium.com/max/1200/1*ciSVYUq_0LvhY1yeD8RLZQ.png
 [img-swarm]:https://blog.alexellis.io/content/images/2017/03/docker_swarm.png
