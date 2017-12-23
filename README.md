@@ -22,7 +22,7 @@
 ##### Tercer bloque
 - [10 - Desplegar en producción][s10]
 - [11 - Conectando contenedores][s11]
-- [12 - Registros privados en Docker][s12]
+- [12 - Registro privado de imágenes][s12]
 - [13 - Conclusiones y resultados][s13]
 - [14 - Ejercicios y actividades][s14]
 ---
@@ -4075,7 +4075,7 @@ https://github.com/phpmyadmin/docker
 [s11s4]: <https://github.com/josemanuelCRV/docker-notes#creando-fichero-compose>
 [s11s5]: <https://github.com/josemanuelCRV/docker-notes#escalar-servicios>
 
-[s12]: <https://github.com/josemanuelCRV/docker-notes#registros-privados-en-docker>
+[s12]: <https://github.com/josemanuelCRV/docker-notes#registro-privado-de-imágenes>
 [s12s1]: <https://github.com/josemanuelCRV/docker-notes#qué-es-docker-registry>
 [s12s2]: <https://github.com/josemanuelCRV/docker-notes#instalar-docker-registry>
 [s12s3]: <https://github.com/josemanuelCRV/docker-notes#configurar-el-cliente-con-docker-registry>
